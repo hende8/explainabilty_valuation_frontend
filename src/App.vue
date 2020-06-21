@@ -1,6 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
+      <NavBar>
+      </NavBar>
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
       {{ !$root.store.username }}
@@ -18,6 +20,8 @@
 </template>
 
 <script>
+import NavBar from "./components/NavBar";
+
 export default {
   name: "App",
   methods: {
@@ -29,6 +33,9 @@ export default {
         this.$forceUpdate();
       });
     }
+  },
+  components:{
+    NavBar
   }
 };
 </script>
@@ -50,7 +57,7 @@ export default {
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: grey;
 }
 
 #nav a.router-link-exact-active {
