@@ -1,21 +1,29 @@
 <template>
   <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.recipeID } }"
-    class="recipe-preview"
+    :to="{ name: 'recipe', params: {recipeId: recipe.recipeID } }"
+    class="card"
+    style="width: 20rem;"
   >
     <div class="recipe-body">
-      <img :src="recipe.imageURL" class="recipe-image" />
+      <img :src="recipe.imageURL" class="card-img-top" />
     </div>
-    <div class="recipe-footer">
-      <div :title="recipe.name" class="recipe-title">
-        {{ recipe.name }}
+    <div class="card-body">
+      <div class="recipe-footer">
+        <div :title="recipe.name" class="card-title">{{ recipe.name }}</div>
+        <ul class="card-text">
+          <li>
+            <!-- <img src="../assets/time.png" class="recipe-info-icon" /> -->
+            {{ recipe.cookingDuration }} minutes
+          </li>
+          <li>
+            <!-- <img src="../assets/like.png" class="recipe-info-icon" /> -->
+            {{ recipe.likes }} likes
+          </li>
+          <li v-if="recipe.isVegeterian">vegeterian</li>
+          <li v-if="recipe.isVegan">vegan</li>
+          <li v-if="recipe.isGluten">gluten</li>
+        </ul>
       </div>
-      <ul class="recipe-overview">
-        <li>{{ recipe.cookingDuration }} minutes</li>
-        <li>{{ recipe.likes }} likes</li>
-        <!-- <li>{{ recipe.isVegeterian }} minutes</li>
-        <li>{{ recipe.isVegan }} likes</li> -->
-      </ul>
     </div>
   </router-link>
 </template>
@@ -32,7 +40,12 @@ export default {
 </script>
 
 <style scoped>
-.recipe-preview {
+.card {
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
+}
+/* .recipe-preview {
   display: inline-block;
   width: 90%;
   height: 100%;
@@ -41,7 +54,7 @@ export default {
 }
 .recipe-preview > .recipe-body {
   width: 100%;
-  height: 200px;
+  height: 100;
   position: relative;
 }
 
@@ -51,7 +64,7 @@ export default {
   margin-top: auto;
   margin-bottom: auto;
   display: block;
-  width: 98%;
+  width: 70%;
   height: auto;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -59,7 +72,11 @@ export default {
 }
 
 .recipe-preview .recipe-footer {
-  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 70%;
   height: 50%;
   overflow: hidden;
 }
@@ -106,4 +123,8 @@ export default {
   display: table-cell;
   text-align: center;
 }
+
+.recipe-info-icon {
+  width: 50%;
+} */
 </style>

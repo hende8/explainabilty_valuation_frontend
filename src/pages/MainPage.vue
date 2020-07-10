@@ -1,31 +1,35 @@
 <template>
-  <div class="container">
-    <h1 class="title">Main Page</h1>
-    <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
-    <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-    {{ !$root.store.username }}
-    <RecipePreviewList
-      title="Last Viewed Recipes"
-      :class="{
-        RandomRecipes: true,
-        blur: !$root.store.username,
-        center: true
-      }"
-      disabled
-    ></RecipePreviewList>
-    <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div>-->
+  <div class="container-fluid">
+    <div class="row">
+      <div  class="col-lg-6">
+        <RecipePreviewList title="Randome Recipes" class="RandomRecipes center"></RecipePreviewList>
+      </div>
+      <div  class="col-lg-6">
+        <LoginPage v-if="!$root.store.username" class="login"></LoginPage>
+        <LastVeiwList v-else
+        title="Last Viewed Recipes"
+        :class="{
+          RandomRecipes: true,
+          blur: !$root.store.username,
+          center: true
+        }"
+        disabled>
+        </LastVeiwList>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
+import LastVeiwList from "../components/LastViewList.vue";
+import LoginPage from "./LoginPage.vue";
+
 export default {
   components: {
-    RecipePreviewList
+    RecipePreviewList,
+    LastVeiwList,
+    LoginPage
   }
 };
 </script>
@@ -33,6 +37,7 @@ export default {
 <style lang="scss" scoped>
 .RandomRecipes {
   margin: 10px 0 10px;
+  max-width: 100%;
 }
 .blur {
   -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
@@ -42,4 +47,15 @@ export default {
   pointer-events: none;
   cursor: default;
 }
+
+// .login {
+//   margin: 10px 0 10px;
+//   height: 50%;
+//   width: 50%;
+//   // z-index: 1;
+//   top: 0;
+//   overflow-x: hidden;
+//   padding-top: 20px;
+//   right: 0;
+// }
 </style>

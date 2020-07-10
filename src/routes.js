@@ -30,7 +30,8 @@ const routes = [
   {
     path: "/recipe/:recipeId",
     name: "recipe",
-    component: () => import("./pages/AboutPage"),
+    props: true,
+    component: () => import("./pages/RecipeViewPage"),
   },
   {
     path: "*",
