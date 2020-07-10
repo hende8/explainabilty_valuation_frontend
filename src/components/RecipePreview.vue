@@ -21,7 +21,7 @@
           </li>
           <li v-if="recipe.isVegeterian">vegeterian</li>
           <li v-if="recipe.isVegan">vegan</li>
-          <li v-if="recipe.isGluten">gluten</li>
+          <li v-if="recipe.isGluten">gluten!</li>
         </ul>
       </div>
     </div>
