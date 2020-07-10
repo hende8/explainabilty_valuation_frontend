@@ -26,6 +26,60 @@
       </b-form-group>
 
       <b-form-group
+        id="input-group-firstName"
+        label-cols-sm="3"
+        label="First name:"
+        label-for="firstName"
+      >
+        <b-form-input
+          id="firstName"
+          v-model="$v.form.firstName.$model"
+          type="text"
+          :state="validateState('firstName')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.firstName.required">
+          First name is required
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-lastName"
+        label-cols-sm="3"
+        label="Last name:"
+        label-for="lastName"
+      >
+        <b-form-input
+          id="lastName"
+          v-model="$v.form.lastName.$model"
+          type="text"
+          :state="validateState('lastName')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.lastName.required">
+          Last name is required
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-email"
+        label-cols-sm="3"
+        label="Email:"
+        label-for="email"
+      >
+        <b-form-input
+          id="email"
+          v-model="$v.form.email.$model"
+          type="email"
+          :state="validateState('email')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.email.required">
+          Email is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-else-if="!$v.form.email.valid">
+          Not a valid email
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group
         id="input-group-country"
         label-cols-sm="3"
         label="Country:"
@@ -66,6 +120,11 @@
         >
           Have length between 5-10 characters long
         </b-form-invalid-feedback>
+                <b-form-invalid-feedback
+          v-if="$v.form.password.required && !$v.form.password.charCase"
+        >
+          Have at least one character and one number
+        </b-form-invalid-feedback>
       </b-form-group>
 
       <b-form-group
@@ -88,7 +147,26 @@
         >
           The confirmed password is not equal to the original password
         </b-form-invalid-feedback>
-      </b-form-group>
+        <br>
+              </b-form-group>
+
+        <b-form-group
+        id="input-group-confirmedPassword"
+        label-cols-sm="3"
+        label="Upload profile picture:"
+        label-for="confirmedPassword"
+        >
+              <img id="myImg" width="107" height="98">
+
+        <input
+          id="ProfilePicture"
+          type="file"
+          accept="image/png,image/jpeg"
+          @change="uploadProfilePicture($event)"
+        />
+              </b-form-group>
+
+
 
       <b-button type="reset" variant="danger">Reset</b-button>
       <b-button
@@ -120,7 +198,8 @@
 </template>
 
 <script>
-import countries from "../assets/countries";
+import app_data from "../assets/app_data";
+import axios from "axios";
 import {
   required,
   minLength,
@@ -129,7 +208,6 @@ import {
   sameAs,
   email
 } from "vuelidate/lib/validators";
-
 export default {
   name: "Register",
   data() {
@@ -142,11 +220,13 @@ export default {
         password: "",
         confirmedPassword: "",
         email: "",
-        submitError: undefined
+        profileImage :null,
+        submitError: undefined,
       },
       countries: [{ value: null, text: "", disabled: true }],
       errors: [],
-      validated: false
+      validated: false,
+      resultsPic:null,
     };
   },
   validations: {
@@ -156,25 +236,58 @@ export default {
         length: (u) => minLength(3)(u) && maxLength(8)(u),
         alpha
       },
+      firstName: {
+        required,        
+        alpha
+
+      },
+      lastName: {
+        required,
+        alpha
+      },
       country: {
         required
       },
       password: {
         required,
-        length: (p) => minLength(5)(p) && maxLength(10)(p)
+        length: (p) => minLength(5)(p) && maxLength(10)(p),
+        charCase : (p)=> {return /\d/.test(p) && /[a-zA-Z]/.test(p)}
       },
       confirmedPassword: {
         required,
         sameAsPassword: sameAs("password")
+      },
+      email:{
+        required,
+        email : (u)=> email(u)
       }
     }
   },
   mounted() {
-    // console.log("mounted");
-    this.countries.push(...countries);
-    // console.log($v);
-  },
+    this.countries.push(...app_data.countries);
+  }
+
+  ,
   methods: {
+    async uploadProfilePicture(event){
+    var CLOUD_URL = 'https://api.cloudinary.com/v1_1/dtqdljbvk/upload';
+    var CLOUD_Preset= 'fzh5celi';
+      var file = event.target.files[0];
+      var formData=new FormData();
+      formData.append('file',file);
+      formData.append('upload_preset',CLOUD_Preset);
+        let response = await axios({
+        url: CLOUD_URL,
+        method:'POST',
+        headers:{
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: formData
+      });
+    this.form.profileImage=response.data.secure_url;
+    document.getElementById("myImg").src = this.form.profileImage;
+    console.log(this.form);
+    },
     validateState(param) {
       const { $dirty, $error } = this.$v.form[param];
       return $dirty ? !$error : null;
@@ -182,14 +295,20 @@ export default {
     async Register() {
       try {
         const response = await this.axios.post(
-          "https://test-for-3-2.herokuapp.com/user/Register",
+          "https://assignment3-2-shiran-hen.herokuapp.com/guest/register",
           {
             username: this.form.username,
-            password: this.form.password
+            password: this.form.password,
+            firstName:this.form.firstName,
+            lastName:this.form.lastName,
+            country:this.form.country,
+            email:this.form.email,
+            profileImage:this.profileImage
           }
         );
+        if(response.status=='201'){
         this.$router.push("/login");
-        // console.log(response);
+        }
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;

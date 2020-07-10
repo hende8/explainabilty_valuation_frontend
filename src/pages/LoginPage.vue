@@ -94,7 +94,7 @@ export default {
     async Login() {
       try {
         const response = await this.axios.post(
-          "https://test-for-3-2.herokuapp.com/user/Login",
+          "https://assignment3-2-shiran-hen.herokuapp.com/guest/login",
           {
             username: this.form.username,
             password: this.form.password
@@ -104,6 +104,7 @@ export default {
         // this.$root.loggedIn = true;
         console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);
+        this.$root.$emit('loginUserNavBar',this.form.username);
         this.$router.push("/");
       } catch (err) {
         console.log(err.response);
