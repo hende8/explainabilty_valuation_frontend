@@ -10,28 +10,20 @@
         <div class="wrapper">
           <div class="wrapped">
             <div class="mb-3">
-              <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.aggregateLikes }} likes</div>
-            </div>
-            Ingredients:
+              <div>Ready in {{ recipe.cookingDuration }} minutes</div>
+              <div>Likes: {{ recipe.likes }} likes</div>
+            </div>Ingredients:
             <ul>
               <li
-                v-for="(r, index) in recipe.extendedIngredients"
+                v-for="(r, index) in recipe.ingredients"
                 :key="index + '_' + r.id"
-              >
-                {{ r.original }}
-              </li>
+              >{{ r.name }} : {{r.qauntity}} {{r.unit}}</li>
             </ul>
             <div class="wrapped">Instructions: {{recipe.instructions}}</div>
             <div>number of dishes: {{recipe.dishes}}</div>
           </div>
         </div>
       </div>
-      <!-- <pre>
-      {{ $route.params }}
-      {{ recipe }}
-    </pre
-      > -->
     </div>
   </div>
 </template>
@@ -49,13 +41,15 @@ export default {
       // response = this.$route.params.response;
 
       try {
+        console.log(this.$route.params.recipeId);
+
         response = await this.axios.get(
           "https://assignment3-2-shiran-hen.herokuapp.com/recipes//information/" +
             this.$route.params.recipeId
         );
 
         // console.log("response.status", response.status);
-        if (response.status !== 200) this.$router.replace("/");
+        if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
         console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
@@ -63,7 +57,8 @@ export default {
       }
 
       let {
-        analyzedInstructions,
+        // analyzedInstructions,
+        recipeID,
         instructions,
         ingredients,
         likes,
@@ -73,14 +68,15 @@ export default {
         dishes
       } = response.data;
 
-      let _instructions = analyzedInstructions
-        .map((fstep) => {
-          fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-          return fstep.steps;
-        })
-        .reduce((a, b) => [...a, ...b], []);
+      // let _instructions = instructions
+      //   .map((fstep) => {
+      //     fstep.steps[0].step = fstep.name + fstep.steps[0].step;
+      //     return fstep.steps;
+      //   })
+      //   .reduce((a, b) => [...a, ...b], []);
 
       let _recipe = {
+        recipeID,
         instructions,
         ingredients,
         // _instructions,
@@ -117,12 +113,12 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
+/* .wrapper {
   display: flex;
-}
-.wrapped {
+} */
+/* .wrapped {
   width: 50%;
-}
+} */
 .center {
   display: block;
   margin-left: auto;

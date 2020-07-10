@@ -36,7 +36,10 @@
   <div >
           <b-col cols ="3" v-if="hasLastSearch && !this.hasResult">
         <b-row v-for="item in lastSearchResults" :key="item.recipeID">
+                <b-col >
           <RecipePreview class="recipePreview" :recipe="item" />
+                </b-col >
+
         </b-row>
           </b-col>
   </div>

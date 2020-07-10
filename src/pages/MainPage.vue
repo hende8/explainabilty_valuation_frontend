@@ -27,6 +27,7 @@ export default {
 <style lang="scss" scoped>
 .Recipes {
   margin: 10px 0 10px;
+  max-width: 100%;
 }
 .blur {
   -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
@@ -36,4 +37,15 @@ export default {
   pointer-events: none;
   cursor: default;
 }
+
+// .login {
+//   margin: 10px 0 10px;
+//   height: 50%;
+//   width: 50%;
+//   // z-index: 1;
+//   top: 0;
+//   overflow-x: hidden;
+//   padding-top: 20px;
+//   right: 0;
+// }
 </style>
