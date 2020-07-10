@@ -21,7 +21,7 @@
         <router-link tag="b-dropdown-item" to="/login" href="#">My Family Recipes</router-link>
 
 
-        <router-link tag="b-dropdown-item" :to="{ name: 'main' }" v-on:click="this.$emit.Logout(this.username)" >Loguot</router-link>
+        <router-link tag="b-dropdown-item" :to="{ name: 'main' }" @click.native="logout" >Loguot</router-link>
       </b-nav-item-dropdown>
   </b-navbar-nav>
     </b-navbar-nav>
@@ -38,10 +38,18 @@ export default {
       username: null,
     };
   },
+  // computed:{
+  //        logout(){
+  //            console.log("log out button pushed")
+  //            this.username=null;
+  //        }
+  // },
     methods:{
          logout(){
              console.log("log out button pushed")
              this.username=null;
+            this.$root.store.logout(this.username);
+
          }
     },
     mounted() {

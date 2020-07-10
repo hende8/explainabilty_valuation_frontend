@@ -53,7 +53,7 @@
         </b-row>
         </b-col>
       </b-row>
-      <h1 v-if="this.hasResult && this.results.length==0">Search not found</h1>
+      <h1 v-if="this.notFoundRecipes">Search not found , try again!</h1>
     </div>
   </div>
 </template>
@@ -184,6 +184,10 @@ export default {
       this.hasResult=true;
       sessionStorage.setItem("lastSearch", JSON.stringify(data));
       this.hasLastSearch=true;
+      }else{
+          this.hasResult=false;
+          this.hasLastSearch=false;
+          this.notFoundRecipes=true;
       }
 
     },
