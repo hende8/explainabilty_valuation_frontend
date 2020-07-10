@@ -3,6 +3,7 @@
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.name }}</h1>
+        <button v-if="$root.store.username" v-on: click="addToMyFavorite"> favorite </button>
         <img :src="recipe.imageURL" class="center" />
       </div>
       <div class="recipe-body">
@@ -18,12 +19,8 @@
                 :key="index + '_' + r.id"
               >{{ r.name }} : {{r.qauntity}} {{r.unit}}</li>
             </ul>
-            <div class="wrapped">
-              Instructions: {{recipe.instructions}}
-              <ol>
-                <li v-for="s in recipe._instructions" :key="s.number">{{ s.step }}</li>
-              </ol>
-            </div>
+            <div class="wrapped">Instructions: {{recipe.instructions}}</div>
+            <div>number of dishes: {{recipe.dishes}}</div>
           </div>
         </div>
       </div>
@@ -47,7 +44,7 @@ export default {
         console.log(this.$route.params.recipeId);
 
         response = await this.axios.get(
-          "http://localhost:3000/recipes/information/" +
+          "https://assignment3-2-shiran-hen.herokuapp.com/recipes//information/" +
             this.$route.params.recipeId
         );
 
@@ -67,7 +64,8 @@ export default {
         likes,
         cookingDuration,
         imageURL,
-        name
+        name,
+        dishes
       } = response.data;
 
       // let _instructions = instructions
@@ -87,13 +85,14 @@ export default {
         likes,
         cookingDuration,
         imageURL,
-        name
+        name,
+        dishes
       };
 
       this.recipe = _recipe;
       if (this.$root.store.username) {
-        response = await this.axios.post(
-          "http://localhost:3000/user/myWatch",
+        response = this.axios.post(
+          "https://assignment3-2-shiran-hen.herokuapp.com/user/myWatch",
           {
             recipeID: this.recipe.recipeID
           }
@@ -102,6 +101,13 @@ export default {
     } catch (error) {
       console.log(error);
     }
+  },
+  methods: {
+      async addToMyFavorite() {
+        let response= this.axios.post( "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes",{
+         recipeID: this.recipe.recipeID 
+        });
+      },
   }
 };
 </script>

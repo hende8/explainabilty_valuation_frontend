@@ -2,19 +2,11 @@
   <div class="container-fluid">
     <div class="row">
       <div  class="col-lg-6">
-        <RecipePreviewList title="Randome Recipes" class="RandomRecipes center"></RecipePreviewList>
+        <RecipePreviewList action="random" title="Randome Recipes" class="Recipes"></RecipePreviewList>
       </div>
       <div  class="col-lg-6">
         <LoginPage v-if="!$root.store.username" class="login"></LoginPage>
-        <LastVeiwList v-else
-        title="Last Viewed Recipes"
-        :class="{
-          RandomRecipes: true,
-          blur: !$root.store.username,
-          center: true
-        }"
-        disabled>
-        </LastVeiwList>
+        <RecipePreviewList v-else action="lastView" title="Last Viewed Recipes" class="Recipes"></RecipePreviewList>
       </div>
     </div>
   </div>
@@ -22,20 +14,18 @@
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
-import LastVeiwList from "../components/LastViewList.vue";
 import LoginPage from "./LoginPage.vue";
 
 export default {
   components: {
     RecipePreviewList,
-    LastVeiwList,
     LoginPage
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.RandomRecipes {
+.Recipes {
   margin: 10px 0 10px;
   max-width: 100%;
 }
