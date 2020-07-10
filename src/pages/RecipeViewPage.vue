@@ -2,8 +2,9 @@
   <div class="container">
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
-        <h1>{{ recipe.title }}</h1>
-        <img :src="recipe.image" class="center" />
+        <h1>{{ recipe.name }}</h1>
+        <button v-if="$root.store.username" v-on: click="addToMyFavorite"> favorite </button>
+        <img :src="recipe.imageURL" class="center" />
       </div>
       <div class="recipe-body">
         <div class="wrapper">
@@ -21,14 +22,8 @@
                 {{ r.original }}
               </li>
             </ul>
-          </div>
-          <div class="wrapped">
-            Instructions:
-            <ol>
-              <li v-for="s in recipe._instructions" :key="s.number">
-                {{ s.step }}
-              </li>
-            </ol>
+            <div class="wrapped">Instructions: {{recipe.instructions}}</div>
+            <div>number of dishes: {{recipe.dishes}}</div>
           </div>
         </div>
       </div>
@@ -55,10 +50,8 @@ export default {
 
       try {
         response = await this.axios.get(
-          "https://assignment3-2-shiran-hen.herokuapp.com/recipes/information",
-          {
-            params: { id: this.$route.params.recipeId }
-          }
+          "https://assignment3-2-shiran-hen.herokuapp.com/recipes//information/" +
+            this.$route.params.recipeId
         );
 
         // console.log("response.status", response.status);
@@ -72,12 +65,13 @@ export default {
       let {
         analyzedInstructions,
         instructions,
-        extendedIngredients,
-        aggregateLikes,
-        readyInMinutes,
-        image,
-        title
-      } = response.data.recipe;
+        ingredients,
+        likes,
+        cookingDuration,
+        imageURL,
+        name,
+        dishes
+      } = response.data;
 
       let _instructions = analyzedInstructions
         .map((fstep) => {
@@ -88,19 +82,36 @@ export default {
 
       let _recipe = {
         instructions,
-        _instructions,
-        analyzedInstructions,
-        extendedIngredients,
-        aggregateLikes,
-        readyInMinutes,
-        image,
-        title
+        ingredients,
+        // _instructions,
+        // analyzedInstructions,
+        // extendedIngredients,
+        likes,
+        cookingDuration,
+        imageURL,
+        name,
+        dishes
       };
 
       this.recipe = _recipe;
+      if (this.$root.store.username) {
+        response = this.axios.post(
+          "https://assignment3-2-shiran-hen.herokuapp.com/user/myWatch",
+          {
+            recipeID: this.recipe.recipeID
+          }
+        );
+      }
     } catch (error) {
       console.log(error);
     }
+  },
+  methods: {
+      async addToMyFavorite() {
+        let response= this.axios.post( "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes",{
+         recipeID: this.recipe.recipeID 
+        });
+      },
   }
 };
 </script>

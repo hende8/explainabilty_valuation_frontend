@@ -1,37 +1,31 @@
 <template>
-  <div class="container">
-    <h1 class="title">Main Page</h1>
-    <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
-    <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-    {{ !$root.store.username }}
-    <RecipePreviewList
-      title="Last Viewed Recipes"
-      :class="{
-        RandomRecipes: true,
-        blur: !$root.store.username,
-        center: true
-      }"
-      disabled
-    ></RecipePreviewList>
-    <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div>-->
+  <div class="container-fluid">
+    <div class="row">
+      <div  class="col-lg-6">
+        <RecipePreviewList action="random" title="Randome Recipes" class="Recipes"></RecipePreviewList>
+      </div>
+      <div  class="col-lg-6">
+        <LoginPage v-if="!$root.store.username" class="login"></LoginPage>
+        <RecipePreviewList v-else action="lastView" title="Last Viewed Recipes" class="Recipes"></RecipePreviewList>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
+import LoginPage from "./LoginPage.vue";
+
 export default {
   components: {
-    RecipePreviewList
+    RecipePreviewList,
+    LoginPage
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.RandomRecipes {
+.Recipes {
   margin: 10px 0 10px;
 }
 .blur {
