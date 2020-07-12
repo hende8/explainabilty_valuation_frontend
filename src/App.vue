@@ -26,7 +26,7 @@ export default {
   name: "App",
   methods: {
     Logout() {
-      this.$store.username=null;
+      $store.username=undefined;
       this.$root.toast("Logout", "User logged out successfully", "success");
 
       this.$router.push("/").catch(() => {

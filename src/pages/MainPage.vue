@@ -5,7 +5,7 @@
         <RecipePreviewList action="random" title="Randome Recipes" class="Recipes"></RecipePreviewList>
       </div>
       <div  class="col-lg-6">
-        <LoginPage v-if="!$store.username" class="login"></LoginPage>
+        <LoginPage v-if="!$root.store.username" class="login"></LoginPage>
         <RecipePreviewList v-else action="lastView" title="Last Viewed Recipes" class="Recipes"></RecipePreviewList>
       </div>
     </div>

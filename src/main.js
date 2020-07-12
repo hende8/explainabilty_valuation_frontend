@@ -27,8 +27,6 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
-  FormRadioPlugin,
-  AvatarPlugin  
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -41,8 +39,6 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
-  FormRadioPlugin,
-  AvatarPlugin  
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
@@ -69,33 +65,33 @@ axios.interceptors.response.use(
   }
 );
 axios.defaults.withCredentials = true;
-
 Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
 
 const shared_data = {
-  username: undefined,
-  // login(username) {
-  //   localStorage.setItem("username", username);
-  //   this.username = username;
-  //   console.log("login", this.username);
-  // },
-  // logout() {
-  //   console.log("logout");
-  //   localStorage.removeItem("username");
-  //   this.username = undefined;
-  // },
+  username: localStorage.username,
+  login(username) {
+    localStorage.setItem("username", username);
+    this.username = username;
+    console.log("login", this.username);
+  },
+  logout() {
+    console.log("logout");
+    localStorage.removeItem("username");
+    this.username = undefined;
+  },
 };
-Vue.prototype.$store = shared_data;
+console.log(shared_data);
+// Vue.prototype.$root.store = shared_data;
 
 new Vue({
   router,
-  // data() {
-  //   return {
-  //     store: shared_data,
-  //   };
-  // },
+  data() {
+    return {
+      store: shared_data,
+    };
+  },
   methods: {
     toast(title, content, variant = null, append = false) {
       this.$bvToast.toast(`${content}`, {

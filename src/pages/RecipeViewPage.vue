@@ -3,7 +3,8 @@
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.name }}</h1>
-        <button v-if="$root.store.username" v-on: click="addToMyFavorite"> favorite </button>
+        <favoriteButton v-if="this.$root.store.username" :recipeID="recipe.recipeID" :disabled="this.isFavorite"></favoriteButton>
+        <div v-if="this.$root.store.username && this.isWatch"> watch</div>
         <img :src="recipe.imageURL" class="center" />
       </div>
       <div class="recipe-body">
@@ -19,7 +20,15 @@
                 :key="index + '_' + r.id"
               >{{ r.name }} : {{r.qauntity}} {{r.unit}}</li>
             </ul>
-            <div class="wrapped">Instructions: {{recipe.instructions}}</div>
+          
+          <div>Instructions:
+            <ul>
+              <li
+                v-for="(r, index) in recipe.instructions"
+                :key="index + '_' + r.number"
+              >{{r.step}}</li>
+            </ul>
+          </div>
             <div>number of dishes: {{recipe.dishes}}</div>
           </div>
         </div>
@@ -29,20 +38,23 @@
 </template>
 
 <script>
+import favoriteButton from "../components/favoriteButton";
 export default {
+  components: {
+    favoriteButton
+  },
   data() {
     return {
-      recipe: null
+      recipe: null,
+      isWatch: false,
+      isFavorite: false
     };
   },
   async created() {
     try {
       let response;
-      // response = this.$route.params.response;
-
       try {
         console.log(this.$route.params.recipeId);
-
         response = await this.axios.get(
           "https://assignment3-2-shiran-hen.herokuapp.com/recipes//information/" +
             this.$route.params.recipeId
@@ -50,6 +62,16 @@ export default {
 
         // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
+        if (this.$root.store.username) {
+          let recipeIDArray= [this.$route.params.recipeId];
+          let info = await this.axios.get(
+            "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +
+              JSON.stringify(recipeIDArray)
+          );
+          this.isWatch= info.data[0].isWatch;
+          this.isFavorite= info.data[0].isFavorite;
+
+        }
       } catch (error) {
         console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
@@ -90,7 +112,7 @@ export default {
       };
 
       this.recipe = _recipe;
-      if (this.$store.username) {
+      if (this.$root.store.username) {
         response = this.axios.post(
           "https://assignment3-2-shiran-hen.herokuapp.com/user/myWatch",
           {
@@ -101,14 +123,14 @@ export default {
     } catch (error) {
       console.log(error);
     }
-  },
-  methods: {
-      async addToMyFavorite() {
-        let response= this.axios.post( "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes",{
-         recipeID: this.recipe.recipeID 
-        });
-      },
   }
+  // methods: {
+  //     async addToMyFavorite() {
+  //       let response= this.axios.post( "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes",{
+  //        recipeID: this.recipe.recipeID
+  //       });
+  //     },
+  // }
 };
 </script>
 

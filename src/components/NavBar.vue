@@ -34,12 +34,11 @@
   </b-navbar>
 </div>
 </template>
-
 <script>
 export default {
   data(){
     return {
-      username: null,
+      username: this.$root.store.username,
     };
   },
   // computed:{
@@ -51,9 +50,8 @@ export default {
     methods:{
          logout(){
              console.log("log out button pushed")
-            //  this.username=null;
-            this.$store.username=undefined;
-            // this.$router.push("/");
+             this.username=null;
+            this.$root.store.logout(this.username);
 
          }
     },

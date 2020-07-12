@@ -1,4 +1,5 @@
 <template>
+  <!-- <div> -->
   <router-link
     :to="{ name: 'recipe', params: {recipeId: recipe.recipeID } }"
     class="card"
@@ -7,7 +8,16 @@
     <div class="recipe-body">
       <img :src="recipe.imageURL" class="card-img-top" />
     </div>
+
     <div class="card-body">
+      <b-row>
+        <b-col>
+          <div v-if="recipe.isWatch && this.$root.store.username">watch</div>
+        </b-col>
+        <b-col>
+          <favoriteButton v-if="this.$root.store.username" :disabled="recipe.isFavorite" :recipeID="recipe.recipeID"></favoriteButton>
+        </b-col>
+      </b-row>
       <div class="recipe-footer">
         <div :title="recipe.name" class="card-title">{{ recipe.name }}</div>
         <ul class="card-text">
@@ -24,17 +34,27 @@
           <li v-if="recipe.isGluten">gluten!</li>
         </ul>
       </div>
+      <!-- <button > favorite</button> -->
     </div>
   </router-link>
+  <!-- <favoriteButton name="favorite" v-if="$root.store.username && recipe.likes"></favoriteButton> -->
+  <!-- </div> -->
 </template>
 
 <script>
+import favoriteButton from "./favoriteButton.vue";
 export default {
+  components: {
+    favoriteButton
+  },
   props: {
     recipe: {
       type: Object,
       required: true
     }
+  },
+  mounted(){
+    console.log("dbfjshdbcjhscjhsdc     "+ this.recipe.isWatch);
   }
 };
 </script>
