@@ -35,10 +35,12 @@
     </b-navbar>
   <div >
           <b-col cols ="3" v-if="hasLastSearch && !this.hasResult">
-        <b-row v-for="item in lastSearchResults" :key="item.recipeID">
-                <b-col >
+        <b-row v-for="(item,index) in lastSearchResults" :key="item.recipeID">
+                <b-col v-if="index%3==0" >
           <RecipePreview class="recipePreview" :recipe="item" />
                 </b-col >
+            <RecipePreview v-else class="recipePreview" :recipe="item" />
+
 
         </b-row>
           </b-col>
@@ -56,7 +58,7 @@
         </b-row>
         </b-col>
       </b-row>
-      <h1 v-if="this.notFoundRecipes">Search not found , try again!</h1>
+      <!-- <h1 v-if="this.notFoundRecipes">Search not found , try again!</h1> -->
     </div>
   </div>
 </template>
@@ -79,7 +81,8 @@ export default {
       intolerances: app_data.intolerances,
       cusineChoose: "",
       dietChoose: "",
-      intolerancesChoose: ""
+      intolerancesChoose: "",
+      notFoundRecipes:false
 
     };
   },

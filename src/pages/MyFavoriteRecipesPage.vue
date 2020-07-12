@@ -2,28 +2,38 @@
   <div>
     <h1 class="title">My Favorite Recipes</h1>
     <b-col cols ="3">
-        <b-row v-for="item in myFavoriteRecipes" :key="item.recipeID">
+        <b-row v-for="item in this.myFavoriteRecipes" :key="item.recipeID">
           <RecipePreview class="recipePreview" :recipe="item" />
         </b-row>
     </b-col>
-          
-
  </div>
 </template>
 
 <script>
+import RecipePreview from "../components/RecipePreview";
+
 export default {
 data(){
     return{
-        myFavoriteRecipes:null,
+        myFavoriteRecipes:[],
     }
 },
+components:{
+    RecipePreview
+},
 mounted(){
-    this.getMyFavoriteRecipes();
+    this.getmyFavoriteRecipes();
 },
 methods:{
-    getMyFavoriteRecipes(){
+    async getmyFavoriteRecipes(){
         let link = 'https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes'
+        let response =  this.axios.get(link).then((res)=>{
+            console.log(this);
+            console.log(res.data);
+            this.myFavoriteRecipes=res.data;
+        }).catch((err)=>{
+            console.error(err);
+        })
     }
 }
 }
