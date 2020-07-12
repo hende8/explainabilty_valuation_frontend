@@ -26,10 +26,10 @@ export default {
   name: "App",
   methods: {
     Logout() {
-      this.$root.store.logout();
+      this.$store.username=null;
       this.$root.toast("Logout", "User logged out successfully", "success");
 
-      this.$router. ush("/").catch(() => {
+      this.$router.push("/").catch(() => {
         this.$forceUpdate();
       });
     }

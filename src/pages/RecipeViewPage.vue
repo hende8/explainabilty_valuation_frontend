@@ -90,7 +90,7 @@ export default {
       };
 
       this.recipe = _recipe;
-      if (this.$root.store.username) {
+      if (this.$store.username) {
         response = this.axios.post(
           "https://assignment3-2-shiran-hen.herokuapp.com/user/myWatch",
           {

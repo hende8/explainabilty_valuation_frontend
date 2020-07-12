@@ -40,7 +40,7 @@ export default {
     if (this.action == "random") {
       this.updateRandomRecipes();
     } else{
-      // this.updateLastView();
+      this.updateLastView();
       this.buttonAction=false;
     }
   },

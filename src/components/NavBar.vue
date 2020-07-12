@@ -47,8 +47,9 @@ export default {
     methods:{
          logout(){
              console.log("log out button pushed")
-             this.username=null;
-            this.$root.store.logout(this.username);
+            //  this.username=null;
+            this.$store.username=undefined;
+            // this.$router.push("/");
 
          }
     },
