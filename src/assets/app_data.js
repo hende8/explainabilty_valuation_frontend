@@ -309,6 +309,7 @@ intolerances:[
 
 }
 export const app_data={
-  recipes:[]
+  recipes:[],
+  lastSearch:[]
   
 };
