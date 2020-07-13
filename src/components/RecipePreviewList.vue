@@ -50,41 +50,41 @@ export default {
     if (this.action == "random") {
       this.updateRandomRecipes();
     } else {
-      this.updateLastView();
+      // this.updateLastView();
       this.buttonAction = false;
     }
   },
   methods: {
     async updateRandomRecipes() {
       try {
-        const response = await this.axios.get(
-          "https://assignment3-2-shiran-hen.herokuapp.com/recipes/randomRecipes"
-        );
-        // let recipes = [
-        //   {
-        //     recipeID: 635350,
-        //     imageURL: "https://spoonacular.com/recipeImages/635350-556x370.jpg",
-        //     name: "Blue Cheese Burgers",
-        //     cookingDuration: 1001,
-        //     likes: 7,
-        //     isVegeterian: false,
-        //     isVegan: false,
-        //     isGluten: false,
-        //   },
-        //   {
-        //     recipeID: 642539,
-        //     imageURL: "https://spoonacular.com/recipeImages/642539-556x370.png",
-        //     name: "Falafel Burger",
-        //     cookingDuration: 45,
-        //     likes: 4,
-        //     isVegeterian: true,
-        //     isVegan: false,
-        //     isGluten: false,
-        //   },
-        // ];
+        // const response = await this.axios.get(
+        //   "https://assignment3-2-shiran-hen.herokuapp.com/recipes/randomRecipes"
+        // );
+        let recipes = [
+          {
+            recipeID: 635350,
+            imageURL: "https://spoonacular.com/recipeImages/635350-556x370.jpg",
+            name: "Blue Cheese Burgers",
+            cookingDuration: 1001,
+            likes: 7,
+            isVegeterian: false,
+            isVegan: false,
+            isGluten: false,
+          },
+          {
+            recipeID: 642539,
+            imageURL: "https://spoonacular.com/recipeImages/642539-556x370.png",
+            name: "Falafel Burger",
+            cookingDuration: 45,
+            likes: 4,
+            isVegeterian: true,
+            isVegan: false,
+            isGluten: false,
+          },
+        ];
 
         // console.log(response);
-        const recipes = response.data;
+        // const recipes = response.data;
         // this.recipes = [];
         // this.recipes.push(...recipes);
         if (this.$root.store.username) {
