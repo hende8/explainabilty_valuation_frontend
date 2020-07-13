@@ -30,6 +30,7 @@ import {
   IconsPlugin,
   SpinnerPlugin,
   FormRadioPlugin
+ 
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -43,8 +44,9 @@ import {
   ToastPlugin,
   LayoutPlugin,
   IconsPlugin,
-  SpinnerPlugin,
+  SpinnerPlugin ,
   FormRadioPlugin
+
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
@@ -86,6 +88,7 @@ const shared_data = {
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
+    this.$store.lastSearch= [];
   },
 };
 console.log(shared_data);

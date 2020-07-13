@@ -33,7 +33,11 @@
             v-on:change="cusinesSelected"
           ></b-form-select>
         </b-form-group>
-        <b-form-group class="mr-sm-2" label="Intolerances: " label-for="Intolerances">
+        <b-form-group
+          class="mr-sm-2"
+          label="Intolerances: "
+          label-for="Intolerances"
+        >
           <b-form-select
             v-model="intolerancesChoose"
             id="intolerances"
@@ -60,14 +64,11 @@
       >Search</b-button>
     </b-navbar>
     <div>
-      <b-col cols="3" v-if="hasLastSearch && !this.hasResult">
-        <b-row v-for="(item,index) in lastSearchResults" :key="item.recipeID">
-          <b-col v-if="index%3==0">
-            <RecipePreview class="recipePreview" :recipe="item" />
-          </b-col>
-          <RecipePreview v-else class="recipePreview" :recipe="item" />
-        </b-row>
-      </b-col>
+      <b-row cols="3" v-if="hasLastSearch && !this.hasResult">
+        <b-col v-for="item in lastSearchResults" :key="item.recipeID">
+          <RecipePreview class="recipePreview" :recipe="item" />
+        </b-col>
+      </b-row>
     </div>
 
     <div>
@@ -77,24 +78,25 @@
             @change.native="sortByPopularity($event)"
             value="Popularity"
             name="some-radios"
-          >Popularity</b-form-radio>
+            >Popularity</b-form-radio
+          >
           <b-form-radio
             @change.native="sortByCookingDuration($event)"
             value="duration"
             name="some-radios"
-          >Cooking duration</b-form-radio>
+            >Cooking duration</b-form-radio
+          >
         </b-form-group>
-        <b-col cols="3">
-          <b-row v-for="item in results" :key="item.recipeID">
+        <b-row cols="3">
+          <b-col v-for="item in results" :key="item.recipeID">
             <RecipePreview class="recipePreview" :recipe="item" />
-          </b-row>
-        </b-col>
+          </b-col>
+        </b-row>
       </b-row>
       <!-- <h1 v-if="this.notFoundRecipes">Search not found , try again!</h1> -->
     </div>
   </div>
 </template>
-
 
 <script>
 import app_data from "../assets/app_data";
@@ -118,7 +120,7 @@ export default {
       cusineChoose: "",
       dietChoose: "",
       intolerancesChoose: "",
-      notFoundRecipes: false
+      notFoundRecipes: false,
     };
   },
   validations: {
@@ -131,33 +133,41 @@ export default {
     }
   },
   components: {
-    RecipePreview
+    RecipePreview,
   },
-  mounted() {
-    if (sessionStorage.getItem("lastSearch")) this.hasLastSearch = true;
-    this.lastSearchResults = JSON.parse(sessionStorage.getItem("lastSearch"));
+  async mounted() {
+    // if (sessionStorage.getItem("lastSearch")) this.hasLastSearch = true;
+    // this.lastSearchResults = JSON.parse(sessionStorage.getItem("lastSearch"));
+
+    if (this.$store.lastSearch && this.$root.store.username) {
+      this.hasLastSearch = true;
+      this.lastSearchResults = await this.getUserInformation(
+        this.$store.lastSearch
+      );
+    }
   },
   computed: {},
   methods: {
     async searchRecipes(req, response) {
       console.log(this.cusineChoose);
       try {
-        // let link =
-        //   "https://assignment3-2-shiran-hen.herokuapp.com/recipes/search/query/";
-        var link = "http://localhost:3000/recipes/search/query/";
+        let link =
+          "https://assignment3-2-shiran-hen.herokuapp.com/recipes/search/query/";
+        // var link = "http://localhost:3000/recipes/search/query/";
 
         link += this.search + "/number/" + this.numberOfResults.toString();
         console.log(this.cusineChoose);
         console.log(this.intolerancesChoose);
         console.log(this.dietChoose);
+        console.log(this.search);
 
         // console.log(link);
         response = await this.axios.get(link, {
           params: {
             cuisine: this.cusineChoose,
             intolerances: this.intolerancesChoose,
-            diet: this.dietChoose
-          }
+            diet: this.dietChoose,
+          },
         });
       } catch (err) {
         console.log(err);
@@ -210,6 +220,9 @@ export default {
         // ]
         // this.setResults(response.data);
         let ans = response.data;
+        if (this.$root.store.username) {
+          ans = await this.getUserInformation(ans);
+        }
         this.setResults(ans);
         // }
       }
@@ -225,6 +238,7 @@ export default {
         return;
       }
       // console.log("register method go");
+      this.search=this.form.search;
       this.searchRecipes();
     },
 
@@ -240,9 +254,13 @@ export default {
     setResults(data) {
       if (data.length > 0) {
         this.results = data;
+        if(this.$root.store.username){
         this.hasResult = true;
-        sessionStorage.setItem("lastSearch", JSON.stringify(data));
+        this.$store.lastSearch = data;
+        // sessionStorage.setItem("lastSearch", JSON.stringify(data));
         this.hasLastSearch = true;
+        }
+
       } else {
         this.hasResult = false;
         this.hasLastSearch = false;
@@ -276,8 +294,24 @@ export default {
     },
     intolerancesSelected(value) {
       this.intolerancesChoose = value;
-    }
-  }
+    },
+    async getUserInformation(recipes) {
+      let recipeIDArray = [];
+      recipes.map((x) => recipeIDArray.push(x.recipeID));
+      console.log(recipeIDArray);
+      let info = await this.axios.get(
+        "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +
+          JSON.stringify(recipeIDArray)
+      );
+      let newRecipes = [];
+      info.data.forEach((element) => {
+        let recipe = recipes.find((el) => el.recipeID == element.recipeID);
+        recipe.isWatch = element.isWatch;
+        recipe.isFavorite = element.isFavorite;
+        newRecipes.push(recipe);
+      });
+      return newRecipes;
+    },
+  },
 };
 </script>
- 
