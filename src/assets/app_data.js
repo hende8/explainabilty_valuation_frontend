@@ -306,4 +306,9 @@ intolerances:[
     "Wheat"
 
   ]
+
+}
+export const app_data={
+  recipes:[]
+  
 };

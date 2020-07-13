@@ -260,7 +260,11 @@ export default {
       email:{
         required,
         email : (u)=> email(u)
+      },
+      profileImage:{
+
       }
+
     }
   },
   mounted() {
@@ -279,6 +283,7 @@ export default {
         let response = await axios({
         url: CLOUD_URL,
         method:'POST',
+        withCredentials: false,
         headers:{
           'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -303,7 +308,7 @@ export default {
             lastName:this.form.lastName,
             country:this.form.country,
             email:this.form.email,
-            profileImage:this.profileImage
+            profileImage:this.form.profileImage
           }
         );
         if(response.status=='201'){

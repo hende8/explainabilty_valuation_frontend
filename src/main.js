@@ -88,7 +88,8 @@ const shared_data = {
   },
 };
 console.log(shared_data);
-// Vue.prototype.$root.store = shared_data;
+import {app_data} from "./assets/app_data";
+Vue.prototype.$store = app_data;
 
 new Vue({
   router,

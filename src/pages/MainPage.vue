@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div  class="col-lg-6">
-        <RecipePreviewList action="random" title="Randome Recipes" class="Recipes"></RecipePreviewList>
+        <RecipePreviewList action="random" title="Explore these recipes" class="Recipes"></RecipePreviewList>
       </div>
       <div  class="col-lg-6">
         <LoginPage v-if="!$root.store.username" class="login"></LoginPage>

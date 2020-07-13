@@ -3,7 +3,7 @@
     <h1 class="title">My Recipes</h1>
     <b-col cols ="3">
         <b-row v-for="item in myRecipes" :key="item.recipeID">
-          <RecipePreview class="recipePreview" :recipe="item" />
+          <RecipePreviewInternal class="recipePreview" :recipe="item" />
         </b-row>
     </b-col>
           
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import RecipePreview from "../components/RecipePreview";
+import RecipePreviewInternal from "../components/RecipePreviewInternal";
 
 export default {
 data(){
@@ -22,14 +22,24 @@ data(){
 },
 components:
 {
-RecipePreview
+RecipePreviewInternal
 },
 mounted(){
 // getMyRecipes();
         let link = 'https://assignment3-2-shiran-hen.herokuapp.com/user/myRecipes';
         let response =  this.axios.get(link).then((res)=>{
-            console.log(res.data);
             this.myRecipes=res.data.message;
+            var dict=this.myRecipes;
+            // this.myRecipes.map((val)=>{
+            //     dict.push({
+            //         key:val.recipeID,
+            //         value: val,
+            //     })
+
+            // })
+            this.$store.recipes=dict;
+            console.log(this.$store.recipes);
+
         }).catch((err)=>{
             console.error(err);
         })

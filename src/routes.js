@@ -33,6 +33,12 @@ const routes = [
     component: () => import("./pages/RecipeViewPage"),
   },
   {
+    path: "/myRecipes/:recipeId",
+    name: "recipeInternal",
+    component: () => import("./pages/RecipeInternalViewPage"),
+    props:true
+  },
+  {
     path: "/myFavoriteRecipes",
     name: "myFavoriteRecipes",
     component: () => import("./pages/MyFavoriteRecipesPage"),
