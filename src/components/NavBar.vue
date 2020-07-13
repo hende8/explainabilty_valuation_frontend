@@ -34,12 +34,11 @@
   </b-navbar>
 </div>
 </template>
-
 <script>
 export default {
   data(){
     return {
-      username: null,
+      username: this.$root.store.username,
     };
   },
   // computed:{

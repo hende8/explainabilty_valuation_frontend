@@ -27,8 +27,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
-  FormRadioPlugin,
-  AvatarPlugin  
+  IconsPlugin,
+  SpinnerPlugin 
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -41,8 +41,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
-  FormRadioPlugin,
-  AvatarPlugin  
+  IconsPlugin,
+  SpinnerPlugin 
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
@@ -69,7 +69,6 @@ axios.interceptors.response.use(
   }
 );
 axios.defaults.withCredentials = true;
-
 Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;

@@ -4,12 +4,22 @@
       {{ title }}:
       <slot></slot>
     </h3>
-    <b-row v-for="r in recipes" :key="r.id">
+  <div v-if="!this.recipes" class="d-flex align-items-center">
+    <strong>Loading...</strong>
+    <!-- <b-spinner class="ml-auto"></b-spinner> -->
+  </div> 
+    <b-row v-for="r in this.recipes" :key="r.id">
       <!-- <b-col > -->
       <RecipePreview class="recipePreview" :recipe="r"></RecipePreview>
       <!-- </b-col> -->
     </b-row>
-    <button v-if="buttonAction" v-on:click="updateRandomRecipes()" type="button">random</button>
+    <button
+      v-if="buttonAction"
+      v-on:click="updateRandomRecipes()"
+      type="button"
+    >
+      random
+    </button>
   </div>
 </template>
 
@@ -18,30 +28,30 @@ import RecipePreview from "./RecipePreview.vue";
 export default {
   name: "RecipePreviewList",
   components: {
-    RecipePreview
+    RecipePreview,
   },
   props: {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     action: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      recipes: [],
-      buttonAction: true
+      recipes: null,
+      buttonAction: true,
     };
   },
-  mounted() {
+  async mounted() {
     if (this.action == "random") {
       this.updateRandomRecipes();
-    } else{
+    } else {
       // this.updateLastView();
-      this.buttonAction=false;
+      this.buttonAction = false;
     }
   },
   methods: {
@@ -50,7 +60,7 @@ export default {
         // const response = await this.axios.get(
         //   "https://assignment3-2-shiran-hen.herokuapp.com/recipes/randomRecipes"
         // );
-        const recipes = [
+        let recipes = [
           {
             recipeID: 635350,
             imageURL: "https://spoonacular.com/recipeImages/635350-556x370.jpg",
@@ -59,7 +69,7 @@ export default {
             likes: 7,
             isVegeterian: false,
             isVegan: false,
-            isGluten: false
+            isGluten: false,
           },
           {
             recipeID: 642539,
@@ -69,16 +79,21 @@ export default {
             likes: 4,
             isVegeterian: true,
             isVegan: false,
-            isGluten: false
-          }
+            isGluten: false,
+          },
         ];
 
         // console.log(response);
         // const recipes = response.data;
-        this.recipes = [];
-        this.recipes.push(...recipes);
-
-        // console.log(this.recipes);
+        // this.recipes = [];
+        // this.recipes.push(...recipes);
+        if (this.$root.store.username) {
+          await this.getUserInformation(recipes);
+        } else {
+          this.recipes = [];
+          this.recipes.push(...recipes);
+        }
+        console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
@@ -91,17 +106,39 @@ export default {
         );
 
         // console.log(response);
+
         const recipes = response.data;
-        this.recipes = [];
-        this.recipes.push(...recipes);
+        this.getUserInformation(recipes);
+        // this.recipes = [];
+        // this.recipes.push(...recipes);
 
         // console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
-    
-    }
-  }
+    },
+
+    async getUserInformation(recipes) {
+      let recipeIDArray = [];
+      recipes.map((x) => recipeIDArray.push(x.recipeID));
+      console.log(recipeIDArray);
+      let info = await this.axios.get(
+        "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +
+          JSON.stringify(recipeIDArray)
+      );
+      let newRecipes = [];
+      info.data.forEach((element) => {
+        let recipe = recipes.find((el) => el.recipeID == element.recipeID);
+        if (this.action == "random") {
+          recipe.isWatch = element.isWatch;
+        }
+        recipe.isFavorite = element.isFavorite;
+        newRecipes.push(recipe);
+      });
+      this.recipes = [];
+      this.recipes.push(...newRecipes);
+    },
+  },
 };
 </script>
 

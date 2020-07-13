@@ -14,9 +14,7 @@
           type="text"
           :state="validateState('username')"
         ></b-form-input>
-        <b-form-invalid-feedback>
-          Username is required
-        </b-form-invalid-feedback>
+        <b-form-invalid-feedback>Username is required</b-form-invalid-feedback>
       </b-form-group>
 
       <b-form-group
@@ -31,9 +29,7 @@
           v-model="$v.form.password.$model"
           :state="validateState('password')"
         ></b-form-input>
-        <b-form-invalid-feedback>
-          Password is required
-        </b-form-invalid-feedback>
+        <b-form-invalid-feedback>Password is required</b-form-invalid-feedback>
       </b-form-group>
 
       <b-button
@@ -45,7 +41,7 @@
       >
       <div class="mt-2">
         Do not have an account yet?
-        <router-link to="register"> Register in here</router-link>
+        <router-link to="register">Register in here</router-link>
       </div>
     </b-form>
     <b-alert
@@ -54,12 +50,11 @@
       variant="warning"
       dismissible
       show
+      >Login failed: {{ form.submitError }}</b-alert
     >
-      Login failed: {{ form.submitError }}
-    </b-alert>
     <!-- <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
-    </b-card> -->
+    </b-card>-->
   </div>
 </template>
 
@@ -72,19 +67,19 @@ export default {
       form: {
         username: "",
         password: "",
-        submitError: undefined
-      }
+        submitError: undefined,
+      },
     };
   },
   validations: {
     form: {
       username: {
-        required
+        required,
       },
       password: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   methods: {
     validateState(param) {
@@ -95,17 +90,19 @@ export default {
       try {
         const response = await this.axios.post(
           "https://assignment3-2-shiran-hen.herokuapp.com/guest/login",
+          // "http://localhost:3000/guest/login",
+
           {
             username: this.form.username,
-            password: this.form.password
+            password: this.form.password,
           }
         );
         // console.log(response);
         // this.$root.loggedIn = true;
         console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);
-        this.$root.$emit('loginUserNavBar',this.form.username);
-        this.$router.push("/");
+        this.$root.$emit("loginUserNavBar", this.form.username);
+        this.$router.push("/").catch();
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
@@ -121,8 +118,8 @@ export default {
       // console.log("login method go");
 
       this.Login();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
