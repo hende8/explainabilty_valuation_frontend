@@ -37,7 +37,8 @@
         variant="primary"
         style="width:100px;display:block;"
         class="mx-auto w-100"
-      >Login</b-button>
+        >Login</b-button
+      >
       <div class="mt-2">
         Do not have an account yet?
         <router-link to="register">Register in here</router-link>
@@ -49,7 +50,8 @@
       variant="warning"
       dismissible
       show
-    >Login failed: {{ form.submitError }}</b-alert>
+      >Login failed: {{ form.submitError }}</b-alert
+    >
     <!-- <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
     </b-card>-->
@@ -65,19 +67,19 @@ export default {
       form: {
         username: "",
         password: "",
-        submitError: undefined
-      }
+        submitError: undefined,
+      },
     };
   },
   validations: {
     form: {
       username: {
-        required
+        required,
       },
       password: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   methods: {
     validateState(param) {
@@ -92,7 +94,7 @@ export default {
 
           {
             username: this.form.username,
-            password: this.form.password
+            password: this.form.password,
           }
         );
         // console.log(response);
@@ -116,8 +118,8 @@ export default {
       // console.log("login method go");
 
       this.Login();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

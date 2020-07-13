@@ -30,7 +30,10 @@ methods:{
         let response =  this.axios.get(link).then((res)=>{
             console.log(this);
             console.log(res.data);
-            this.myFavoriteRecipes=res.data;
+            let temp=[];
+            temp.push(...res.data);
+            temp.map((x)=> {x.isFavorite=true});
+            this.myFavoriteRecipes=temp;
         }).catch((err)=>{
             console.error(err);
         })

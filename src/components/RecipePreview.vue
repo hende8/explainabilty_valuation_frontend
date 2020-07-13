@@ -1,44 +1,51 @@
 <template>
-  <!-- <div> -->
-  <router-link
-    :to="{ name: 'recipe', params: {recipeId: recipe.recipeID } }"
-    class="card"
-    style="width: 20rem;"
-  >
-    <div class="recipe-body">
-      <img :src="recipe.imageURL" class="card-img-top" />
-    </div>
-
+  <div class="card" style="width: 20rem;">
+    <router-link
+      :to="{ name: 'recipe', params: { recipeId: recipe.recipeID } }"
+    >
+      <div class="recipe-body">
+        <img :src="recipe.imageURL" class="card-img-top" />
+      </div>
+    </router-link>
     <div class="card-body">
       <b-row>
         <b-col>
-          <div v-if="recipe.isWatch && this.$root.store.username">watch</div>
+          <div v-if="recipe.isWatch && this.$root.store.username">
+            <b-icon icon="eye-fill"></b-icon>
+          </div>
         </b-col>
         <b-col>
-          <favoriteButton v-if="this.$root.store.username" :disabled="recipe.isFavorite" :recipeID="recipe.recipeID"></favoriteButton>
+          <favoriteButton
+            v-if="this.$root.store.username"
+            :isFavorite="recipe.isFavorite"
+            :recipeID="recipe.recipeID"
+          ></favoriteButton>
         </b-col>
       </b-row>
-      <div class="recipe-footer">
-        <div :title="recipe.name" class="card-title">{{ recipe.name }}</div>
-        <ul class="card-text">
-          <li>
-            <!-- <img src="../assets/time.png" class="recipe-info-icon" /> -->
-            {{ recipe.cookingDuration }} minutes
-          </li>
-          <li v-if="recipe.likes">
-            <!-- <img src="../assets/like.png" class="recipe-info-icon" /> -->
-            {{ recipe.likes }} likes
-          </li>
-          <li v-if="recipe.isVegeterian">vegeterian</li>
-          <li v-if="recipe.isVegan">vegan</li>
-          <li v-if="recipe.isGluten">gluten!</li>
-        </ul>
-      </div>
+      <router-link
+        :to="{ name: 'recipe', params: { recipeId: recipe.recipeID } }"
+      >
+        <div class="recipe-footer">
+          <div :title="recipe.name" class="card-title">{{ recipe.name }}</div>
+          <ul class="card-text">
+            <li>
+              <!-- <img src="../assets/time.png" class="recipe-info-icon" /> -->
+              {{ recipe.cookingDuration }} minutes
+            </li>
+            <li v-if="recipe.likes">
+              <!-- <img src="../assets/like.png" class="recipe-info-icon" /> -->
+              {{ recipe.likes }} likes
+            </li>
+            <li v-if="recipe.isVegeterian">vegeterian</li>
+            <li v-if="recipe.isVegan">vegan</li>
+            <li v-if="recipe.isGluten">gluten free</li>
+          </ul>
+        </div>
+      </router-link>
       <!-- <button > favorite</button> -->
     </div>
-  </router-link>
-  <!-- <favoriteButton name="favorite" v-if="$root.store.username && recipe.likes"></favoriteButton> -->
-  <!-- </div> -->
+    <!-- <favoriteButton name="favorite" v-if="$root.store.username && recipe.likes"></favoriteButton> -->
+  </div>
 </template>
 
 <script>

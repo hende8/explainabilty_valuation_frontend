@@ -4,12 +4,22 @@
       {{ title }}:
       <slot></slot>
     </h3>
+  <div v-if="!this.recipes" class="d-flex align-items-center">
+    <strong>Loading...</strong>
+    <!-- <b-spinner class="ml-auto"></b-spinner> -->
+  </div> 
     <b-row v-for="r in this.recipes" :key="r.id">
       <!-- <b-col > -->
       <RecipePreview class="recipePreview" :recipe="r"></RecipePreview>
       <!-- </b-col> -->
     </b-row>
-    <button v-if="buttonAction" v-on:click="updateRandomRecipes()" type="button">random</button>
+    <button
+      v-if="buttonAction"
+      v-on:click="updateRandomRecipes()"
+      type="button"
+    >
+      random
+    </button>
   </div>
 </template>
 
@@ -18,27 +28,27 @@ import RecipePreview from "./RecipePreview.vue";
 export default {
   name: "RecipePreviewList",
   components: {
-    RecipePreview
+    RecipePreview,
   },
   props: {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     action: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      recipes: [],
-      buttonAction: true
+      recipes: null,
+      buttonAction: true,
     };
   },
   async mounted() {
     if (this.action == "random") {
-      await this.updateRandomRecipes();
+      this.updateRandomRecipes();
     } else {
       this.updateLastView();
       this.buttonAction = false;
@@ -59,7 +69,7 @@ export default {
         //     likes: 7,
         //     isVegeterian: false,
         //     isVegan: false,
-        //     isGluten: false
+        //     isGluten: false,
         //   },
         //   {
         //     recipeID: 642539,
@@ -69,8 +79,8 @@ export default {
         //     likes: 4,
         //     isVegeterian: true,
         //     isVegan: false,
-        //     isGluten: false
-        //   }
+        //     isGluten: false,
+        //   },
         // ];
 
         // console.log(response);
@@ -110,15 +120,15 @@ export default {
 
     async getUserInformation(recipes) {
       let recipeIDArray = [];
-      recipes.map(x => recipeIDArray.push(x.recipeID));
+      recipes.map((x) => recipeIDArray.push(x.recipeID));
       console.log(recipeIDArray);
       let info = await this.axios.get(
         "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +
           JSON.stringify(recipeIDArray)
       );
       let newRecipes = [];
-      info.data.forEach(element => {
-        let recipe = recipes.find(el => el.recipeID == element.recipeID);
+      info.data.forEach((element) => {
+        let recipe = recipes.find((el) => el.recipeID == element.recipeID);
         if (this.action == "random") {
           recipe.isWatch = element.isWatch;
         }
@@ -127,8 +137,8 @@ export default {
       });
       this.recipes = [];
       this.recipes.push(...newRecipes);
-    }
-  }
+    },
+  },
 };
 </script>
 
