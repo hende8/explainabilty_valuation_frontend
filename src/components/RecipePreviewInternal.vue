@@ -1,5 +1,5 @@
 <template>
-  <router-link
+  <router-link 
     :to="{ name: 'recipeInternal', params: {recipeId: recipe.recipeID} }"
     class="card"
     style="width: 20rem;"

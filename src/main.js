@@ -28,7 +28,8 @@ import {
   ToastPlugin,
   LayoutPlugin,
   IconsPlugin,
-  SpinnerPlugin 
+  SpinnerPlugin,
+  FormRadioPlugin
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -42,7 +43,8 @@ import {
   ToastPlugin,
   LayoutPlugin,
   IconsPlugin,
-  SpinnerPlugin 
+  SpinnerPlugin,
+  FormRadioPlugin
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
