@@ -12,17 +12,17 @@
             {{ recipe.cookingDuration }} minutes
           </li>
                     <li v-if="recipe.isVegan">vegan</li>
-          <li v-if="recipe.isGluten">gluten!</li>
+          <li v-if="!recipe.isGluten">gluten!</li>
               <li>
                 Ingredients:
               </li>
               <ul>
                               </ul>
               <li>
-                Instructions : {{recipe.instructions}}
+                <b>Instructions</b> : {{recipe.instructions}}
               </li>
               <li>
-                {{recipe.dishes}} dishes
+                Number of dishes: {{recipe.dishes}} 
               </li>
           </b-card-text>
         </b-card-body>

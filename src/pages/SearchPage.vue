@@ -18,7 +18,7 @@
             <b-form-invalid-feedback v-if="$v.form.search.length"></b-form-invalid-feedback>
           </b-col>
         </b-row>
-        <b-dropdown id ="numResult" class="mr-sm-2" text="No. results">
+        <b-dropdown id ="numResult" class="mr-sm-2" style="width:130px" :text="buttonTitle">
           <b-dropdown-item @click="numResult('5')">5</b-dropdown-item>
           <b-dropdown-item @click="numResult('10')">10</b-dropdown-item>
           <b-dropdown-item @click="numResult('15')">15</b-dropdown-item>
@@ -93,9 +93,10 @@
           </b-col>
         </b-row>
       </b-row>
-      <!-- <h1 v-if="this.notFoundRecipes">Search not found , try again!</h1> -->
+      <h1 v-if="this.notFoundRecipes">Search not found , try again!</h1>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -121,6 +122,7 @@ export default {
       dietChoose: "",
       intolerancesChoose: "",
       notFoundRecipes: false,
+      buttonTitle:"No. results"
     };
   },
   validations: {
@@ -151,9 +153,9 @@ export default {
     async searchRecipes(req, response) {
       console.log(this.cusineChoose);
       try {
-        let link =
-          "https://assignment3-2-shiran-hen.herokuapp.com/recipes/search/query/";
-        // var link = "http://localhost:3000/recipes/search/query/";
+        // let link =
+          // "https://assignment3-2-shiran-hen.herokuapp.com/recipes/search/query/";
+        let link = "http://localhost:3000/recipes/search/query/";
 
         link += this.search + "/number/" + this.numberOfResults.toString();
         console.log(this.cusineChoose);
@@ -174,8 +176,12 @@ export default {
       }
       console.log(response);
       if (response.status == "200") {
+        if(response.data.length>0){
         this.hasResult = false;
         this.hasResult = true;
+        }else{
+                  this.hasResult = false;
+        }
         // let ans = [
         //     {
         //         "recipeID": 635350,
@@ -244,20 +250,20 @@ export default {
 
     numResult(result) {
       this.numberOfResults = result;
+      this.buttonTitle=result;
     },
-    showSearchResult(recipes) {
-      if (this.results.length > 0) {
-        this.hasResult = true;
-      }
-      this.hasResult = recipes;
-    },
+    // showSearchResult(recipes) {
+    //   if (this.results.length > 0) {
+    //     this.hasResult = true;
+    //   }
+    //   this.hasResult = recipes;
+    // },
     setResults(data) {
       if (data.length > 0) {
         this.results = data;
         if(this.$root.store.username){
         this.hasResult = true;
         this.$store.lastSearch = data;
-        // sessionStorage.setItem("lastSearch", JSON.stringify(data));
         this.hasLastSearch = true;
         }
 
@@ -314,4 +320,14 @@ export default {
     },
   },
 };
+
 </script>
+<style>
+/* .drop-container {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  height: 100px;
+  width: 200px;
+} */
+</style>

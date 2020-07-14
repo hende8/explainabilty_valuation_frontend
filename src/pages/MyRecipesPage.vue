@@ -38,7 +38,7 @@ mounted(){
 
             // })
             this.$store.recipes=dict;
-            console.log(this.$store.recipes);
+            console.log(this.$store);
 
         }).catch((err)=>{
             console.error(err);

@@ -88,10 +88,10 @@ const shared_data = {
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
-    this.$store.lastSearch= [];
+    app_data.lastSearch=[];
+    app_data.recipes=[];
   },
 };
-console.log(shared_data);
 import {app_data} from "./assets/app_data";
 Vue.prototype.$store = app_data;
 
