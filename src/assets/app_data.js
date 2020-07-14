@@ -252,6 +252,7 @@ export default {
   "Zimbabwe"
   ],
 cusines:[
+  "",
   "African",
   "American",
   "British",
@@ -280,6 +281,7 @@ cusines:[
   "Vietnamese"
 ],
 diet:[
+  "",
 "Gluten Free",
   "Ketogenic",
   "Vegetarian",
@@ -292,6 +294,7 @@ diet:[
   "Whole30"
 ],
 intolerances:[
+  "",
   "Dairy",
     "Egg",
     "Gluten",

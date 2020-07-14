@@ -3,19 +3,28 @@
     <h1 class="title">Search</h1>
     <b-navbar type="light" variant="light">
       <b-nav-form>
-        <b-form-input
-          id="search"
-          v-model="search"
-          class="mr-sm-2"
-          placeholder="Search"
-          label-for="search"
-        ></b-form-input>
-        <b-dropdown class="mr-sm-2" text="No. results" variant="info">
+        <b-row class="my-1">
+          <b-col md="9">
+            <b-form-input
+              id="search"
+              v-model="$v.form.search.$model"
+              placeholder="Search"
+              label-for="search"
+              type="text"
+              style="margin-right:5px"
+              :state="validateState('search')"
+              size="lg"
+            ></b-form-input>
+            <b-form-invalid-feedback v-if="$v.form.search.length"></b-form-invalid-feedback>
+          </b-col>
+        </b-row>
+        <b-dropdown id ="numResult" class="mr-sm-2" text="No. results">
           <b-dropdown-item @click="numResult('5')">5</b-dropdown-item>
           <b-dropdown-item @click="numResult('10')">10</b-dropdown-item>
           <b-dropdown-item @click="numResult('15')">15</b-dropdown-item>
         </b-dropdown>
-
+        
+        <b-row>
         <b-form-group class="mr-sm-2" label="Cusines:" label-for="Cusines">
           <b-form-select
             id="cusineChoose"
@@ -44,14 +53,15 @@
             v-on:change="dietSelected"
           ></b-form-select>
         </b-form-group>
+        </b-row>
       </b-nav-form>
+              
       <b-button
         variant="outline-success"
         class="my-2 my-sm-4"
         type="submit"
-        @click="searchRecipes"
-        >Search</b-button
-      >
+        @click="onSearch"
+      >Search</b-button>
     </b-navbar>
     <div>
       <b-row cols="3" v-if="hasLastSearch && !this.hasResult">
@@ -91,9 +101,13 @@
 <script>
 import app_data from "../assets/app_data";
 import RecipePreview from "../components/RecipePreview";
+import { required, minLength, alpha } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
+      form: {
+        search: ""
+      },
       search: "",
       numberOfResults: 5,
       hasResult: false,
@@ -108,6 +122,15 @@ export default {
       intolerancesChoose: "",
       notFoundRecipes: false,
     };
+  },
+  validations: {
+    form: {
+      search: {
+        required,
+        length: u => minLength(1)(u),
+        alpha
+      }
+    }
   },
   components: {
     RecipePreview,
@@ -136,10 +159,11 @@ export default {
         console.log(this.cusineChoose);
         console.log(this.intolerancesChoose);
         console.log(this.dietChoose);
+        console.log(this.search);
 
         // console.log(link);
         response = await this.axios.get(link, {
-          query: {
+          params: {
             cuisine: this.cusineChoose,
             intolerances: this.intolerancesChoose,
             diet: this.dietChoose,
@@ -202,6 +226,20 @@ export default {
         this.setResults(ans);
         // }
       }
+    },
+    validateState(param) {
+      const { $dirty, $error } = this.$v.form[param];
+      return $dirty ? !$error : null;
+    },
+    onSearch() {
+      // console.log("register method called");
+      this.$v.form.$touch();
+      if (this.$v.form.$anyError) {
+        return;
+      }
+      // console.log("register method go");
+      this.search=this.form.search;
+      this.searchRecipes();
     },
 
     numResult(result) {
