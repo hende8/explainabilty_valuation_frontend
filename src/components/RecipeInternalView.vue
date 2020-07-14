@@ -12,7 +12,7 @@
             {{ recipe.cookingDuration }} minutes
           </li>
                     <li v-if="recipe.isVegan">vegan</li>
-          <li v-if="recipe.isGluten">gluten!</li>
+          <li v-if="recipe.isGluten">gluten free</li>
               <li>
                 Ingredients:
               </li>

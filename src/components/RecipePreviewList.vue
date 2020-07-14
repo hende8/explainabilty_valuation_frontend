@@ -4,10 +4,10 @@
       {{ title }}:
       <slot></slot>
     </h3>
-  <div v-if="!this.recipes" class="d-flex align-items-center">
-    <strong>Loading...</strong>
-    <!-- <b-spinner class="ml-auto"></b-spinner> -->
-  </div> 
+    <div v-if="!this.recipes" class="d-flex align-items-center">
+      <strong>Loading...</strong>
+      <!-- <b-spinner class="ml-auto"></b-spinner> -->
+    </div>
     <b-row v-for="r in this.recipes" :key="r.id">
       <!-- <b-col > -->
       <RecipePreview class="recipePreview" :recipe="r"></RecipePreview>

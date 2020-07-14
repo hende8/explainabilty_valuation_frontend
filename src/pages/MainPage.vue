@@ -20,6 +20,18 @@ export default {
   components: {
     RecipePreviewList,
     LoginPage
+  },
+  data(){
+    return{
+      rerender:0
+    }
+  },
+  methods:{
+    setLogin(){
+      this.rerender+=1;
+      console.log(this.login+ "cheeeeeeeeeeeeeeck")
+      
+    }
   }
 };
 </script>

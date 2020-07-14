@@ -1,11 +1,11 @@
 <template>
   <div>
     <h1 class="title">My Favorite Recipes</h1>
-    <b-col cols ="3">
-        <b-row v-for="item in this.myFavoriteRecipes" :key="item.recipeID">
+    <b-row cols ="3">
+        <b-col v-for="item in this.myFavoriteRecipes" :key="item.recipeID">
           <RecipePreview class="recipePreview" :recipe="item" />
-        </b-row>
-    </b-col>
+        </b-col>
+    </b-row>
  </div>
 </template>
 
@@ -32,7 +32,9 @@ methods:{
             console.log(res.data);
             let temp=[];
             temp.push(...res.data);
-            temp.map((x)=> {x.isFavorite=true});
+            temp.map((x)=> {x.isFavorite=true;
+            x.isWatch=true;
+            });
             this.myFavoriteRecipes=temp;
         }).catch((err)=>{
             console.error(err);

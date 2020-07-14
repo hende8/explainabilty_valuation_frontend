@@ -2,15 +2,16 @@
   <b-icon
     v-if="this.favorite"
     icon="star-fill"
-    animation="fade"
-    font-scale="2"
+    font-scale="1.5"
+    variant="warning"
     @click="removeMyFavorite"
   ></b-icon>
   <b-icon
     v-else
     icon="star"
     @click="addToMyFavorite"
-    font-scale="2"
+    font-scale="1.5"
+    variant="warning"
     type="button"
   ></b-icon>
   <!-- <button @click="addToMyFavorite">favorite</button> -->

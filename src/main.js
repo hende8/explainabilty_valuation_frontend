@@ -88,7 +88,7 @@ const shared_data = {
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
-    this.$store.lastSearch= [];
+    this.$store.lastSearch = [];
   },
 };
 console.log(shared_data);

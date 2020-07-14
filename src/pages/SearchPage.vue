@@ -130,7 +130,7 @@ export default {
       try {
         let link =
           "https://assignment3-2-shiran-hen.herokuapp.com/recipes/search/query/";
-        // var link ="http://localhost:3000/recipes/search/query/";
+        // link ="http://localhost:3000/recipes/search/query/";
 
         link += this.search + "/number/" + this.numberOfResults.toString();
         console.log(this.cusineChoose);

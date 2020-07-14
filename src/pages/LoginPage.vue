@@ -102,6 +102,7 @@ export default {
         console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);
         this.$root.$emit("loginUserNavBar", this.form.username);
+        this.$emit("login");
         this.$router.push("/").catch();
       } catch (err) {
         console.log(err.response);
