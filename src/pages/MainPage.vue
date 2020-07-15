@@ -9,12 +9,13 @@
           :rerender="rerender"
           :key="update"
         ></RecipePreviewList>
-        <div style=" text-align:center;">
-        <b-button   style=" width: 160px;" variant="outline-primary"
-          v-on:click="updateRandomRecipes"
+        <div style="text-align:center;">
+        <b-button           variant="outline-success"
+        class="my-2 my-sm-4" style=" width: 160px;" 
+          v-on:click="updateRandomRecipes()"
           type="button" 
         >
-          More
+          <b>More</b>
         </b-button>
         </div>
       </div>

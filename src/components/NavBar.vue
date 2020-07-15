@@ -14,7 +14,7 @@
         <b-nav-form>
         </b-nav-form>
 
-        <b-nav-item-dropdown text="Guest" right v-if = "!username">
+        <b-nav-item-dropdown text="Hello guest" right v-if = "!username">
         <router-link tag="b-dropdown-item" to="/register" href="#">Sign up</router-link>
         <router-link tag="b-dropdown-item" to="/login" >Sign in</router-link>
         </b-nav-item-dropdown>
@@ -24,7 +24,8 @@
         <router-link tag="b-dropdown-item" to="/myFamilyRecipes" href="#">My Family Recipes</router-link>
       </b-nav-item-dropdown>
         <b-nav-item-dropdown v-if="username" :text="this.username" right>
-        <router-link tag="b-dropdown-item" to="/search" href="#">New Recipe</router-link>
+        <!-- <router-link tag="b-dropdown-item"   style ="color: transparent;
+        text-shadow: 0 0 10px;" href="#" disabled >New Recipe</router-link> -->
         <router-link tag="b-dropdown-item" :to="{ name: 'main' }" @click.native="logout" >Loguot</router-link>
       </b-nav-item-dropdown>
 

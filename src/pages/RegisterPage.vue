@@ -118,12 +118,17 @@
         <b-form-invalid-feedback
           v-if="$v.form.password.required && !$v.form.password.length"
         >
-          Have length between 5-10 characters long
+          Have password length between 5-10 characters long
         </b-form-invalid-feedback>
                 <b-form-invalid-feedback
-          v-if="$v.form.password.required && !$v.form.password.charCase"
+          v-if="$v.form.password.required && !$v.form.password.charCase "
         >
-          Have at least one character and one number
+          Have at least one number
+        </b-form-invalid-feedback>
+                        <b-form-invalid-feedback
+          v-if="$v.form.password.required && !$v.form.password.specialCase"
+        >
+          Have at least one special character (!@#$^*)
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -251,7 +256,8 @@ export default {
       password: {
         required,
         length: (p) => minLength(5)(p) && maxLength(10)(p),
-        charCase : (p)=> {return /\d/.test(p) && /[a-zA-Z]/.test(p)}
+        charCase : (p)=> {return /\d/.test(p) && /[0-9]/.test(p)},
+        specialCase : (p)=> {return /\d/.test(p) && /[`~!@#$^&*=|{}':;'<>《》?~！@#￥……&*|{}‘；：”“'。，、？' ']/.test(p)}
       },
       confirmedPassword: {
         required,
