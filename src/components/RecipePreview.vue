@@ -13,6 +13,7 @@
           <b-icon
             v-if="recipe.isWatch && this.$root.store.username && !isInternal"
             icon="eye-fill"
+            font-scale="1.3"
           ></b-icon>
         </b-col>
         <br />
@@ -32,18 +33,46 @@
           <div :title="recipe.name" class="card-title">{{ recipe.name }}</div>
           <ul class="card-text">
             <b-row>
-              <b-icon icon="clock" variant="dark" style="margin-right:15px"></b-icon>
-              {{recipe.cookingDuration }}
+              <b-icon
+                icon="clock"
+                variant="dark"
+                font-scale="1.3"
+                style="margin-right:15px"
+              ></b-icon>
+              {{ recipe.cookingDuration }}
               minutes</b-row
             >
             <b-row>
-              <b-icon icon="hand-thumbs-up" variant="dark" style="margin-right:15px"></b-icon>
+              <b-icon
+                icon="hand-thumbs-up"
+                variant="dark"
+                font-scale="1.4"
+                style="margin-right:15px"
+              ></b-icon>
               {{ recipe.likes }}
               likes</b-row
             >
-            <li v-if="recipe.isVegeterian">vegeterian</li>
-            <li v-if="recipe.isVegan">vegan</li>
-            <li v-if="recipe.isGluten">gluten free</li>
+            <b-row v-if="recipe.isVegeterian">
+              <img
+                src="https://img.icons8.com/color/25/000000/vegetarian-mark.png"
+                style="margin-right:13px"
+              />
+              Vegetarian
+            </b-row>
+            <b-row v-if="recipe.isVegan">
+              <img
+                src="https://img.icons8.com/color/25/000000/vegan-symbol.png"
+                style="margin-right:13px"
+              />
+              Vegan
+            </b-row>
+            <b-row v-if="recipe.isGluten">
+              <img
+                src="https://img.icons8.com/color/25/000000/no-gluten.png"
+                style="margin-right:13px"
+              />
+              Gluten free
+            </b-row>
           </ul>
         </div>
       </router-link>
@@ -58,23 +87,17 @@ import favoriteButton from "./favoriteButton.vue";
 export default {
   components: {
     favoriteButton,
-
   },
   props: {
     recipe: {
       type: Object,
       required: true,
     },
-    isInternal:{
-      type:Boolean,
-      default: false
-    }
+    isInternal: {
+      type: Boolean,
+      default: false,
+    },
   },
-  mounted() {
-    console.log("dbfjshdbcjhscjhsdc     " + this.recipe.isWatch);
-  },
-
-  
 };
 </script>
 

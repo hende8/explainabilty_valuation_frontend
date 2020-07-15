@@ -1,13 +1,17 @@
 <template type="text/x-template" id="template-favorite">
   <b-icon
+    class="favorite"
     v-if="this.favorite"
     icon="star-fill"
     font-scale="1.5"
     variant="warning"
     @click="removeMyFavorite"
-  ></b-icon>
+    type="button"
+  >
+  </b-icon>
   <b-icon
     v-else
+    class="favorite"
     icon="star"
     @click="addToMyFavorite"
     font-scale="1.5"
@@ -47,15 +51,21 @@ export default {
         }
       );
       this.favorite = true;
+      this.$store.myFavorite = undefined;
     },
     async removeMyFavorite() {
-      let response =  await this.axios.delete(
-        "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes/"+this.recipeID
+      let response = await this.axios.delete(
+        "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes/" +
+          this.recipeID
       );
       this.favorite = false;
+      this.$store.myFavorite = undefined;
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.favorite:hover {
+box-shadow: 0px 6px 21px  }
+</style>

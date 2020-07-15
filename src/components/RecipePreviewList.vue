@@ -1,16 +1,20 @@
 <template>
-  <div  >
+  <div>
     <h3 style=" text-align:center;">
       {{ title }}:
       <slot></slot>
     </h3>
-    <div v-if="!this.recipes" style=" text-align:center;" >
+    <div v-if="!this.recipes" style=" text-align:center;">
       <strong>Loading...</strong>
       <!-- <b-spinner class="ml-auto"></b-spinner> -->
     </div>
     <b-row v-for="r in this.recipes" :key="r.id">
       <!-- <b-col > -->
-      <RecipePreview class="recipePreview" :recipe="r" :key="render"></RecipePreview>
+      <RecipePreview
+        class="recipePreview"
+        :recipe="r"
+        :key="render"
+      ></RecipePreview>
       <!-- </b-col> -->
     </b-row>
     <!-- <button
@@ -39,31 +43,31 @@ export default {
       type: String,
       required: true,
     },
-    rerender:{
-      type: Number
-    }
+    rerender: {
+      type: Number,
+    },
   },
   data() {
     return {
       recipes: null,
       buttonAction: true,
-      render:0
+      render: 0,
     };
   },
   async mounted() {
     if (this.action == "random") {
       this.updateRandomRecipes();
     } else {
-      // this.updateLastView();
+      this.updateLastView();
       this.buttonAction = false;
     }
   },
   methods: {
     async updateRandomRecipes() {
       try {
-        // const response = await this.axios.get(
-        //   "https://assignment3-2-shiran-hen.herokuapp.com/recipes/randomRecipes"
-        // );
+      //   const response = await this.axios.get(
+      //     "https://assignment3-2-shiran-hen.herokuapp.com/recipes/randomRecipes"
+      //   );
         let recipes = [
           {
             recipeID: 635350,
@@ -94,7 +98,9 @@ export default {
         if (this.$root.store.username) {
           await this.getUserInformation(recipes);
         } else {
-          recipes.map((x)=> {x.isFavorite=false;})
+          recipes.map((x) => {
+            x.isFavorite = false;
+          });
           this.recipes = [];
           this.recipes.push(...recipes);
         }
@@ -106,13 +112,20 @@ export default {
 
     async updateLastView() {
       try {
-        const response = await this.axios.get(
-          "https://assignment3-2-shiran-hen.herokuapp.com/user/myWatch"
-        );
+        let recipes = [];
+        if (!this.$store.lastWatch) {
+          const response = await this.axios.get(
+            "https://assignment3-2-shiran-hen.herokuapp.com/user/myWatch"
+          );
 
-        // console.log(response);
+          // console.log(response);
 
-        const recipes = response.data;
+          recipes = response.data;
+          this.$store.lastWatch = recipes;
+        } else {
+          recipes = this.$store.lastWatch;
+        }
+
         this.getUserInformation(recipes);
         // this.recipes = [];
         // this.recipes.push(...recipes);
@@ -144,16 +157,15 @@ export default {
       this.recipes.push(...newRecipes);
     },
   },
-  watch:{
-    rerender: async function(){
+  watch: {
+    rerender: async function() {
       console.log("shiraaam");
-      await this.getUserInformation(this.recipes) 
-           console.log(this.recipes)
+      await this.getUserInformation(this.recipes);
+      console.log(this.recipes);
 
-      this.render+=1;
- 
-        }
-  }
+      this.render += 1;
+    },
+  },
 };
 </script>
 

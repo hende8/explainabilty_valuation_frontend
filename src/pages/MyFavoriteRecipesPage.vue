@@ -1,49 +1,57 @@
 <template>
   <div>
-    <h1  style="text-align:center;">My Favorite Recipes</h1>
-    <b-row cols ="3">
-        <b-col v-for="item in this.myFavoriteRecipes" :key="item.recipeID">
-          <RecipePreview class="recipePreview" :recipe="item" />
-        </b-col>
+    <h1 style="text-align:center;">My Favorite Recipes</h1>
+    <b-row cols="3">
+      <b-col v-for="item in this.myFavoriteRecipes" :key="item.recipeID">
+        <RecipePreview class="recipePreview" :recipe="item" />
+      </b-col>
     </b-row>
- </div>
+  </div>
 </template>
 
 <script>
 import RecipePreview from "../components/RecipePreview";
 
 export default {
-data(){
-    return{
-        myFavoriteRecipes:[],
-    }
-},
-components:{
-    RecipePreview
-},
-mounted(){
+  data() {
+    return {
+      myFavoriteRecipes: [],
+    };
+  },
+  components: {
+    RecipePreview,
+  },
+  mounted() {
     this.getmyFavoriteRecipes();
-},
-methods:{
-    async getmyFavoriteRecipes(){
-        let link = 'https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes'
-        let response =  this.axios.get(link).then((res)=>{
+  },
+  methods: {
+    async getmyFavoriteRecipes() {
+      if (!this.$store.myFavorite) {
+        let link =
+          "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes";
+        let response = this.axios
+          .get(link)
+          .then((res) => {
             console.log(this);
             console.log(res.data);
-            let temp=[];
+            let temp = [];
             temp.push(...res.data);
-            temp.map((x)=> {x.isFavorite=true;
-            x.isWatch=true;
+            temp.map((x) => {
+              x.isFavorite = true;
+              x.isWatch = true;
             });
-            this.myFavoriteRecipes=temp;
-        }).catch((err)=>{
+            this.myFavoriteRecipes = temp;
+            this.$store.myFavorite=this.myFavoriteRecipes;
+          })
+          .catch((err) => {
             console.error(err);
-        })
-    }
-}
-}
+          });
+      }else{
+          this.myFavoriteRecipes=this.$store.myFavorite;
+      }
+    },
+  },
+};
 </script>
 
- <style>
-
- </style>
+<style></style>

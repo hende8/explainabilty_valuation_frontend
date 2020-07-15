@@ -10,7 +10,11 @@
           :isFavorite="this.isFavorite"
         ></favoriteButton>
         <!-- <div v-if="this.$root.store.username && this.isWatch"> watch</div> -->
-        <img :src="recipe.imageURL" class="rounded mx-auto d-block" alt="Responsive image" />
+        <img
+          :src="recipe.imageURL"
+          class="rounded mx-auto d-block"
+          alt="Responsive image"
+        />
       </div>
       <div class="recipe-body">
         <div class="wrapper">
@@ -77,6 +81,8 @@ export default {
         // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
         if (this.$root.store.username) {
+          this.$store.lastWatch = undefined;
+
           let recipeIDArray = [this.$route.params.recipeId];
           let info = await this.axios.get(
             "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +

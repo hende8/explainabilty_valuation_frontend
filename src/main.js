@@ -92,6 +92,8 @@ const shared_data = {
     this.username = undefined;
     app_data.lastSearch=[];
     app_data.recipes=[];
+    app_data.lastWatch=undefined;
+    app_data.myFavorite=undefined;
   },
 };
 import {app_data} from "./assets/app_data";

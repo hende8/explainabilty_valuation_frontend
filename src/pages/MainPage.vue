@@ -7,10 +7,11 @@
           title="Explore these recipes"
           class="Recipes"
           :rerender="rerender"
+          :key="update"
         ></RecipePreviewList>
         <div style=" text-align:center;">
         <b-button   style=" width: 160px;" variant="outline-primary"
-          v-on:click="updateRandomRecipes()"
+          v-on:click="updateRandomRecipes"
           type="button" 
         >
           More
@@ -42,15 +43,15 @@ export default {
   data() {
     return {
       rerender: 0,
+      update:0
     };
   },
   methods: {
     setLogin() {
       this.rerender += 1;
-      console.log(this.login + "cheeeeeeeeeeeeeeck");
     },
     updateRandomRecipes(){
-      this.rerender+=1;
+      this.update+=1;
     }
   },
 };
