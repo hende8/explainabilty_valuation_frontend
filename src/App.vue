@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <NavBar>
-      </NavBar>
+      <NavBar> </NavBar>
       <!-- <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
       {{ !$root.store.username }}
@@ -26,17 +25,17 @@ export default {
   name: "App",
   methods: {
     Logout() {
-      $store.username=undefined;
+      $store.username = undefined;
       this.$root.toast("Logout", "User logged out successfully", "success");
 
       this.$router.push("/").catch(() => {
         this.$forceUpdate();
       });
-    }
+    },
   },
-  components:{
-    NavBar
-  }
+  components: {
+    NavBar,
+  },
 };
 </script>
 
@@ -49,6 +48,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   min-height: 100vh;
+  background-image: url("./assets/pic.jpg");
+  background-size: 100% 100%;
 }
 
 #nav {
