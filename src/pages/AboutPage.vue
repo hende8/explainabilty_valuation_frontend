@@ -21,7 +21,6 @@
 
         Some quick example text to build on the card and make up the bulk of the card's content.<br>
           <div class="mb-2">
-    <b-avatar variant="info" src="../assets/LinkedIn-Icon-squircle.png"></b-avatar>
   </div>
       </b-card-text>
     </b-card>
@@ -32,7 +31,6 @@
 
 A third-year student in the Department of Software and Information Systems Engineering at Ben-Gurion University</b-card-text><br> 
   <div class="mb-2">
-    <b-avatar variant="info" src="../assets/LinkedIn-Icon-squircle.png"></b-avatar>
   </div>
     </b-card>
   </div>

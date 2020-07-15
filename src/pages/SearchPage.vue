@@ -153,9 +153,9 @@ export default {
     async searchRecipes(req, response) {
       console.log(this.cusineChoose);
       try {
-        // let link =
-          // "https://assignment3-2-shiran-hen.herokuapp.com/recipes/search/query/";
-        let link = "http://localhost:3000/recipes/search/query/";
+        let link =
+          "https://assignment3-2-shiran-hen.herokuapp.com/recipes/search/query/";
+        // let link = "http://localhost:3000/recipes/search/query/";
 
         link += this.search + "/number/" + this.numberOfResults.toString();
         console.log(this.cusineChoose);

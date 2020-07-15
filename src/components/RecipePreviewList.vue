@@ -1,25 +1,25 @@
 <template>
-  <div class="split left">
-    <h3>
+  <div  >
+    <h3 style=" text-align:center;">
       {{ title }}:
       <slot></slot>
     </h3>
-    <div v-if="!this.recipes" class="d-flex align-items-center">
+    <div v-if="!this.recipes" style=" text-align:center;" >
       <strong>Loading...</strong>
       <!-- <b-spinner class="ml-auto"></b-spinner> -->
     </div>
     <b-row v-for="r in this.recipes" :key="r.id">
       <!-- <b-col > -->
-      <RecipePreview class="recipePreview" :recipe="r"></RecipePreview>
+      <RecipePreview class="recipePreview" :recipe="r" :key="render"></RecipePreview>
       <!-- </b-col> -->
     </b-row>
-    <button
+    <!-- <button
       v-if="buttonAction"
       v-on:click="updateRandomRecipes()"
       type="button"
     >
       random
-    </button>
+    </button> -->
   </div>
 </template>
 
@@ -39,11 +39,15 @@ export default {
       type: String,
       required: true,
     },
+    rerender:{
+      type: Number
+    }
   },
   data() {
     return {
       recipes: null,
       buttonAction: true,
+      render:0
     };
   },
   async mounted() {
@@ -65,7 +69,7 @@ export default {
             recipeID: 635350,
             imageURL: "https://spoonacular.com/recipeImages/635350-556x370.jpg",
             name: "Blue Cheese Burgers",
-            cookingDuration: 1001,
+            cookingDuration: 45,
             likes: 7,
             isVegeterian: false,
             isVegan: false,
@@ -90,6 +94,7 @@ export default {
         if (this.$root.store.username) {
           await this.getUserInformation(recipes);
         } else {
+          recipes.map((x)=> {x.isFavorite=false;})
           this.recipes = [];
           this.recipes.push(...recipes);
         }
@@ -139,6 +144,16 @@ export default {
       this.recipes.push(...newRecipes);
     },
   },
+  watch:{
+    rerender: async function(){
+      console.log("shiraaam");
+      await this.getUserInformation(this.recipes) 
+           console.log(this.recipes)
+
+      this.render+=1;
+ 
+        }
+  }
 };
 </script>
 

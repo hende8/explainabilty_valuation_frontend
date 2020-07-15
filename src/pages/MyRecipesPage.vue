@@ -3,7 +3,7 @@
     <h1 style="text-align:center;">My Recipes</h1>
     <b-row cols ="3">
         <b-col v-for="item in myRecipes" :key="item.recipeID">
-          <RecipePreviewInternal class="recipePreview" :recipe="item" />
+          <RecipePreviewInternal  class="recipePreview" :recipe="item" />
         </b-col>
     </b-row>
           

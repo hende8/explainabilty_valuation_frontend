@@ -31,10 +31,6 @@ export default {
       required: true
     }
   },
-  methods:{
-
-
-  }
 };
 </script>
 

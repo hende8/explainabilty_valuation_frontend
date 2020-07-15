@@ -11,15 +11,15 @@
       <b-row>
         <b-col>
           <b-icon
-            v-if="recipe.isWatch && this.$root.store.username"
-            icon="eye-fill" 
+            v-if="recipe.isWatch && this.$root.store.username && !isInternal"
+            icon="eye-fill"
           ></b-icon>
         </b-col>
         <br />
         <div class="divider" />
         <b-col>
           <favoriteButton
-            v-if="this.$root.store.username"
+            v-if="this.$root.store.username && !isInternal"
             :isFavorite="recipe.isFavorite"
             :recipeID="recipe.recipeID"
           ></favoriteButton>
@@ -58,16 +58,23 @@ import favoriteButton from "./favoriteButton.vue";
 export default {
   components: {
     favoriteButton,
+
   },
   props: {
     recipe: {
       type: Object,
       required: true,
     },
+    isInternal:{
+      type:Boolean,
+      default: false
+    }
   },
   mounted() {
     console.log("dbfjshdbcjhscjhsdc     " + this.recipe.isWatch);
   },
+
+  
 };
 </script>
 
