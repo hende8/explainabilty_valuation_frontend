@@ -11,7 +11,7 @@
       <b-row>
         <b-col>
           <b-icon
-            v-if="recipe.isWatch && this.$root.store.username"
+            v-if="recipe.isWatch && this.$root.store.username && !isInternal"
             icon="eye-fill"
           ></b-icon>
         </b-col>
@@ -19,7 +19,7 @@
         <div class="divider" />
         <b-col>
           <favoriteButton
-            v-if="this.$root.store.username"
+            v-if="this.$root.store.username && !isInternal"
             :isFavorite="recipe.isFavorite"
             :recipeID="recipe.recipeID"
           ></favoriteButton>
@@ -31,16 +31,14 @@
         <div class="recipe-footer">
           <div :title="recipe.name" class="card-title">{{ recipe.name }}</div>
           <ul class="card-text">
-            <b-row>
-              <b-icon icon="clock" variant="dark"></b-icon>
-              {{recipe.cookingDuration }}
-              minutes</b-row
-            >
-            <b-row>
-              <b-icon icon="hand-thumbs-up" variant="dark"></b-icon>
-              {{ recipe.likes }}
-              likes</b-row
-            >
+            <li>
+              <!-- <img src="../assets/time.png" class="recipe-info-icon" /> -->
+              {{ recipe.cookingDuration }} minutes
+            </li>
+            <li v-if="!isInternal">
+              <!-- <img src="../assets/like.png" class="recipe-info-icon" /> -->
+              {{ recipe.likes }} likes
+            </li>
             <li v-if="recipe.isVegeterian">vegeterian</li>
             <li v-if="recipe.isVegan">vegan</li>
             <li v-if="recipe.isGluten">gluten free</li>
@@ -58,16 +56,23 @@ import favoriteButton from "./favoriteButton.vue";
 export default {
   components: {
     favoriteButton,
+
   },
   props: {
     recipe: {
       type: Object,
       required: true,
     },
+    isInternal:{
+      type:Boolean,
+      default: false
+    }
   },
   mounted() {
     console.log("dbfjshdbcjhscjhsdc     " + this.recipe.isWatch);
   },
+
+  
 };
 </script>
 

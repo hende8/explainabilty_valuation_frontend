@@ -103,7 +103,10 @@ export default {
         this.$root.store.login(this.form.username);
         this.$root.$emit("loginUserNavBar", this.form.username);
         this.$emit("login");
-        this.$router.push("/").catch();
+        if(this.$route.path!=="/"){
+        this.$router.push("/");
+
+        }
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;

@@ -1,12 +1,30 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div  class="col-lg-6">
-        <RecipePreviewList action="random" title="Explore these recipes" class="Recipes"></RecipePreviewList>
+      <div class="col-lg-6">
+        <RecipePreviewList
+          action="random"
+          title="Explore these recipes"
+          class="Recipes"
+          :rerender="rerender"
+        ></RecipePreviewList>
+        <div style=" text-align:center;">
+        <b-button   style=" width: 160px;" variant="outline-primary"
+          v-on:click="updateRandomRecipes()"
+          type="button" 
+        >
+          More
+        </b-button>
+        </div>
       </div>
-      <div  class="col-lg-6">
-        <LoginPage v-if="!$root.store.username" class="login"></LoginPage>
-        <RecipePreviewList v-else action="lastView" title="Last Viewed Recipes" class="Recipes"></RecipePreviewList>
+      <div class="col-lg-6">
+        <LoginPage v-if="!$root.store.username" v-on:login= "setLogin" class="login"></LoginPage>
+        <RecipePreviewList
+          v-else
+          action="lastView"
+          title="Last Viewed Recipes"
+          class="Recipes"
+        ></RecipePreviewList>
       </div>
     </div>
   </div>
@@ -19,20 +37,22 @@ import LoginPage from "./LoginPage.vue";
 export default {
   components: {
     RecipePreviewList,
-    LoginPage
+    LoginPage,
   },
-  data(){
-    return{
-      rerender:0
-    }
+  data() {
+    return {
+      rerender: 0,
+    };
   },
-  methods:{
-    setLogin(){
+  methods: {
+    setLogin() {
+      this.rerender += 1;
+      console.log(this.login + "cheeeeeeeeeeeeeeck");
+    },
+    updateRandomRecipes(){
       this.rerender+=1;
-      console.log(this.login+ "cheeeeeeeeeeeeeeck")
-      
     }
-  }
+  },
 };
 </script>
 

@@ -1,9 +1,9 @@
 <template>
   <div class="container" >
-    <h1 class="title">My Recipes</h1>
+    <h1 class="title"  >My Recipes</h1>
     <b-row cols ="3">
         <b-col v-for="item in myRecipes" :key="item.recipeID">
-          <RecipePreviewInternal class="recipePreview" :recipe="item" />
+          <RecipePreview isInternal="true" class="recipePreview" :recipe="item" />
         </b-col>
     </b-row>
           
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import RecipePreviewInternal from "../components/RecipePreviewInternal";
+import RecipePreview from "../components/RecipePreview";
 
 export default {
 data(){
@@ -22,7 +22,7 @@ data(){
 },
 components:
 {
-RecipePreviewInternal
+RecipePreview
 },
 mounted(){
 // getMyRecipes();
