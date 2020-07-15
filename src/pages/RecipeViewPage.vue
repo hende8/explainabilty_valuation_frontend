@@ -3,13 +3,14 @@
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.name }}</h1>
+
         <favoriteButton
           v-if="this.$root.store.username"
           :recipeID="recipe.recipeID"
           :isFavorite="this.isFavorite"
         ></favoriteButton>
         <!-- <div v-if="this.$root.store.username && this.isWatch"> watch</div> -->
-        <img :src="recipe.imageURL" class="center" />
+        <img :src="recipe.imageURL" class="rounded mx-auto d-block" alt="Responsive image" />
       </div>
       <div class="recipe-body">
         <div class="wrapper">
@@ -93,12 +94,15 @@ export default {
       let {
         // analyzedInstructions,
         recipeID,
-        instructions,
-        ingredients,
-        likes,
-        cookingDuration,
         imageURL,
         name,
+        cookingDuration,
+        likes,
+        isVegeterian,
+        isVegan,
+        isGluten,
+        ingredients,
+        instructions,
         dishes,
       } = response.data;
 
@@ -111,15 +115,15 @@ export default {
 
       let _recipe = {
         recipeID,
-        instructions,
-        ingredients,
-        // _instructions,
-        // analyzedInstructions,
-        // extendedIngredients,
-        likes,
-        cookingDuration,
         imageURL,
         name,
+        cookingDuration,
+        likes,
+        isVegeterian,
+        isVegan,
+        isGluten,
+        ingredients,
+        instructions,
         dishes,
       };
 

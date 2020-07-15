@@ -10,10 +10,13 @@
     <div class="card-body">
       <b-row>
         <b-col>
-          <div v-if="recipe.isWatch && this.$root.store.username">
-            <b-icon icon="eye-fill"></b-icon>
-          </div>
+          <b-icon
+            v-if="recipe.isWatch && this.$root.store.username"
+            icon="eye-fill" 
+          ></b-icon>
         </b-col>
+        <br />
+        <div class="divider" />
         <b-col>
           <favoriteButton
             v-if="this.$root.store.username"
@@ -28,14 +31,16 @@
         <div class="recipe-footer">
           <div :title="recipe.name" class="card-title">{{ recipe.name }}</div>
           <ul class="card-text">
-            <li>
-              <!-- <img src="../assets/time.png" class="recipe-info-icon" /> -->
-              {{ recipe.cookingDuration }} minutes
-            </li>
-            <li v-if="recipe.likes">
-              <!-- <img src="../assets/like.png" class="recipe-info-icon" /> -->
-              {{ recipe.likes }} likes
-            </li>
+            <b-row>
+              <b-icon icon="clock" variant="dark" style="margin-right:15px"></b-icon>
+              {{recipe.cookingDuration }}
+              minutes</b-row
+            >
+            <b-row>
+              <b-icon icon="hand-thumbs-up" variant="dark" style="margin-right:15px"></b-icon>
+              {{ recipe.likes }}
+              likes</b-row
+            >
             <li v-if="recipe.isVegeterian">vegeterian</li>
             <li v-if="recipe.isVegan">vegan</li>
             <li v-if="recipe.isGluten">gluten free</li>
@@ -52,21 +57,25 @@
 import favoriteButton from "./favoriteButton.vue";
 export default {
   components: {
-    favoriteButton
+    favoriteButton,
   },
   props: {
     recipe: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
-  mounted(){
-    console.log("dbfjshdbcjhscjhsdc     "+ this.recipe.isWatch);
-  }
+  mounted() {
+    console.log("dbfjshdbcjhscjhsdc     " + this.recipe.isWatch);
+  },
 };
 </script>
 
 <style scoped>
+.divider {
+  display: inline-block;
+  margin-right: 10em;
+}
 .card {
   margin: 0 auto; /* Added */
   float: none; /* Added */

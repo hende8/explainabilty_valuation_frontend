@@ -52,8 +52,6 @@ export default {
              console.log("log out button pushed")
              this.username=null;
             this.$root.store.logout(this.username);
-            this.$store.lastSearch= null;
-
 
          }
     },

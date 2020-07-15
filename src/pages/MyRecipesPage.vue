@@ -1,11 +1,11 @@
 <template>
   <div class="container" >
-    <h1 class="title">My Recipes</h1>
-    <b-col cols ="3">
-        <b-row v-for="item in myRecipes" :key="item.recipeID">
+    <h1 style="text-align:center;">My Recipes</h1>
+    <b-row cols ="3">
+        <b-col v-for="item in myRecipes" :key="item.recipeID">
           <RecipePreviewInternal class="recipePreview" :recipe="item" />
-        </b-row>
-    </b-col>
+        </b-col>
+    </b-row>
           
 
  </div>
@@ -39,7 +39,7 @@ mounted(){
             // })
             this.$store.recipes=dict;
             console.log(this.$store);
-
+            console.log(this.myRecipes);
         }).catch((err)=>{
             console.error(err);
         })

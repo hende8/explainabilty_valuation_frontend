@@ -156,7 +156,7 @@
         label="Upload profile picture:"
         label-for="confirmedPassword"
         >
-              <img id="myImg" width="107" height="98">
+            <img id="myImg" width="107" height="98">   <b-icon icon="cloud-upload" variant="dark" style="margin-left:10px;width: 50px; height: 50px;margin-top:10px"></b-icon>
 
         <input
           id="ProfilePicture"

@@ -29,7 +29,8 @@ import {
   LayoutPlugin,
   IconsPlugin,
   SpinnerPlugin,
-  FormRadioPlugin
+  FormRadioPlugin,
+  ListGroupPlugin
  
 } from "bootstrap-vue";
 [
@@ -45,7 +46,8 @@ import {
   LayoutPlugin,
   IconsPlugin,
   SpinnerPlugin ,
-  FormRadioPlugin
+  FormRadioPlugin,
+  ListGroupPlugin
 
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
