@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <h3 style=" text-align:center;">
       {{ title }}:
       <slot></slot>
@@ -10,8 +10,8 @@
     </div>
     <b-row v-for="r in this.recipes" :key="r.id">
       <!-- <b-col > -->
-      <RecipePreview
-        class="recipePreview"
+      <RecipePreview 
+        class="p"
         :recipe="r"
         :key="render"
       ></RecipePreview>
@@ -170,6 +170,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// .p{
+//   background-image: url("../assets/bgbody.jpg");
+// }
 // .container {
 //   min-height: 400px;
 // }

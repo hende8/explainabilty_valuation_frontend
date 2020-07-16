@@ -1,5 +1,5 @@
 <template>
-  <div class="card" style="width: 20rem;">
+  <div class="card" style="width: 20rem;  ">
     <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.recipeID } }"
     >
@@ -105,12 +105,14 @@ export default {
 .divider {
   display: inline-block;
   margin-right: 10em;
+  
 }
 .card {
   margin: 0 auto; /* Added */
   float: none; /* Added */
   margin-bottom: 10px; /* Added */
 }
+
 /* .recipe-preview {
   display: inline-block;
   width: 90%;
