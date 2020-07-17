@@ -5,9 +5,9 @@
     style="width: 20rem;"
   >
     <div class="recipe-body">
-      <img :src="recipe.imageURL" class="card-img-top" />
+      <img :src="recipe.imageURL" class="card-img-top" style="max-width:318px; min-width:318px max-height:230px; min-height:230px" />
     </div>
-    <div class="card-body">
+    <div class="card-body" style="max-height:200px; min-height:200px" >
       <div class="recipe-footer">
         <div :title="recipe.name" class="card-title">{{ recipe.name }}</div>
         <ul class="card-text">

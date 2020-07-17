@@ -1,22 +1,22 @@
 <template>
-  <div >
-    <h1 style=" text-align:center;   color:whitesmoke;">
+  <div > 
+    <h1  style=" text-align:center;  color:whitesmoke;">
       {{ title }}:
       <slot></slot>
     </h1>
-    <div v-if="!this.recipes" style=" text-align:center;">
+    <div v-if="this.recipes== null"  style=" text-align:center;  color:whitesmoke;">
       <strong style="color:whitesmoke; ">Loading...</strong>
       <!-- <b-spinner class="ml-auto"></b-spinner> -->
     </div>
-    <b-row v-for="r in this.recipes" :key="r.id">
+    <h3 v-if="this.recipes==false"  style=" text-align:center;  color:whitesmoke;"> No watched recipes</h3>
+    <div v-else >
+    <b-row  v-for="r in this.recipes" :key="r.id">
       <!-- <b-col > -->
-      <RecipePreview 
-        class="p"
-        :recipe="r"
-        :key="render"
-      ></RecipePreview>
+      <RecipePreview class="p" :recipe="r" :key="render"></RecipePreview>
       <!-- </b-col> -->
     </b-row>
+    </div>
+    
     <!-- <button
       v-if="buttonAction"
       v-on:click="updateRandomRecipes()"
@@ -120,12 +120,19 @@ export default {
           );
 
           recipes = response.data;
-          this.$store.lastWatch = recipes;
+          if (recipes.length !== 0) {
+            this.$store.lastWatch = recipes;
+          }
         } else {
           recipes = this.$store.lastWatch;
         }
 
-        this.getUserInformation(recipes);
+        if (recipes.length!==0) {
+          this.getUserInformation(recipes);
+        }else{
+          this.recipes=false;
+        }
+
         // this.recipes = [];
         // this.recipes.push(...recipes);
 
@@ -144,8 +151,7 @@ export default {
       //     JSON.stringify(recipeIDArray)
       // );
       let info = await this.axios.get(
-        "http://localhost:3000/user/search/" +
-          JSON.stringify(recipeIDArray)
+        "http://localhost:3000/user/search/" + JSON.stringify(recipeIDArray)
       );
       let newRecipes = [];
       info.data.forEach((element) => {

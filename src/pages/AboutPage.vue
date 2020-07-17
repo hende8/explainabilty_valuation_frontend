@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 align="center" style="color: whitesmoke">About</h1>
-    <h3 style="color:white;" align="center">
+    <h5 style="color:white;" align="center">
       <b>HAPPY RECIPES</b> started in the spring of 2020. Two hungy friends had a vision:
       <br />Spread
       <b>HAPPY COOCKING</b> by the students of Ben-Gurion University.
@@ -32,7 +32,7 @@
       <br />
       <br />
       <br />
-    </h3>
+    </h5>
     <h1 align="center" style="color: whitesmoke">The Crew</h1><br>
     <br />
     <div align="center" class="container">

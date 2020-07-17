@@ -21,11 +21,12 @@
           </b-button>
         </div>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-6" style="  margin: 10px 0 10px;">
         <LoginPage
           v-if="!$root.store.username"
           v-on:login="setLogin"
           class="login"
+     
         ></LoginPage>
         <RecipePreviewList
           v-else
