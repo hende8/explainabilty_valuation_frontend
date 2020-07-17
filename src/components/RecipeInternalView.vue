@@ -1,7 +1,7 @@
 <template>
   <div>
 
-  <b-card no-body class="overflow-hidden" style="max-width: 90%;left:5%;right:8%">
+  <b-card no-body class="overflow-hidden" style="max-width: 90%;">
     <b-row no-gutters>
       <b-col md="6">
         <b-card-img :src="recipe.imageURL" alt="Image" class="rounded-0"></b-card-img>

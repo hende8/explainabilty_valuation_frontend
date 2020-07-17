@@ -1,7 +1,7 @@
 <template>
   <div class="center" style="width: 90%;">
     <div v-if="recipe">
-      <b-card no-body class="overflow-hidden">
+      <b-card no-body class="overflow-hidden" >
         <b-row no-gutters>
           <b-col md="6">
             <b-card-img :src="recipe.imageURL" alt="Image" class="rounded-0" ></b-card-img>
@@ -184,6 +184,7 @@ export default {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+   /* background-color: rgba(60, 19, 224, 0.075); */
 }
 /* .recipe-header{
 

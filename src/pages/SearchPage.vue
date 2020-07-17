@@ -1,7 +1,7 @@
 <template>
-  <div class="container" style="color:whitesmoke;" >
+  <div class="container" style="color:whitesmoke; " >
     <h1 class="title" style=" text-align:center; ">Search</h1>
-    <b-navbar type="light" variant="light">
+    <b-navbar>
       <b-nav-form>
         <b-row class="my-1">
           <b-col md="9">
