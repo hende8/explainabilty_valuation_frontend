@@ -1,7 +1,12 @@
 <template>
-  <div class="container" >
+  <div class="container">
     <h1 class="title">Search</h1>
-    <b-navbar type="light" variant="light">
+    <b-navbar
+      type="light"
+      variant="light"
+      style="border-radius: 25px;  width: 1100px;height: 200px;   background-color: transparent;
+"
+    >
       <b-nav-form>
         <b-row class="my-1">
           <b-col md="9">
@@ -11,63 +16,79 @@
               placeholder="Search"
               label-for="search"
               type="text"
-              style="margin-right:5px"
+              style="margin-right:14px;width:500px"
               :state="validateState('search')"
               size="lg"
             ></b-form-input>
             <b-form-invalid-feedback v-if="$v.form.search.length"></b-form-invalid-feedback>
           </b-col>
         </b-row>
-        <b-dropdown id ="numResult" class="mr-sm-2" style="width:120px" :text="buttonTitle">
+        <lable style="margin-right: 10px;">
+          <b>Number of result:</b>
+        </lable>
+        <b-dropdown id="numResult" class="mr-sm-2" style="width:85px;" :text="buttonTitle">
           <b-dropdown-item @click="numResult('5')">5</b-dropdown-item>
           <b-dropdown-item @click="numResult('10')">10</b-dropdown-item>
           <b-dropdown-item @click="numResult('15')">15</b-dropdown-item>
         </b-dropdown>
-        
+        <br />
+        <br />
+        <br />
+        <br />
         <b-row>
-        <b-form-group class="mr-sm-2" label="Cusines:" label-for="Cusines">
-          <b-form-select
-            id="cusineChoose"
-            v-model="cusineChoose"
-            :options="cusines"
-            v-on:change="cusinesSelected"
-
-          ></b-form-select>
-        </b-form-group>
-        <b-form-group
-          class="mr-sm-2"
-          label="Intolerances: "
-          label-for="Intolerances"
-        >
-          <b-form-select
-            v-model="intolerancesChoose"
-            id="intolerances"
-            :options="intolerances"
-            v-on:change="intolerancesSelected"
-          ></b-form-select>
-        </b-form-group>
-        <b-form-group label="Diet:" label-for="Diet">
-          <b-form-select
-            v-model="dietChoose"
-            id="diets"
-            :options="diets"
-            v-on:change="dietSelected"
-          ></b-form-select>
-        </b-form-group>
+          <b>
+            <b-form-group
+              class="mr-sm-2"
+              label="Cusines:"
+              label-for="Cusines"
+              style="margin-left:16px;"
+            >
+              <b-form-select
+                id="cusineChoose"
+                v-model="cusineChoose"
+                :options="cusines"
+                v-on:change="cusinesSelected"
+                style="margin-right: 32px;margin-left: 10px;"
+              ></b-form-select>
+            </b-form-group>
+          </b>
+          <b>
+            <b-form-group class="mr-sm-2" label="Intolerances: " label-for="Intolerances">
+              <b-form-select
+                v-model="intolerancesChoose"
+                id="intolerances"
+                :options="intolerances"
+                v-on:change="intolerancesSelected"
+                style="margin-right: 32px;margin-left: 10px;"
+              ></b-form-select>
+            </b-form-group>
+          </b>
+          <b>
+            <b-form-group label="Diet:" label-for="Diet">
+              <b-form-select
+                v-model="dietChoose"
+                id="diets"
+                :options="diets"
+                v-on:change="dietSelected"
+                style="margin-right: 32px;margin-left: 10px;"
+              ></b-form-select>
+            </b-form-group>
+          </b>
         </b-row>
       </b-nav-form>
-              
+
       <b-button
-            variant="primary"
+        variant="primary"
         class="my-2 my-sm-4"
         type="submit"
         @click="onSearch"
+        style="width:150px;height:60px;margin-right:110px; "
       >Search</b-button>
     </b-navbar>
     <div>
       <b-row cols="3" v-if="hasLastSearch && !this.hasResult">
         <b-col v-for="item in lastSearchResults" :key="item.recipeID">
-          <RecipePreview class="recipePreview" :recipe="item" />
+          <RecipePreview class="cardSearch" :recipe="item" style="margin-top: 16px;" />
         </b-col>
       </b-row>
     </div>
@@ -79,18 +100,16 @@
             @change.native="sortByPopularity($event)"
             value="Popularity"
             name="some-radios"
-            >Popularity</b-form-radio
-          >
+          >Popularity</b-form-radio>
           <b-form-radio
             @change.native="sortByCookingDuration($event)"
             value="duration"
             name="some-radios"
-            >Cooking duration</b-form-radio
-          >
+          >Cooking duration</b-form-radio>
         </b-form-group>
         <b-row cols="3">
           <b-col v-for="item in results" :key="item.recipeID">
-            <RecipePreview class="recipePreview" :recipe="item" />
+            <RecipePreview class="cardSearch" :recipe="item" style="margin-top: 16px;" />
           </b-col>
         </b-row>
       </b-row>
@@ -107,7 +126,7 @@ export default {
   data() {
     return {
       form: {
-        search: "",
+        search: ""
       },
       search: "",
       numberOfResults: 5,
@@ -122,7 +141,7 @@ export default {
       dietChoose: "",
       intolerancesChoose: "",
       notFoundRecipes: false,
-      buttonTitle:"5"
+      buttonTitle: "5"
     };
   },
   validations: {
@@ -131,11 +150,11 @@ export default {
         required,
         length: u => minLength(1)(u),
         alpha
-      },
+      }
     }
   },
   components: {
-    RecipePreview,
+    RecipePreview
   },
   async mounted() {
     // if (sessionStorage.getItem("lastSearch")) this.hasLastSearch = true;
@@ -169,8 +188,8 @@ export default {
           params: {
             cuisine: this.cusineChoose,
             intolerances: this.intolerancesChoose,
-            diet: this.dietChoose,
-          },
+            diet: this.dietChoose
+          }
         });
       } catch (err) {
         console.log(err);
@@ -239,7 +258,7 @@ export default {
       if (this.$v.form.$anyError) {
         return;
       }
-      this.search=this.form.search;
+      this.search = this.form.search;
       this.searchRecipes();
     },
 
@@ -256,13 +275,12 @@ export default {
     setResults(data) {
       if (data.length > 0) {
         this.results = data;
-        if(this.$root.store.username){
-        this.hasResult = true;
-        this.$store.lastSearch = data;
-        // sessionStorage.setItem("lastSearch", JSON.stringify(data));
-        this.hasLastSearch = true;
+        if (this.$root.store.username) {
+          this.hasResult = true;
+          this.$store.lastSearch = data;
+          // sessionStorage.setItem("lastSearch", JSON.stringify(data));
+          this.hasLastSearch = true;
         }
-
       } else {
         this.hasResult = false;
         this.hasLastSearch = false;
@@ -299,22 +317,26 @@ export default {
     },
     async getUserInformation(recipes) {
       let recipeIDArray = [];
-      recipes.map((x) => recipeIDArray.push(x.recipeID));
+      recipes.map(x => recipeIDArray.push(x.recipeID));
       console.log(recipeIDArray);
       let info = await this.axios.get(
         // "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +
-        "http://localhost:3000/user/search/" +
-          JSON.stringify(recipeIDArray)
+        "http://localhost:3000/user/search/" + JSON.stringify(recipeIDArray)
       );
       let newRecipes = [];
-      info.data.forEach((element) => {
-        let recipe = recipes.find((el) => el.recipeID == element.recipeID);
+      info.data.forEach(element => {
+        let recipe = recipes.find(el => el.recipeID == element.recipeID);
         recipe.isWatch = element.isWatch;
         recipe.isFavorite = element.isFavorite;
         newRecipes.push(recipe);
       });
       return newRecipes;
-    },
-  },
+    }
+  }
 };
 </script>
+<style>
+.cardSearch:hover {
+  transform: scale(1.13);
+}
+</style>
