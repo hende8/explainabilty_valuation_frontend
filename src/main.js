@@ -91,9 +91,10 @@ const shared_data = {
     localStorage.removeItem("username");
     this.username = undefined;
     app_data.lastSearch=[];
-    app_data.recipes=[];
+    app_data.recipes=undefined;
     app_data.lastWatch=undefined;
     app_data.myFavorite=undefined;
+    app_data.myFamily=undefined;
   },
 };
 import {app_data} from "./assets/app_data";

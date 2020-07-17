@@ -4,10 +4,10 @@
       :to="{ name: 'recipe', params: { recipeId: recipe.recipeID } }"
     >
       <div class="recipe-body">
-        <img :src="recipe.imageURL" class="card-img-top" />
+        <img :src="recipe.imageURL" class="card-img-top" style="max-width:318px; min-width:318px max-height:230px; min-height:230px"/>
       </div>
     </router-link>
-    <div class="card-body">
+    <div class="card-body" style="max-height:230px; min-height:230px">
       <b-row>
         <b-col>
           <b-icon
