@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="center" style="width: 90%;">
     <div v-if="recipe">
-      <b-card no-body class="overflow-hidden" style="width: 100%;">
+      <b-card no-body class="overflow-hidden">
         <b-row no-gutters>
           <b-col md="6">
             <b-card-img :src="recipe.imageURL" alt="Image" class="rounded-0"></b-card-img>
@@ -188,4 +188,7 @@ export default {
 /* .recipe-header{
 
 } */
+.container{
+filter: blur(8px);
+}
 </style>

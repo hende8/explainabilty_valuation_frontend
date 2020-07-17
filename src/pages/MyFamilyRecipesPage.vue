@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 style="text-align:center;">My Family Recipes</h1><br>
+    <h1 style="text-align:center; color:whitesmoke;">My Family Recipes</h1><br>
     <b-col cols ="5">
         <b-row v-for="(item) in this.myFamilyRecipes" :key="item.recipeID">
           <RecipeFamilyPreview class="recipePreview" :recipe="item" />

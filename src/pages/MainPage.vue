@@ -10,17 +10,23 @@
           :key="update"
         ></RecipePreviewList>
         <div style="text-align:center;">
-        <b-button           variant="outline-success"
-        class="my-2 my-sm-4" style=" width: 160px;" 
-          v-on:click="updateRandomRecipes()"
-          type="button" 
-        >
-          <b>More</b>
-        </b-button>
+          <b-button
+            variant="primary"
+            class="my-2 my-sm-4"
+            style=" width: 160px;"
+            v-on:click="updateRandomRecipes()"
+            type="button"
+          >
+            <b>More</b>
+          </b-button>
         </div>
       </div>
       <div class="col-lg-6">
-        <LoginPage v-if="!$root.store.username" v-on:login= "setLogin" class="login"></LoginPage>
+        <LoginPage
+          v-if="!$root.store.username"
+          v-on:login="setLogin"
+          class="login"
+        ></LoginPage>
         <RecipePreviewList
           v-else
           action="lastView"
@@ -44,16 +50,16 @@ export default {
   data() {
     return {
       rerender: 0,
-      update:0
+      update: 0,
     };
   },
   methods: {
     setLogin() {
       this.rerender += 1;
     },
-    updateRandomRecipes(){
-      this.update+=1;
-    }
+    updateRandomRecipes() {
+      this.update += 1;
+    },
   },
 };
 </script>

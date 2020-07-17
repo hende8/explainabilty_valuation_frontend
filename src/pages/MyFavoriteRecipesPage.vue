@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container" style=" color:whitesmoke;">
     <h1 style="text-align:center;">My Favorite Recipes</h1>
     <b-row cols="3">
       <b-col v-for="item in this.myFavoriteRecipes" :key="item.recipeID">

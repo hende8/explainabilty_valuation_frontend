@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" >
     <h1 class="title">Search</h1>
     <b-navbar type="light" variant="light">
       <b-nav-form>
@@ -58,7 +58,7 @@
       </b-nav-form>
               
       <b-button
-        variant="outline-success"
+            variant="primary"
         class="my-2 my-sm-4"
         type="submit"
         @click="onSearch"
@@ -73,7 +73,7 @@
     </div>
 
     <div>
-      <b-row v-if="this.hasResult">
+      <b-row v-if="this.hasResult" style=" color:whitesmoke;">
         <b-form-group label="Sort by:">
           <b-form-radio
             @change.native="sortByPopularity($event)"
@@ -122,7 +122,7 @@ export default {
       dietChoose: "",
       intolerancesChoose: "",
       notFoundRecipes: false,
-      buttonTitle:"No. results"
+      buttonTitle:"5"
     };
   },
   validations: {

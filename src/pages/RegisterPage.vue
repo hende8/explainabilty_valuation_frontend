@@ -355,5 +355,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 500px;
+  height: 50%;
+  color:whitesmoke;
 }
 </style>

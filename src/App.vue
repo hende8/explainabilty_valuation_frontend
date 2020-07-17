@@ -48,8 +48,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   min-height: 100vh;
-  background-image: url("./assets/pic.jpg");
+  background-image: url("./assets/pic5.jpg");
   background-size: 100% 100%;
+
 }
 
 #nav {
@@ -64,4 +65,5 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
 </style>

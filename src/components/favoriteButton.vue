@@ -45,8 +45,8 @@ export default {
   methods: {
     async addToMyFavorite() {
       let response = this.axios.post(
-        // "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes",
         "http://localhost:3000/user/myFavoriteRecipes",
+        // "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes",
         {
           recipeID: this.recipeID,
         }
