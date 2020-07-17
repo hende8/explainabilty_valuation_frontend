@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 align="center">About</h1>
+    <h1 align="center" style="color: whitesmoke">About</h1>
   <b-card align="center">
     <b-card-text>
         <b>HAPPY RECIPES</b> started in the spring of 2020. Two hungy friends had a vision:<br>
@@ -52,5 +52,9 @@ data(){
 </script>
 
  <style>
-
+/* .container {
+  max-width: 500px;
+  height: 50%;
+  color:whitesmoke;
+} */
  </style>

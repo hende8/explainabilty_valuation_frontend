@@ -1,11 +1,11 @@
 <template>
   <div >
-    <h3 style=" text-align:center;">
+    <h1 style=" text-align:center;   color:whitesmoke;">
       {{ title }}:
       <slot></slot>
-    </h3>
+    </h1>
     <div v-if="!this.recipes" style=" text-align:center;">
-      <strong>Loading...</strong>
+      <strong style="color:whitesmoke; ">Loading...</strong>
       <!-- <b-spinner class="ml-auto"></b-spinner> -->
     </div>
     <b-row v-for="r in this.recipes" :key="r.id">
@@ -65,9 +65,9 @@ export default {
   methods: {
     async updateRandomRecipes() {
       try {
-      //   const response = await this.axios.get(
-      //     "https://assignment3-2-shiran-hen.herokuapp.com/recipes/randomRecipes"
-      //   );
+        // const response = await this.axios.get(
+        //   "http://localhost:3000/recipes/randomRecipes"
+        // );
         let recipes = [
           {
             recipeID: 635350,
@@ -115,10 +115,9 @@ export default {
         let recipes = [];
         if (!this.$store.lastWatch) {
           const response = await this.axios.get(
-            "https://assignment3-2-shiran-hen.herokuapp.com/user/myWatch"
+            // "https://assignment3-2-shiran-hen.herokuapp.com/user/myWatch"
+            "http://localhost:3000/user/myWatch"
           );
-
-          // console.log(response);
 
           recipes = response.data;
           this.$store.lastWatch = recipes;
@@ -140,8 +139,12 @@ export default {
       let recipeIDArray = [];
       recipes.map((x) => recipeIDArray.push(x.recipeID));
       console.log(recipeIDArray);
+      // let info = await this.axios.get(
+      //   "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +
+      //     JSON.stringify(recipeIDArray)
+      // );
       let info = await this.axios.get(
-        "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +
+        "http://localhost:3000/user/search/" +
           JSON.stringify(recipeIDArray)
       );
       let newRecipes = [];

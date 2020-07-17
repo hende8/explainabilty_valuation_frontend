@@ -1,71 +1,72 @@
 <template>
-  <div class="container">
+  <div class="center" style="width: 90%;">
     <div v-if="recipe">
-      <div class="recipe-header mt-3 mb-4">
-        <h1>{{ recipe.name }}</h1>
-
-        <favoriteButton
-          v-if="this.$root.store.username"
-          :recipeID="recipe.recipeID"
-          :isFavorite="this.isFavorite"
-        ></favoriteButton>
-        <!-- <div v-if="this.$root.store.username && this.isWatch"> watch</div> -->
-        <img
-          :src="recipe.imageURL"
-          class="rounded mx-auto d-block"
-          alt="Responsive image"
-        />
-      </div>
-      <div class="recipe-body">
-        <div class="wrapper">
-          <div class="wrapped">
-            <div class="mb-3">
-              <div>Ready in {{ recipe.cookingDuration }} minutes</div>
-              <div>Likes: {{ recipe.likes }} likes</div>
-              <div v-if="recipe.isVegeterian">vegeterian</div>
-              <div v-if="recipe.isVegan">vegan</div>
-              <div v-if="recipe.isGluten">gluten free</div>
-            </div>
-            Ingredients:
-            <ul>
-              <li
-                v-for="(r, index) in recipe.ingredients"
-                :key="index + '_' + r.id"
-              >
-                {{ r.name }} : {{ r.qauntity }} {{ r.unit }}
-              </li>
-            </ul>
-
-            <div>
-              Instructions:
-              <ul>
-                <li
-                  v-for="(r, index) in recipe.instructions"
-                  :key="index + '_' + r.number"
-                >
-                  {{ r.step }}
-                </li>
-              </ul>
-            </div>
-            <div>Number of dishes: {{ recipe.dishes }}</div>
-          </div>
-        </div>
-      </div>
+      <b-card no-body class="overflow-hidden">
+        <b-row no-gutters>
+          <b-col md="6">
+            <b-card-img :src="recipe.imageURL" alt="Image" class="rounded-0"></b-card-img>
+          </b-col>
+          <b-col md="6">
+            <b-card-body :title="recipe.name">
+              <favoriteButton
+                v-if="this.$root.store.username"
+                :recipeID="recipe.recipeID"
+                :isFavorite="this.isFavorite"
+              ></favoriteButton>
+              <b-card-text>
+                <b-list-group flush>
+                  <b-list-group-item>
+                    <b-icon icon="hand-thumbs-up" variant="dark" style="margin-right:10px"></b-icon>
+                    {{ recipe.likes }} Likes
+                  </b-list-group-item>
+                  <b-list-group-item>
+                    <b-icon icon="clock" variant="dark" style="margin-right:10px"></b-icon>
+                    {{ recipe.cookingDuration }} Minutes
+                  </b-list-group-item>
+                  <b-list-group-item v-if="recipe.isVegan">Vegan</b-list-group-item>
+                  <b-list-group-item v-if="!recipe.isGluten">Gluten free</b-list-group-item>
+                  <b-list-group-item>Number of dishes: {{recipe.dishes}}</b-list-group-item>
+                  <b-list-group-item>
+                    Ingredients:
+                    <ul>
+                      <li
+                        v-for="ingred in recipe.ingredients"
+                        :key="ingred.recipeID"
+                      >{{ingred.name}} : {{ingred.qauntity}} {{ingred.unit}}</li>
+                    </ul>
+                  </b-list-group-item>
+                  <b-list-group-item>
+                    <b>Instructions:</b>
+                    <ul>
+                      <li
+                        v-for="(r, index) in recipe.instructions"
+                        :key="index + '_' + r.number"
+                      >{{ r.step }}</li>
+                    </ul>
+                  </b-list-group-item>
+                </b-list-group>
+              </b-card-text>
+            </b-card-body>
+          </b-col>
+        </b-row>
+      </b-card>
     </div>
+    
   </div>
+  
 </template>
 
 <script>
 import favoriteButton from "../components/favoriteButton";
 export default {
   components: {
-    favoriteButton,
+    favoriteButton
   },
   data() {
     return {
       recipe: null,
       isWatch: false,
-      isFavorite: false,
+      isFavorite: false
     };
   },
   async created() {
@@ -74,9 +75,11 @@ export default {
       try {
         console.log(this.$route.params.recipeId);
         response = await this.axios.get(
-          "https://assignment3-2-shiran-hen.herokuapp.com/recipes//information/" +
+          // "https://assignment3-2-shiran-hen.herokuapp.com/recipes//information/" +
+          "http://localhost:3000/recipes//information/" +
             this.$route.params.recipeId
         );
+        console.log(response.data);
 
         // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
@@ -85,11 +88,13 @@ export default {
 
           let recipeIDArray = [this.$route.params.recipeId];
           let info = await this.axios.get(
-            "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +
+            // "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +
+            "http://localhost:3000/user/search/" +
               JSON.stringify(recipeIDArray)
           );
           this.isWatch = info.data[0].isWatch;
           this.isFavorite = info.data[0].isFavorite;
+          console.log(info.data);
         }
       } catch (error) {
         console.log("error.response.status", error.response.status);
@@ -109,7 +114,7 @@ export default {
         isGluten,
         ingredients,
         instructions,
-        dishes,
+        dishes
       } = response.data;
 
       // let _instructions = instructions
@@ -130,22 +135,23 @@ export default {
         isGluten,
         ingredients,
         instructions,
-        dishes,
+        dishes
       };
 
       this.recipe = _recipe;
       if (this.$root.store.username) {
         response = this.axios.post(
-          "https://assignment3-2-shiran-hen.herokuapp.com/user/myWatch",
+          // "https://assignment3-2-shiran-hen.herokuapp.com/user/myWatch",
+           "http://localhost:3000/user/myWatch",
           {
-            recipeID: this.recipe.recipeID,
+            recipeID: this.recipe.recipeID
           }
         );
       }
     } catch (error) {
       console.log(error);
     }
-  },
+  }
   // methods: {
   //     async addToMyFavorite() {
   //       let response= this.axios.post( "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes",{
@@ -172,4 +178,7 @@ export default {
 /* .recipe-header{
 
 } */
+.container{
+filter: blur(8px);
+}
 </style>

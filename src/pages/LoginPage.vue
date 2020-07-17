@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="title">Login</h1>
+    <h1 class="title" >Login</h1>
     <b-form @submit.prevent="onLogin">
       <b-form-group
         id="input-group-Username"
@@ -89,8 +89,8 @@ export default {
     async Login() {
       try {
         const response = await this.axios.post(
-          "https://assignment3-2-shiran-hen.herokuapp.com/guest/login",
-          // "http://localhost:3000/guest/login",
+          // "https://assignment3-2-shiran-hen.herokuapp.com/guest/login",
+          "http://localhost:3000/guest/login",
 
           {
             username: this.form.username,
@@ -128,6 +128,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  max-width: 400px;
+  max-width: 500px;
+  height: 50%;
+  color:whitesmoke;
 }
 </style>

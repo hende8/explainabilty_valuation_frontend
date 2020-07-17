@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container" style=" color:whitesmoke;">
     <h1 style="text-align:center;">My Favorite Recipes</h1>
     <b-row cols="3">
       <b-col v-for="item in this.myFavoriteRecipes" :key="item.recipeID">
@@ -28,7 +28,8 @@ export default {
     async getmyFavoriteRecipes() {
       if (!this.$store.myFavorite) {
         let link =
-          "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes";
+          // "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes";
+          "http://localhost:3000/user/myFavoriteRecipes";
         let response = this.axios
           .get(link)
           .then((res) => {

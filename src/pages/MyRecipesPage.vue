@@ -1,5 +1,5 @@
 <template>
-  <div class="container" >
+  <div class="container" style=" color:whitesmoke;" >
     <h1 style="text-align:center;">My Recipes</h1>
     <b-row cols ="3">
         <b-col v-for="item in myRecipes" :key="item.recipeID">
@@ -26,7 +26,8 @@ RecipePreviewInternal
 },
 mounted(){
 // getMyRecipes();
-        let link = 'https://assignment3-2-shiran-hen.herokuapp.com/user/myRecipes';
+        // let link = 'https://assignment3-2-shiran-hen.herokuapp.com/user/myRecipes';
+        let link = 'http://localhost:3000/user/myRecipes';
         let response =  this.axios.get(link).then((res)=>{
             this.myRecipes=res.data.message;
             var dict=this.myRecipes;
@@ -48,7 +49,8 @@ mounted(){
 
 methods:{
     getMyRecipes(){
-        let link = 'https://assignment3-2-shiran-hen.herokuapp.com/user/myRecipes';
+        // let link = 'https://assignment3-2-shiran-hen.herokuapp.com/user/myRecipes';
+        let link = 'http://localhost:3000/user/myRecipes';
         let response =  this.axios.get(link).then((res)=>{
             console.log(res.data);
             myRecipes=res.data.message;
