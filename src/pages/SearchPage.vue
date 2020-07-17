@@ -4,8 +4,7 @@
     <b-navbar
       type="light"
       variant="light"
-      style="border-radius: 25px;  width: 1100px;height: 200px;   background-color: transparent;
-"
+      style="border-radius: 25px;  width: 1100px;height: 200px;"
     >
       <b-nav-form>
         <b-row class="my-1">
