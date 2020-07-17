@@ -60,7 +60,7 @@ export default {
           myRecipes = res.data.message;
         })
         .catch((err) => {
-          console.error(err);
+            this.$router.push("/login");
         });
     },
   },

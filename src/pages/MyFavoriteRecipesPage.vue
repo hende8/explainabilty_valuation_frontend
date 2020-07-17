@@ -31,6 +31,7 @@ export default {
   },
   methods: {
     async getmyFavoriteRecipes() {
+      
       if (!this.$store.myFavorite) {
         let link =
           // "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes";
@@ -38,8 +39,6 @@ export default {
         let response = this.axios
           .get(link)
           .then((res) => {
-            console.log(this);
-            console.log(res.data);
             let temp = [];
             temp.push(...res.data);
             if(temp.length==0){
@@ -55,11 +54,13 @@ export default {
 
           })
           .catch((err) => {
-            console.error(err);
+            this.$router.push("/login");
           });
       }else{
           this.myFavoriteRecipes=this.$store.myFavorite;
       }
+
+
     },
   },
 };
