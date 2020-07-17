@@ -31,8 +31,6 @@
         <br />
         <br />
         <br />
-
-        <!-- First and foremose, we love to eat and cook. -->
       </h1>
     <b-card-group deck>
       <b-card
