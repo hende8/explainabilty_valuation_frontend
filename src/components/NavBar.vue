@@ -1,18 +1,18 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" style="background-color: midnightblue; z-index:10000; position: fixed; top:0; mergin:0; left:0; width:100%" >
+    <b-navbar class="nav" toggleable="lg" style="z-index:10000; position: fixed; top:0; mergin:0; left:0; width:100%" >
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <router-link tag="h3" :to="{ name: 'main' }" style="color: white;margin-right:13px" >
+          <router-link tag="h3" :to="{ name: 'main' }" style="color: white ;margin-right:13px" >
             Happy Recipes
           </router-link>
-          <router-link tag="b-nav-item" :to="{ name: 'main' }"
+          <router-link tag="b-nav-item" style="color: white ; margin-right:13px" :to="{ name: 'main' }"
             >Home</router-link
           >
-          <router-link tag="b-nav-item" :to="{ name: 'search' }"
+          <router-link tag="b-nav-item" style="color: white; margin-right:13px" :to="{ name: 'search' }"
             >Search</router-link
           >
-          <router-link tag="b-nav-item" :to="{ name: 'about' }"
+          <router-link tag="b-nav-item" style="color: white; margin-right:13px" :to="{ name: 'about' }"
             >About</router-link
           >
         </b-navbar-nav>
@@ -69,7 +69,8 @@ export default {
 };
 </script>
 <style scoped>
-.hi{
-  background-color: midnightblue;
+.nav{
+  background-color: rgba(13, 5, 48, 0.452);
 }
+
 </style>
