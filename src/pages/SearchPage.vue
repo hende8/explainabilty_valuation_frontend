@@ -24,7 +24,7 @@
           </b-col>
         </b-row>
         <lable style="margin-right: 10px;">
-          <b>Number of result:</b>
+          <b>Number of results:</b>
         </lable>
         <b-dropdown id="numResult" class="mr-sm-2" style="width:85px;" :text="buttonTitle">
           <b-dropdown-item @click="numResult('5')">5</b-dropdown-item>
