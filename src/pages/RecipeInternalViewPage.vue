@@ -13,8 +13,18 @@
                   <b-icon icon="clock" variant="dark" style="margin-right:10px"></b-icon>
                   {{ recipes[0].cookingDuration }} Minutes
                 </b-list-group-item>
-                <b-list-group-item v-if="recipes[0].isVegan">Vegan</b-list-group-item>
-                <b-list-group-item v-if="!recipes[0].isGluten">Gluten free</b-list-group-item>
+                <b-list-group-item v-if="recipes[0].isVegan">              <img
+                src="https://img.icons8.com/color/25/000000/vegan-symbol.png"
+                style="margin-right:13px"
+              />Vegan</b-list-group-item>
+                <b-list-group-item v-if="!recipes[0].isGluten">              <img
+                src="https://img.icons8.com/color/25/000000/no-gluten.png"
+                style="margin-right:13px"
+              />Gluten free</b-list-group-item>
+                <b-list-group-item v-if="!recipes[0].isVegeterian">              <img
+                src="https://img.icons8.com/color/25/000000/vegetarian-mark.png"
+                style="margin-right:13px"
+              />Vegetarian</b-list-group-item>
                 <b-list-group-item>Number of dishes: {{recipes[0].dishes}}</b-list-group-item>
                 <b-list-group-item>
                   Ingredients:
@@ -48,9 +58,13 @@ export default {
   },
 
   mounted() {
+    if(this.$store.recipes){
     this.recipes = this.$store.recipes.filter(
       recipe => recipe.recipeID == this.$route.params.recipeId
     );
+    }else{
+                  this.$router.push("/login");
+    }
   }
 };
 </script>

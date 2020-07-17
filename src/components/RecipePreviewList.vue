@@ -141,7 +141,8 @@ export default {
       recipes.map((x) => recipeIDArray.push(x.recipeID));
       console.log(recipeIDArray);
       let info = await this.axios.get(
-        "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +
+        // "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +
+        "http://localhost:3000/user/search/" +
           JSON.stringify(recipeIDArray)
       );
       let newRecipes = [];

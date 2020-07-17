@@ -23,8 +23,18 @@
                     <b-icon icon="clock" variant="dark" style="margin-right:10px"></b-icon>
                     {{ recipe.cookingDuration }} Minutes
                   </b-list-group-item>
-                  <b-list-group-item v-if="recipe.isVegan">Vegan</b-list-group-item>
-                  <b-list-group-item v-if="!recipe.isGluten">Gluten free</b-list-group-item>
+                  <b-list-group-item v-if="recipe.isVegan">              <img
+                src="https://img.icons8.com/color/25/000000/vegan-symbol.png"
+                style="margin-right:13px"
+              />Vegan</b-list-group-item>
+                  <b-list-group-item v-if="recipe.isGluten">              <img
+                src="https://img.icons8.com/color/25/000000/no-gluten.png"
+                style="margin-right:13px"
+              />Gluten free</b-list-group-item>
+                  <b-list-group-item v-if="recipe.isVegeterian">              <img
+                src="https://img.icons8.com/color/25/000000/vegetarian-mark.png"
+                style="margin-right:13px"
+              />Vegeterian</b-list-group-item>
                   <b-list-group-item>Number of dishes: {{recipe.dishes}}</b-list-group-item>
                   <b-list-group-item>
                     Ingredients:

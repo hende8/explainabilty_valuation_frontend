@@ -29,11 +29,13 @@ mounted(){
 },
 methods:{
     async getMyFamilyRecipes(){
-        let link = 'https://assignment3-2-shiran-hen.herokuapp.com/user/myFamilyRecipes'
+        // let link = 'https://assignment3-2-shiran-hen.herokuapp.com/user/myFamilyRecipes'
+        let link = 'http://localhost:3000/user/myFamilyRecipes'
         let response =  this.axios.get(link).then((res)=>{
             this.myFamilyRecipes=res.data.message;
         }).catch((err)=>{
-            console.error(err);
+            this.$router.push("/login");
+
         })
     }
 }

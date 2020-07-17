@@ -45,7 +45,8 @@ export default {
   methods: {
     async addToMyFavorite() {
       let response = this.axios.post(
-        "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes",
+        // "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes",
+        "http://localhost:3000/user/myFavoriteRecipes",
         {
           recipeID: this.recipeID,
         }
@@ -55,7 +56,8 @@ export default {
     },
     async removeMyFavorite() {
       let response = await this.axios.delete(
-        "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes/" +
+        // "https://assignment3-2-shiran-hen.herokuapp.com/user/myFavoriteRecipes/" +
+        "http://localhost:3000/user/myFavoriteRecipes/" +
           this.recipeID
       );
       this.favorite = false;

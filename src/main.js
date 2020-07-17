@@ -2,8 +2,8 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
-import VueCookies from 'vue-cookies'
-Vue.use(VueCookies)
+import VueCookies from 'vue-cookies';
+Vue.use(VueCookies);
 import routes from "./routes";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
@@ -85,21 +85,26 @@ const shared_data = {
     localStorage.setItem("username", username);
     this.username = username;
     console.log("login", this.username);
+    console.log(document.cookie);
   },
-  logout() {
+   async logout() {
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
     app_data.lastSearch=[];
     app_data.recipes=[];
+    console.log(app_data.recipes);
     app_data.lastWatch=undefined;
     app_data.myFavorite=undefined;
+    Vue.$cookies.remove("session");
+    app.logout();
+
   },
 };
 import {app_data} from "./assets/app_data";
 Vue.prototype.$store = app_data;
 
-new Vue({
+var app = new Vue({
   router,
   data() {
     return {
@@ -117,6 +122,12 @@ new Vue({
         autoHideDelay: 3000,
       });
     },
+     async logout(){
+      const response = await this.axios.post(
+        // "https://assignment3-2-shiran-hen.herokuapp.com/guest/login",
+        "http://localhost:3000/user/logout");
+    }
   },
+  
   render: (h) => h(App),
 }).$mount("#app");

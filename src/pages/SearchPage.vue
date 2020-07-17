@@ -154,7 +154,8 @@ export default {
       console.log(this.cusineChoose);
       try {
         let link =
-          "https://assignment3-2-shiran-hen.herokuapp.com/recipes/search/query/";
+          // "https://assignment3-2-shiran-hen.herokuapp.com/recipes/search/query/";
+          "http://localhost:3000/recipes/search/query/";
         // var link = "http://localhost:3000/recipes/search/query/";
 
         link += this.search + "/number/" + this.numberOfResults.toString();
@@ -301,7 +302,8 @@ export default {
       recipes.map((x) => recipeIDArray.push(x.recipeID));
       console.log(recipeIDArray);
       let info = await this.axios.get(
-        "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +
+        // "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +
+        "http://localhost:3000/user/search/" +
           JSON.stringify(recipeIDArray)
       );
       let newRecipes = [];

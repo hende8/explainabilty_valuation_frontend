@@ -5,9 +5,7 @@
         <b-col v-for="item in myRecipes" :key="item.recipeID">
           <RecipePreviewInternal  class="recipePreview" :recipe="item" />
         </b-col>
-    </b-row>
-          
-
+    </b-row>          
  </div>
 </template>
 
@@ -18,6 +16,7 @@ export default {
 data(){
     return{
         myRecipes:null,
+        unautorized:false
     }
 },
 components:
@@ -26,7 +25,8 @@ RecipePreviewInternal
 },
 mounted(){
 // getMyRecipes();
-        let link = 'https://assignment3-2-shiran-hen.herokuapp.com/user/myRecipes';
+        // let link = 'https://assignment3-2-shiran-hen.herokuapp.com/user/myRecipes';
+        let link = 'http://localhost:3000/user/myRecipes';
         let response =  this.axios.get(link).then((res)=>{
             this.myRecipes=res.data.message;
             var dict=this.myRecipes;
@@ -41,19 +41,20 @@ mounted(){
             console.log(this.$store);
             console.log(this.myRecipes);
         }).catch((err)=>{
-            console.error(err);
+            this.$router.push("/login");
         })
 },
 
 
 methods:{
     getMyRecipes(){
-        let link = 'https://assignment3-2-shiran-hen.herokuapp.com/user/myRecipes';
+        // let link = 'https://assignment3-2-shiran-hen.herokuapp.com/user/myRecipes';
+        let link = 'http://localhost:3000/user/myRecipes';
         let response =  this.axios.get(link).then((res)=>{
-            console.log(res.data);
             myRecipes=res.data.message;
         }).catch((err)=>{
-            console.error(err);
+            this.$router.push("/login");
+
         })
     }
 }
