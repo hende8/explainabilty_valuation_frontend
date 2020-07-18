@@ -10,7 +10,7 @@
       <strong style="color:whitesmoke; ">Loading...</strong>
       <!-- <b-spinner class="ml-auto"></b-spinner> -->
     </div>
-    <h3 v-if="this.recipes==false"  style=" text-align:center;  color:whitesmoke;"> No watched recipes</h3>
+    <h3 v-if="this.recipes==false"  style=" text-align:center;  color:whitesmoke;"> No recipes watched</h3>
     <div v-else >
     <b-row  v-for="r in this.recipes" :key="r.id">
       <!-- <b-col > -->
@@ -70,30 +70,6 @@ export default {
         const response = await this.axios.get(
           "http://localhost:3000/recipes/randomRecipes"
         );
-        // let recipes = [
-        //   {
-        //     recipeID: 635350,
-        //     imageURL: "https://spoonacular.com/recipeImages/635350-556x370.jpg",
-        //     name: "Blue Cheese Burgers",
-        //     cookingDuration: 45,
-        //     likes: 7,
-        //     isVegeterian: false,
-        //     isVegan: false,
-        //     isGluten: false,
-        //   },
-        //   {
-        //     recipeID: 642539,
-        //     imageURL: "https://spoonacular.com/recipeImages/642539-556x370.png",
-        //     name: "Falafel Burger",
-        //     cookingDuration: 45,
-        //     likes: 4,
-        //     isVegeterian: true,
-        //     isVegan: false,
-        //     isGluten: false,
-        //   },
-        // ];
-
-        // console.log(response);
         const recipes = response.data;
         // this.recipes = [];
         // this.recipes.push(...recipes);

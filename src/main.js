@@ -102,8 +102,6 @@ const shared_data = {
     app_data.myFamily = undefined;
     Vue.$cookies.remove("session");
 
-
-
   },
 };
 import { app_data } from "./assets/app_data";

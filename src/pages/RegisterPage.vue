@@ -130,12 +130,7 @@
         label="Upload profile picture:"
         label-for="ProfilePicture"
       >
-        <img id="myImg" width="107" height="98" />
-        <b-icon
-          icon="cloud-upload"
-          variant="dark"
-          style="margin-left:10px;width: 50px; height: 50px;margin-top:10px"
-        ></b-icon>
+        <img id="myImg" src="https://www.bainbridgedecaturga.com/wp-content/uploads/2019/05/generic-person-icon-1.png" width="107" height="98" />
 
         <b-form-file
           id="ProfilePicture"
@@ -144,6 +139,7 @@
           @change="uploadProfilePicture($event)"
           :state="validateState('profileImage')"
           class="mt-3"
+          ref="fileinput"
           plain
         ></b-form-file>
         <b-form-invalid-feedback v-if="!$v.form.profileImage.required">Profile picture is required</b-form-invalid-feedback>
@@ -321,7 +317,13 @@ export default {
         password: "",
         confirmedPassword: "",
         email: "",
+        profileImage: null,
+
       };
+            document.getElementById("myImg").src="https://www.bainbridgedecaturga.com/wp-content/uploads/2019/05/generic-person-icon-1.png";
+            this.$refs.fileinput.reset();
+
+
       this.$nextTick(() => {
         this.$v.$reset();
       });

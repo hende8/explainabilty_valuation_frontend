@@ -32,7 +32,7 @@
         <b-dropdown
           id="numResult"
           class="mr-sm-2"
-          style="width:85px;"
+          style="width:65px;"
           :text="buttonTitle"
         >
           <b-dropdown-item @click="numResult('5')">5</b-dropdown-item>
@@ -47,7 +47,7 @@
           <b>
             <b-form-group
               class="mr-sm-2"
-              label="Cusines:"
+              label="Cuisine:"
               label-for="Cusines"
               style="margin-left:16px;"
             >
@@ -63,7 +63,7 @@
           <b>
             <b-form-group
               class="mr-sm-2"
-              label="Intolerances: "
+              label="Intolerance: "
               label-for="Intolerances"
             >
               <b-form-select
@@ -108,7 +108,8 @@
     <br />
     <div>
       <b-row v-if="this.hasResult" >
-        <b-form-group label="Sort by:" style=" color:whitesmoke;">
+        <b style=" color:whitesmoke;">
+        <b-form-group label="Sort by:">
           <b-form-radio
             @change.native="sortByPopularity($event)"
             value="Popularity"
@@ -122,6 +123,7 @@
             >Cooking duration</b-form-radio
           >
         </b-form-group>
+        </b>
         <b-row cols="3">
           <b-col v-for="item in results" :key="item.recipeID">
             <RecipePreview :recipe="item" style="margin-top: 16px;" />
@@ -273,6 +275,7 @@ export default {
       if (this.$v.form.$anyError) {
         return;
       }
+      this.lastSearchResults=null;
       this.search = this.form.search;
       this.searchRecipes();
     },
