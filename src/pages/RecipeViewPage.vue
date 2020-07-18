@@ -43,7 +43,7 @@
                       <li
                         v-for="ingred in recipe.ingredients"
                         :key="ingred.recipeID"
-                      >{{ingred.name}} : {{ingred.qauntity}} {{ingred.unit}}</li>
+                      >{{ingred.name}} : {{ingred.quantity}} {{ingred.unit}}</li>
                     </ul>
                   </b-list-group-item>
                   <b-list-group-item>
