@@ -30,6 +30,8 @@ import {
   SpinnerPlugin,
   FormRadioPlugin,
   ListGroupPlugin,
+  FormFilePlugin,
+ 
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -46,6 +48,7 @@ import {
   SpinnerPlugin,
   FormRadioPlugin,
   ListGroupPlugin,
+  FormFilePlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
@@ -86,6 +89,8 @@ const shared_data = {
   },
   async logout() {
     app.logout();
+    console.log("shirannnnnn!!!!!!!!!!!!!!!!!!!" + document.cookie);
+
     console.log("logout");
     localStorage.removeItem("username");
     localStorage.removeItem("lastSearch");
@@ -96,6 +101,9 @@ const shared_data = {
     app_data.myFavorite = undefined;
     app_data.myFamily = undefined;
     Vue.$cookies.remove("session");
+
+
+
   },
 };
 import { app_data } from "./assets/app_data";
