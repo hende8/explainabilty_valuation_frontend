@@ -270,7 +270,6 @@ export default {
       });
       this.form.profileImage = response.data.secure_url;
       document.getElementById("myImg").src = this.form.profileImage;
-      console.log(this.form);
     },
     validateState(param) {
       const { $dirty, $error } = this.$v.form[param];
@@ -295,17 +294,14 @@ export default {
           this.$router.push("/login");
         }
       } catch (err) {
-        console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
     },
     onRegister() {
-      // console.log("register method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      // console.log("register method go");
       this.Register();
     },
     onReset() {

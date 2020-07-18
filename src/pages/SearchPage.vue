@@ -174,11 +174,7 @@ export default {
     RecipePreview,
   },
   async created() {
-    // if (sessionStorage.getItem("lastSearch")) this.hasLastSearch = true;
-    // this.lastSearchResults = JSON.parse(sessionStorage.getItem("lastSearch"));
-
     let lastSearch = JSON.parse(localStorage.getItem("lastSearch"));
-    // console.log(lastSearch);
     if (this.$root.store.username && lastSearch) {
       this.hasLastSearch = true;
       this.lastSearchResults = await this.getUserInformation(lastSearch);
@@ -187,7 +183,6 @@ export default {
   computed: {},
   methods: {
     async searchRecipes(req, response) {
-      console.log(this.cusineChoose);
       try {
         let link =
           // "https://assignment3-2-shiran-hen.herokuapp.com/recipes/search/query/";
@@ -195,12 +190,7 @@ export default {
         // var link = "http://localhost:3000/recipes/search/query/";
 
         link += this.search + "/number/" + this.numberOfResults.toString();
-        console.log(this.cusineChoose);
-        console.log(this.intolerancesChoose);
-        console.log(this.dietChoose);
-        console.log(this.search);
 
-        // console.log(link);
         response = await this.axios.get(link, {
           params: {
             cuisine: this.cusineChoose,
@@ -209,55 +199,11 @@ export default {
           },
         });
       } catch (err) {
-        console.log(err);
       }
-      console.log(response);
       if (response.status == "200") {
         this.hasResult = false;
         this.hasResult = true;
-        // let ans = [
-        //     {
-        //         "recipeID": 635350,
-        //         "imageURL": "https://spoonacular.com/recipeImages/635350-556x370.jpg",
-        //         "name": "Blue Cheese Burgers",
-        //         "cookingDuration": 1001,
-        //         "likes": 7,
-        //         "isVegeterian": false,
-        //         "isVegan": false,
-        //         "isGluten": false
-        //     },
-        //     {
-        //         "recipeID": 642539,
-        //         "imageURL": "https://spoonacular.com/recipeImages/642539-556x370.png",
-        //         "name": "Falafel Burger",
-        //         "cookingDuration": 45,
-        //         "likes": 4,
-        //         "isVegeterian": true,
-        //         "isVegan": false,
-        //         "isGluten": false
-        //     },
-        //     {
-        //         "recipeID": 6501781,
-        //         "imageURL": "https://spoonacular.com/recipeImages/650181-556x370.jpg",
-        //         "name": "Little Italy Burger",
-        //         "cookingDuration": 45,
-        //         "likes": 1,
-        //         "isVegeterian": false,
-        //         "isVegan": false,
-        //         "isGluten": false
-        //     },
-        //     {
-        //         "recipeID": 6633757,
-        //         "imageURL": "https://spoonacular.com/recipeImages/663357-556x370.jpg",
-        //         "name": "The Unagi Burger",
-        //         "cookingDuration": 45,
-        //         "likes": 1,
-        //         "isVegeterian": false,
-        //         "isVegan": false,
-        //         "isGluten": false
-        //     }
-        // ]
-        // this.setResults(response.data);
+        
         let ans = response.data;
         if (this.$root.store.username) {
           ans = await this.getUserInformation(ans);
@@ -307,16 +253,12 @@ export default {
     },
     sortByPopularity: function() {
       this.hasResult = false;
-      console.log(this.hasResult);
       this.results.sort(function(a, b) {
         return b.likes - a.likes;
       });
-      console.log("pushed sortByPopularity");
-      console.log(this.results);
       this.hasResult = true;
     },
     sortByCookingDuration: function() {
-      console.log("pushed cooking duration");
       this.hasResult = false;
       this.results.sort(function(a, b) {
         return a.cookingDuration - b.cookingDuration;
@@ -324,7 +266,6 @@ export default {
       this.hasResult = true;
     },
     cusinesSelected(value) {
-      console.log(value);
       this.cusineChoose = value;
     },
     dietSelected(value) {
@@ -336,7 +277,6 @@ export default {
     async getUserInformation(recipes) {
       let recipeIDArray = [];
       recipes.map((x) => recipeIDArray.push(x.recipeID));
-      console.log(recipeIDArray);
       let info = await this.axios.get(
         // "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +
         "http://localhost:3000/user/search/" + JSON.stringify(recipeIDArray)
