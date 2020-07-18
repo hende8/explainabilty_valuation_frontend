@@ -1,8 +1,10 @@
 <template>
+<div class="card1">
+
   <router-link 
     :to="{ name: 'recipeInternal', params: {recipeId: recipe.recipeID} }"
-    class="card"
     style="width: 20rem;"
+    class="card"
   >
     <div class="recipe-body">
       <img :src="recipe.imageURL" class="card-img-top" style="max-width:318px; min-width:318px max-height:230px; min-height:230px" />
@@ -47,6 +49,7 @@
       </div>
     </div>
   </router-link>
+</div>
 </template>
 
 <script>
@@ -66,3 +69,7 @@ export default {
   float: none; /* Added */
   margin-bottom: 10px; /* Added */
 }
+.card1:hover {
+   transform: scale(1.02);
+}
+</style>

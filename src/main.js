@@ -2,7 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
-import VueCookies from 'vue-cookies';
+import VueCookies from "vue-cookies";
 Vue.use(VueCookies);
 import routes from "./routes";
 import VueRouter from "vue-router";
@@ -14,7 +14,6 @@ const router = new VueRouter({
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
-
 
 import {
   FormGroupPlugin,
@@ -30,8 +29,7 @@ import {
   IconsPlugin,
   SpinnerPlugin,
   FormRadioPlugin,
-  ListGroupPlugin
- 
+  ListGroupPlugin,
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -45,10 +43,9 @@ import {
   ToastPlugin,
   LayoutPlugin,
   IconsPlugin,
-  SpinnerPlugin ,
+  SpinnerPlugin,
   FormRadioPlugin,
-  ListGroupPlugin
-
+  ListGroupPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
@@ -85,23 +82,23 @@ const shared_data = {
     localStorage.setItem("username", username);
     this.username = username;
     console.log("login", this.username);
-    console.log(document.cookie);
+    console.log("shirannnnnn" + document.cookie);
   },
-   async logout() {
+  async logout() {
+    app.logout();
     console.log("logout");
     localStorage.removeItem("username");
+    localStorage.removeItem("lastSearch");
     this.username = undefined;
-    app_data.lastSearch=[];
-    app_data.recipes=undefined;
-    app_data.lastWatch=undefined;
-    app_data.myFavorite=undefined;
-    app_data.myFamily=undefined;
+    // app_data.lastSearch=[];
+    app_data.recipes = undefined;
+    app_data.lastWatch = undefined;
+    app_data.myFavorite = undefined;
+    app_data.myFamily = undefined;
     Vue.$cookies.remove("session");
-    app.logout();
-
   },
 };
-import {app_data} from "./assets/app_data";
+import { app_data } from "./assets/app_data";
 Vue.prototype.$store = app_data;
 
 var app = new Vue({
@@ -122,12 +119,15 @@ var app = new Vue({
         autoHideDelay: 3000,
       });
     },
-     async logout(){
-      const response = await this.axios.post(
-        // "https://assignment3-2-shiran-hen.herokuapp.com/guest/login",
-        "http://localhost:3000/user/logout");
-    }
+    async logout() {
+      try {
+        const response = await this.axios.post(
+          // "https://assignment3-2-shiran-hen.herokuapp.com/guest/login",
+          "http://localhost:3000/user/logout"
+        );
+      } catch (err) {}
+    },
   },
-  
+
   render: (h) => h(App),
 }).$mount("#app");

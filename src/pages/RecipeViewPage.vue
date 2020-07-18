@@ -1,5 +1,6 @@
 <template>
   <div class="center" style="width: 90%;">
+    <br>
     <div v-if="recipe">
       <b-card no-body class="overflow-hidden" >
         <b-row no-gutters>

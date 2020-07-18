@@ -2,6 +2,8 @@
   <div>
 
   <b-card no-body class="overflow-hidden" style="max-width: 90%;">
+    <br>
+<br>
     <b-row no-gutters>
       <b-col md="6">
         <b-card-img :src="recipe.imageURL" alt="Image" class="rounded-0"></b-card-img>
@@ -49,4 +51,5 @@ export default {
 </script>
 
 <style>
+
 </style>

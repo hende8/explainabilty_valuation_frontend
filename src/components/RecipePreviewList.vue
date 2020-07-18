@@ -1,9 +1,11 @@
 <template>
   <div > 
+    <br>
     <h1  style=" text-align:center;  color:whitesmoke;">
       {{ title }}:
       <slot></slot>
     </h1>
+    <br>
     <div v-if="this.recipes== null"  style=" text-align:center;  color:whitesmoke;">
       <strong style="color:whitesmoke; ">Loading...</strong>
       <!-- <b-spinner class="ml-auto"></b-spinner> -->
@@ -65,34 +67,34 @@ export default {
   methods: {
     async updateRandomRecipes() {
       try {
-        // const response = await this.axios.get(
-        //   "http://localhost:3000/recipes/randomRecipes"
-        // );
-        let recipes = [
-          {
-            recipeID: 635350,
-            imageURL: "https://spoonacular.com/recipeImages/635350-556x370.jpg",
-            name: "Blue Cheese Burgers",
-            cookingDuration: 45,
-            likes: 7,
-            isVegeterian: false,
-            isVegan: false,
-            isGluten: false,
-          },
-          {
-            recipeID: 642539,
-            imageURL: "https://spoonacular.com/recipeImages/642539-556x370.png",
-            name: "Falafel Burger",
-            cookingDuration: 45,
-            likes: 4,
-            isVegeterian: true,
-            isVegan: false,
-            isGluten: false,
-          },
-        ];
+        const response = await this.axios.get(
+          "http://localhost:3000/recipes/randomRecipes"
+        );
+        // let recipes = [
+        //   {
+        //     recipeID: 635350,
+        //     imageURL: "https://spoonacular.com/recipeImages/635350-556x370.jpg",
+        //     name: "Blue Cheese Burgers",
+        //     cookingDuration: 45,
+        //     likes: 7,
+        //     isVegeterian: false,
+        //     isVegan: false,
+        //     isGluten: false,
+        //   },
+        //   {
+        //     recipeID: 642539,
+        //     imageURL: "https://spoonacular.com/recipeImages/642539-556x370.png",
+        //     name: "Falafel Burger",
+        //     cookingDuration: 45,
+        //     likes: 4,
+        //     isVegeterian: true,
+        //     isVegan: false,
+        //     isGluten: false,
+        //   },
+        // ];
 
         // console.log(response);
-        // const recipes = response.data;
+        const recipes = response.data;
         // this.recipes = [];
         // this.recipes.push(...recipes);
         if (this.$root.store.username) {
@@ -106,7 +108,8 @@ export default {
         }
         console.log(this.recipes);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
+        // this.recipes=null;
       }
     },
 
@@ -138,11 +141,13 @@ export default {
 
         // console.log(this.recipes);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
+        // this.recipes=null;
       }
     },
 
     async getUserInformation(recipes) {
+      try{
       let recipeIDArray = [];
       recipes.map((x) => recipeIDArray.push(x.recipeID));
       console.log(recipeIDArray);
@@ -164,6 +169,10 @@ export default {
       });
       this.recipes = [];
       this.recipes.push(...newRecipes);
+      }catch(err){
+        
+      }
+
     },
   },
   watch: {

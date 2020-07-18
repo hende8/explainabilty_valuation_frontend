@@ -111,8 +111,11 @@ export default {
   margin: 0 auto; /* Added */
   float: none; /* Added */
   margin-bottom: 10px; /* Added */
+ 
 }
-
+.card:hover {
+   transform: scale(1.02);
+}
 /* .recipe-preview {
   display: inline-block;
   width: 90%;

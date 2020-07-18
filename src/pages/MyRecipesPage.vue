@@ -1,6 +1,8 @@
 <template>
   <div class="container" style=" color:whitesmoke;">
+      <br>
     <h1 style="text-align:center;">My Recipes</h1>
+    <br>
     <div v-if="this.myRecipes == undefined" style=" text-align:center;">
       <strong style="color:whitesmoke; ">Loading...</strong>
     </div>

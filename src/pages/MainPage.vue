@@ -67,7 +67,7 @@ export default {
 
 <style lang="scss" scoped>
 .Recipes {
-  margin: 10px 0 10px;
+ 
   max-width: 100%;
 }
 .blur {

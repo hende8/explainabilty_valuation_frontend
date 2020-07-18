@@ -1,12 +1,18 @@
 <template>
   <div>
+    <br />
     <h1 style="text-align:center; color:whitesmoke;">My Family Recipes</h1>
     <br />
-    <div v-if="this.myFamilyRecipes== undefined" style=" text-align:center;">
+    <div v-if="this.myFamilyRecipes == undefined" style=" text-align:center;">
       <strong style="color:whitesmoke; ">Loading...</strong>
       <!-- <b-spinner class="ml-auto"></b-spinner> -->
     </div>
-      <h3 v-if="this.myFamilyRecipes == false" style="text-align:center; color:whitesmoke;">No recipes</h3>
+    <h3
+      v-if="this.myFamilyRecipes == false"
+      style="text-align:center; color:whitesmoke;"
+    >
+      No recipes
+    </h3>
     <b-col cols="5" v-else>
       <b-row v-for="item in this.myFamilyRecipes" :key="item.recipeID">
         <RecipeFamilyPreview class="recipePreview" :recipe="item" />

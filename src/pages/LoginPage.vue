@@ -1,6 +1,8 @@
 <template>
   <div class="container">
+    <br>
     <h1 class="title" >Login</h1>
+    <br>
     <b-form @submit.prevent="onLogin">
       <b-form-group
         id="input-group-Username"
@@ -124,6 +126,11 @@ export default {
       this.Login();
     },
   },
+  mounted(){
+    if(this.$root.store.username){
+      this.$root.store.logout();
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

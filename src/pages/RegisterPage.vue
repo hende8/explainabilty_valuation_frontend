@@ -1,6 +1,8 @@
 <template>
   <div class="container">
+    <br />
     <h1 class="title">Register</h1>
+    <br />
     <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
       <b-form-group
         id="input-group-username"
@@ -120,12 +122,12 @@
         >
           Have password length between 5-10 characters long
         </b-form-invalid-feedback>
-                <b-form-invalid-feedback
-          v-if="$v.form.password.required && !$v.form.password.charCase "
+        <b-form-invalid-feedback
+          v-if="$v.form.password.required && !$v.form.password.charCase"
         >
           Have at least one number
         </b-form-invalid-feedback>
-                        <b-form-invalid-feedback
+        <b-form-invalid-feedback
           v-if="$v.form.password.required && !$v.form.password.specialCase"
         >
           Have at least one special character (!@#$^*)
@@ -152,16 +154,21 @@
         >
           The confirmed password is not equal to the original password
         </b-form-invalid-feedback>
-        <br>
-              </b-form-group>
+        <br />
+      </b-form-group>
 
-        <b-form-group
+      <b-form-group
         id="input-group-confirmedPassword"
         label-cols-sm="3"
         label="Upload profile picture:"
         label-for="confirmedPassword"
-        >
-            <img id="myImg" width="107" height="98">   <b-icon icon="cloud-upload" variant="dark" style="margin-left:10px;width: 50px; height: 50px;margin-top:10px"></b-icon>
+      >
+        <img id="myImg" width="107" height="98" />
+        <b-icon
+          icon="cloud-upload"
+          variant="dark"
+          style="margin-left:10px;width: 50px; height: 50px;margin-top:10px"
+        ></b-icon>
 
         <input
           id="ProfilePicture"
@@ -169,9 +176,7 @@
           accept="image/png,image/jpeg"
           @change="uploadProfilePicture($event)"
         />
-              </b-form-group>
-
-
+      </b-form-group>
 
       <b-button type="reset" variant="danger">Reset</b-button>
       <b-button
@@ -211,7 +216,7 @@ import {
   maxLength,
   alpha,
   sameAs,
-  email
+  email,
 } from "vuelidate/lib/validators";
 export default {
   name: "Register",
@@ -225,13 +230,13 @@ export default {
         password: "",
         confirmedPassword: "",
         email: "",
-        profileImage :null,
+        profileImage: null,
         submitError: undefined,
       },
       countries: [{ value: null, text: "", disabled: true }],
       errors: [],
       validated: false,
-      resultsPic:null,
+      resultsPic: null,
     };
   },
   validations: {
@@ -239,65 +244,72 @@ export default {
       username: {
         required,
         length: (u) => minLength(3)(u) && maxLength(8)(u),
-        alpha
+        alpha,
       },
       firstName: {
-        required,        
-        alpha
-
+        required,
+        alpha,
       },
       lastName: {
         required,
-        alpha
+        alpha,
       },
       country: {
-        required
+        required,
       },
       password: {
         required,
         length: (p) => minLength(5)(p) && maxLength(10)(p),
-        charCase : (p)=> {return /\d/.test(p) && /[0-9]/.test(p)},
-        specialCase : (p)=> {return /\d/.test(p) && /[`~!@#$^&*=|{}':;'<>《》?~！@#￥……&*|{}‘；：”“'。，、？' ']/.test(p)}
+        charCase: (p) => {
+          return /\d/.test(p) && /[0-9]/.test(p);
+        },
+        specialCase: (p) => {
+          return (
+            /\d/.test(p) &&
+            /[`~!@#$^&*=|{}':;'<>《》?~！@#￥……&*|{}‘；：”“'。，、？' ']/.test(
+              p
+            )
+          );
+        },
       },
       confirmedPassword: {
         required,
-        sameAsPassword: sameAs("password")
+        sameAsPassword: sameAs("password"),
       },
-      email:{
+      email: {
         required,
-        email : (u)=> email(u)
+        email: (u) => email(u),
       },
-      profileImage:{
-
-      }
-
-    }
+      profileImage: {},
+    },
   },
   mounted() {
+    if (this.$root.store.username) {
+      this.$root.store.logout();
+    }
     this.countries.push(...app_data.countries);
-  }
+  },
 
-  ,
   methods: {
-    async uploadProfilePicture(event){
-    var CLOUD_URL = 'https://api.cloudinary.com/v1_1/dtqdljbvk/upload';
-    var CLOUD_Preset= 'fzh5celi';
+    async uploadProfilePicture(event) {
+      var CLOUD_URL = "https://api.cloudinary.com/v1_1/dtqdljbvk/upload";
+      var CLOUD_Preset = "fzh5celi";
       var file = event.target.files[0];
-      var formData=new FormData();
-      formData.append('file',file);
-      formData.append('upload_preset',CLOUD_Preset);
-        let response = await axios({
+      var formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", CLOUD_Preset);
+      let response = await axios({
         url: CLOUD_URL,
-        method:'POST',
+        method: "POST",
         withCredentials: false,
-        headers:{
-          'Content-Type': 'application/x-www-form-urlencoded'
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        data: formData
+        data: formData,
       });
-    this.form.profileImage=response.data.secure_url;
-    document.getElementById("myImg").src = this.form.profileImage;
-    console.log(this.form);
+      this.form.profileImage = response.data.secure_url;
+      document.getElementById("myImg").src = this.form.profileImage;
+      console.log(this.form);
     },
     validateState(param) {
       const { $dirty, $error } = this.$v.form[param];
@@ -311,15 +323,15 @@ export default {
           {
             username: this.form.username,
             password: this.form.password,
-            firstName:this.form.firstName,
-            lastName:this.form.lastName,
-            country:this.form.country,
-            email:this.form.email,
-            profileImage:this.form.profileImage
+            firstName: this.form.firstName,
+            lastName: this.form.lastName,
+            country: this.form.country,
+            email: this.form.email,
+            profileImage: this.form.profileImage,
           }
         );
-        if(response.status=='201'){
-        this.$router.push("/login");
+        if (response.status == "201") {
+          this.$router.push("/login");
         }
       } catch (err) {
         console.log(err.response);
@@ -343,19 +355,19 @@ export default {
         country: null,
         password: "",
         confirmedPassword: "",
-        email: ""
+        email: "",
       };
       this.$nextTick(() => {
         this.$v.$reset();
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
 .container {
   max-width: 500px;
   height: 50%;
-  color:whitesmoke;
+  color: whitesmoke;
 }
 </style>

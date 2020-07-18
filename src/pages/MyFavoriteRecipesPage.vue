@@ -1,11 +1,14 @@
 <template>
-  <div class="container" style=" color:whitesmoke;">
-    <h1 style="text-align:center;">My Favorite Recipes</h1>
+  <div class="container" >
+    <br>
+    <h1 style="text-align:center; color:whitesmoke;">My Favorite Recipes</h1>
+    <br>
         <div v-if="this.myFavoriteRecipes == undefined" style=" text-align:center;">
       <strong style="color:whitesmoke; ">Loading...</strong>
       <!-- <b-spinner class="ml-auto"></b-spinner> -->
     </div>
     <h3 v-if="this.myFavoriteRecipes == false" style="text-align:center;">No recipes</h3>
+    
     <b-row cols="3" v-else>
       <b-col v-for="item in this.myFavoriteRecipes" :key="item.recipeID">
         <RecipePreview class="recipePreview" :recipe="item" />
