@@ -3,32 +3,33 @@
     <b-navbar class="nav" toggleable="lg" style="z-index:10000; position: fixed; top:0; mergin:0; left:0; width:100%" >
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <router-link tag="h3" :to="{ name: 'main' }" style="color: white ;margin-right:13px" >
+          <router-link tag="h4" :to="{ name: 'main' }" class="logo" style=" margin-right:13px" >
             Happy Recipes
           </router-link>
-          <router-link tag="b-nav-item" style="color: white ; margin-right:13px" :to="{ name: 'main' }"
-            >Home</router-link
+          <router-link tag="b-nav-item" style="margin-right:13px" :to="{ name: 'main' }"
+            >
+            <span class="n">Home</span></router-link
           >
-          <router-link tag="b-nav-item" style="color: white; margin-right:13px" :to="{ name: 'search' }"
-            >Search</router-link
+          <router-link tag="b-nav-item" style="margin-right:13px" :to="{ name: 'search' }"
+            > <span class="n">Search</span></router-link
           >
           <router-link tag="b-nav-item" style="color: white; margin-right:13px" :to="{ name: 'about' }"
-            >About</router-link
+            > <span class="n" >About</span></router-link
           >
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <b-nav-form> </b-nav-form>
-        <b-nav-item-dropdown v-if = "!this.$root.store.username" text="Hello guest" right >
+          <!-- <b-nav-form> </b-nav-form> -->
+        <b-nav-item-dropdown v-if = "!this.$root.store.username" text="Hello guest" toggle-class="text-white" right >
         <router-link tag="b-dropdown-item" to="/register" href="#">Sign up</router-link>
         <router-link tag="b-dropdown-item" to="/login" >Sign in</router-link>
         </b-nav-item-dropdown>
-              <b-nav-item-dropdown v-if="this.$root.store.username" text="Personal" right>
+              <b-nav-item-dropdown v-if="this.$root.store.username" text="Personal" toggle-class="text-white"  right>
         <router-link tag="b-dropdown-item" to="/myFavoriteRecipes" href="#">My Favorite Recipes</router-link>
         <router-link tag="b-dropdown-item" to="/myRecipes" href="#">My Recipes</router-link>
         <router-link tag="b-dropdown-item" to="/myFamilyRecipes" href="#">My Family Recipes</router-link>
       </b-nav-item-dropdown>
-        <b-nav-item-dropdown v-if="this.$root.store.username" :text="this.$root.store.username" right>
+        <b-nav-item-dropdown v-if="this.$root.store.username" :text="this.$root.store.username" toggle-class="text-white"  right>
         <!-- <router-link tag="b-dropdown-item"   style ="color: transparent;
         text-shadow: 0 0 10px;" href="#" disabled >New Recipe</router-link> -->
         <router-link tag="b-dropdown-item" :to="{ name: 'main' }" @click.native="logout" >Loguot</router-link>
@@ -65,5 +66,18 @@ export default {
 .nav{
   background-color: rgba(13, 5, 48, 0.452);
 }
+.n{
+   color: whiteSmoke ;
+}
+.logo{
+border: 2px solid rgba(231, 231, 231, 0.993);
+border-radius: 10px 10px 10px 10px;
+color: #fffffffd;
+background: #333333;
+text-shadow: #FFF 0px 0px 15px, #5a2dff 0px 0px 20px, #5a2dff 0px 0px 30px, #5a2dff 0px 0px 40px;
+
+
+}
+
 
 </style>
