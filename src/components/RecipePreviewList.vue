@@ -82,10 +82,7 @@ export default {
           this.recipes = [];
           this.recipes.push(...recipes);
         }
-        console.log(this.recipes);
       } catch (error) {
-        // console.log(error);
-        // this.recipes=null;
       }
     },
 
@@ -112,13 +109,8 @@ export default {
           this.recipes=false;
         }
 
-        // this.recipes = [];
-        // this.recipes.push(...recipes);
 
-        // console.log(this.recipes);
       } catch (error) {
-        // console.log(error);
-        // this.recipes=null;
       }
     },
 
@@ -126,11 +118,7 @@ export default {
       try{
       let recipeIDArray = [];
       recipes.map((x) => recipeIDArray.push(x.recipeID));
-      console.log(recipeIDArray);
-      // let info = await this.axios.get(
-      //   "https://assignment3-2-shiran-hen.herokuapp.com/user/search/" +
-      //     JSON.stringify(recipeIDArray)
-      // );
+
       let info = await this.axios.get(
         "http://localhost:3000/user/search/" + JSON.stringify(recipeIDArray)
       );
@@ -153,10 +141,7 @@ export default {
   },
   watch: {
     rerender: async function() {
-      console.log("shiraaam");
       await this.getUserInformation(this.recipes);
-      console.log(this.recipes);
-
       this.render += 1;
     },
   },

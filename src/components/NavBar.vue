@@ -48,15 +48,8 @@ export default {
       username: this.$root.store.username,
     };
   },
-  // computed:{
-  //        logout(){
-  //            console.log("log out button pushed")
-  //            this.username=null;
-  //        }
-  // },
   methods: {
     logout() {
-      console.log("log out button pushed");
       this.username = null;
       this.$root.store.logout(this.username);
     },

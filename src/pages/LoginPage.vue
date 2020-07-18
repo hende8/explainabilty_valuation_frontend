@@ -99,9 +99,6 @@ export default {
             password: this.form.password,
           }
         );
-        // console.log(response);
-        // this.$root.loggedIn = true;
-        console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);
         this.$root.$emit("loginUserNavBar", this.form.username);
         this.$emit("login");
@@ -110,18 +107,15 @@ export default {
 
         }
       } catch (err) {
-        console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
     },
     onLogin() {
-      // console.log("login method called");
       this.form.submitError = undefined;
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      // console.log("login method go");
 
       this.Login();
     },

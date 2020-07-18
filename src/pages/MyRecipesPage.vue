@@ -60,7 +60,6 @@ export default {
       let response = this.axios
         .get(link)
         .then((res) => {
-          console.log(res.data);
           myRecipes = res.data.message;
         })
         .catch((err) => {

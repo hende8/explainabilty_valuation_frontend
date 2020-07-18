@@ -84,15 +84,11 @@ export default {
     try {
       let response;
       try {
-        console.log(this.$route.params.recipeId);
         response = await this.axios.get(
           // "https://assignment3-2-shiran-hen.herokuapp.com/recipes//information/" +
           "http://localhost:3000/recipes//information/" +
             this.$route.params.recipeId
         );
-        console.log(response.data);
-
-        // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
         if (this.$root.store.username) {
           this.$store.lastWatch = undefined;
@@ -105,10 +101,8 @@ export default {
           );
           this.isWatch = info.data[0].isWatch;
           this.isFavorite = info.data[0].isFavorite;
-          console.log(info.data);
         }
       } catch (error) {
-        console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
         return;
       }
@@ -160,7 +154,6 @@ export default {
         );
       }
     } catch (error) {
-      console.log(error);
     }
   }
   // methods: {

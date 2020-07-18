@@ -84,14 +84,11 @@ const shared_data = {
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
-    console.log("login", this.username);
-    console.log("shirannnnnn" + document.cookie);
+
   },
   async logout() {
     app.logout();
-    console.log("shirannnnnn!!!!!!!!!!!!!!!!!!!" + document.cookie);
 
-    console.log("logout");
     localStorage.removeItem("username");
     localStorage.removeItem("lastSearch");
     this.username = undefined;
