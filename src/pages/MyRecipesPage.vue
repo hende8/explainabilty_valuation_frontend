@@ -42,7 +42,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.error(err);
+            this.$router.push("/login");
         });
     } else {
       this.myRecipes = this.$store.recipes;
