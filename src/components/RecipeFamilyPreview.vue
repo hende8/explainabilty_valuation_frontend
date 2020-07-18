@@ -14,6 +14,7 @@
                     {{ recipe.cookingDuration }} Minutes
                   </b-list-group-item>
                   <b-list-group-item>Made by : {{recipe.owner}}</b-list-group-item>
+                  <b-list-group-item>Cooking in : {{recipe.event}}</b-list-group-item>
                   <b-list-group-item>Number of dishes: {{recipe.dishes}}</b-list-group-item>
                   <b-list-group-item>
                     Ingredients:

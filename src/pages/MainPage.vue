@@ -31,7 +31,7 @@
         <RecipePreviewList
           v-else
           action="lastView"
-          title="Last Viewed Recipes"
+          title="Last watched recipes"
           class="Recipes"
         ></RecipePreviewList>
       </div>
