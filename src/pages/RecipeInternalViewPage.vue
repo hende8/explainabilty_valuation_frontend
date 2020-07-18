@@ -1,5 +1,5 @@
 <template>
-  <div v-if="recipes.length > 0">
+  <div  class="center" style="width: 90%;" v-if="recipes.length > 0">
     <br>
     <b-card
       no-body
@@ -81,7 +81,7 @@ export default {
     };
   },
 
-  mounted() {
+  created() {
     if (this.$store.recipes) {
       this.recipes = this.$store.recipes.filter(
         (recipe) => recipe.recipeID == this.$route.params.recipeId
@@ -115,4 +115,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+   /* background-color: rgba(60, 19, 224, 0.075); */
+}</style>

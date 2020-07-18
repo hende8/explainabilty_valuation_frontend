@@ -56,7 +56,7 @@ export default {
       render: 0,
     };
   },
-  async mounted() {
+  async created() {
     if (this.action == "random") {
       this.updateRandomRecipes();
     } else {

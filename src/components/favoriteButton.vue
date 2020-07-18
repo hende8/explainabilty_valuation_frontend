@@ -69,5 +69,6 @@ export default {
 
 <style scoped>
 .favorite:hover {
-box-shadow: 0px 6px 21px  }
+ transform: scale(1.50); }
+
 </style>

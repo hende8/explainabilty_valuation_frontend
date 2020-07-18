@@ -1,12 +1,14 @@
 <template>
   <div class="container" style=" color:whitesmoke;">
-      <br>
+    <br />
     <h1 style="text-align:center;">My Recipes</h1>
-    <br>
+    <br />
     <div v-if="this.myRecipes == undefined" style=" text-align:center;">
       <strong style="color:whitesmoke; ">Loading...</strong>
     </div>
-    <h3 v-if="this.myRecipes == false" style="text-align:center;">No recipes</h3>
+    <h3 v-if="this.myRecipes == false" style="text-align:center;">
+      No recipes
+    </h3>
     <b-row cols="3" v-else>
       <b-col v-for="item in myRecipes" :key="item.recipeID">
         <RecipePreviewInternal class="recipePreview" :recipe="item" />
@@ -27,7 +29,7 @@ export default {
   components: {
     RecipePreviewInternal,
   },
-  mounted() {
+  created() {
     if (!this.$store.recipes) {
       // getMyRecipes();
       // let link = 'https://assignment3-2-shiran-hen.herokuapp.com/user/myRecipes';
@@ -44,7 +46,7 @@ export default {
           }
         })
         .catch((err) => {
-            this.$router.push("/login");
+          this.$router.push("/login");
         });
     } else {
       this.myRecipes = this.$store.recipes;
@@ -62,7 +64,11 @@ export default {
           myRecipes = res.data.message;
         })
         .catch((err) => {
+          if (err.response.status == "401") {
             this.$router.push("/login");
+          } else {
+            this.$router.push("/NotFound");
+          }
         });
     },
   },

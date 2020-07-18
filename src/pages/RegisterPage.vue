@@ -248,7 +248,7 @@ export default {
       }
     }
   },
-  mounted() {
+  created() {
     if (this.$root.store.username) {
       this.$root.store.logout();
     }

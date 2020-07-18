@@ -35,7 +35,7 @@ export default {
   components: {
     RecipeFamilyPreview,
   },
-  mounted() {
+  created() {
     this.getMyFamilyRecipes();
   },
   methods: {
@@ -54,7 +54,11 @@ export default {
             }
           })
           .catch((err) => {
-            this.$router.push("/login");
+            if (err.response.status == "401") {
+              this.$router.push("/login");
+            } else {
+              this.$router.push("/NotFound");
+            }
           });
       } else {
         this.myFamilyRecipes = this.$store.myFamily;

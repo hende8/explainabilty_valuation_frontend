@@ -4,7 +4,7 @@
       :to="{ name: 'recipe', params: { recipeId: recipe.recipeID } }"
     >
       <div class="recipe-body">
-        <img :src="recipe.imageURL" class="card-img-top" style="max-width:318px; min-width:318px max-height:230px; min-height:230px"/>
+        <img  id="card1" :src="recipe.imageURL" class="card-img-top" style="max-width:318px; min-width:318px max-height:230px; min-height:230px"/>
       </div>
     </router-link>
     <div class="card-body" style="max-height:230px; min-height:230px">
@@ -26,11 +26,12 @@
           ></favoriteButton>
         </b-col>
       </b-row>
-      <router-link
+      <!-- <router-link
         :to="{ name: 'recipe', params: { recipeId: recipe.recipeID } }"
-      >
+      > -->
         <div class="recipe-footer">
-          <div :title="recipe.name" class="card-title">{{ recipe.name }}</div>
+          <h6 :title="recipe.name" class="card-title">{{ recipe.name }}</h6>
+          
           <ul class="card-text">
             <b-row>
               <b-icon
@@ -75,7 +76,7 @@
             </b-row>
           </ul>
         </div>
-      </router-link>
+      <!-- </router-link> -->
       <!-- <button > favorite</button> -->
     </div>
     <!-- <favoriteButton name="favorite" v-if="$root.store.username && recipe.likes"></favoriteButton> -->
@@ -113,7 +114,7 @@ export default {
   margin-bottom: 10px; /* Added */
  
 }
-.card:hover {
+#card1:hover {
    transform: scale(1.02);
 }
 /* .recipe-preview {

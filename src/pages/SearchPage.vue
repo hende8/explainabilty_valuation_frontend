@@ -107,8 +107,8 @@
     </div>
     <br />
     <div>
-      <b-row v-if="this.hasResult" style=" color:whitesmoke;">
-        <b-form-group label="Sort by:">
+      <b-row v-if="this.hasResult" >
+        <b-form-group label="Sort by:" style=" color:whitesmoke;">
           <b-form-radio
             @change.native="sortByPopularity($event)"
             value="Popularity"
@@ -128,7 +128,7 @@
           </b-col>
         </b-row>
       </b-row>
-      <h1 v-if="this.notFoundRecipes">Search not found , try again!</h1>
+      <h1 v-if="this.notFoundRecipes" style=" color:whitesmoke;" >Search not found , try again!</h1>
     </div>
   </div>
 </template>
@@ -171,7 +171,7 @@ export default {
   components: {
     RecipePreview,
   },
-  async mounted() {
+  async created() {
     // if (sessionStorage.getItem("lastSearch")) this.hasLastSearch = true;
     // this.lastSearchResults = JSON.parse(sessionStorage.getItem("lastSearch"));
 
