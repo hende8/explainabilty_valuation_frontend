@@ -73,7 +73,6 @@
 </template>
 
 <script>
-// import RecipeInternalView from "../components/RecipeInternalView";
 export default {
   data() {
     return {

@@ -13,7 +13,7 @@
       <br />
       <br />First, we wrote our
       <a
-        href="https://app.swaggerhub.com/apis/hende8/Shiran-Hen/1.0.1#/user/post_user_myFavoriteRecipes"
+        href="https://app.swaggerhub.com/apis/hende8/Shiran-Hen/1.0.1"
         class="card-link"
       >API</a> in Swagger-hub.
       <br />Once we had our API, we start in the mission and coded the backend side.
