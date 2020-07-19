@@ -131,6 +131,9 @@ var app = new Vue({
       } catch (err) {}
     },
   },
+  created(){
+    window.document.title = 'Happy recipes'; 
+  },
 
   render: (h) => h(App),
 }).$mount("#app");
