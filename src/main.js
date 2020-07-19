@@ -132,7 +132,7 @@ var app = new Vue({
     },
   },
   created(){
-    window.document.title = 'Happy recipes'; 
+    window.document.title = 'Happy Recipes'; 
   },
 
   render: (h) => h(App),
