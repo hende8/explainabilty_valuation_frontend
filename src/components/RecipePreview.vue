@@ -26,9 +26,6 @@
           ></favoriteButton>
         </b-col>
       </b-row>
-      <!-- <router-link
-        :to="{ name: 'recipe', params: { recipeId: recipe.recipeID } }"
-      > -->
         <div class="recipe-footer">
           <h6 :title="recipe.name" class="card-title">{{ recipe.name }}</h6>
           
@@ -76,10 +73,7 @@
             </b-row>
           </ul>
         </div>
-      <!-- </router-link> -->
-      <!-- <button > favorite</button> -->
     </div>
-    <!-- <favoriteButton name="favorite" v-if="$root.store.username && recipe.likes"></favoriteButton> -->
   </div>
 </template>
 

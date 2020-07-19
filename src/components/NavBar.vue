@@ -19,7 +19,6 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <!-- <b-nav-form> </b-nav-form> -->
         <b-nav-item-dropdown v-if = "!this.$root.store.username" text="Hello guest" toggle-class="text-white" right >
         <router-link tag="b-dropdown-item" to="/register" href="#">Sign up</router-link>
         <router-link tag="b-dropdown-item" to="/login" >Sign in</router-link>
@@ -30,8 +29,7 @@
         <router-link tag="b-dropdown-item" to="/myFamilyRecipes" href="#">My Family Recipes</router-link>
       </b-nav-item-dropdown>
         <b-nav-item-dropdown v-if="this.$root.store.username" :text="this.$root.store.username" toggle-class="text-white"  right>
-        <!-- <router-link tag="b-dropdown-item"   style ="color: transparent;
-        text-shadow: 0 0 10px;" href="#" disabled >New Recipe</router-link> -->
+
         <router-link tag="b-dropdown-item" :to="{ name: 'main' }" @click.native="logout" >Loguot</router-link>
       </b-nav-item-dropdown>
 

@@ -18,7 +18,6 @@
     variant="warning"
     type="button"
   ></b-icon>
-  <!-- <button @click="addToMyFavorite">favorite</button> -->
 </template>
 
 <script>

@@ -5,7 +5,6 @@
     <br />
     <div v-if="this.myFavoriteRecipes == undefined" style=" text-align:center;">
       <strong style="color:whitesmoke; ">Loading...</strong>
-      <!-- <b-spinner class="ml-auto"></b-spinner> -->
     </div>
     <h3 v-if="this.myFavoriteRecipes == false" style="text-align:center; color:whitesmoke;">
       No recipes

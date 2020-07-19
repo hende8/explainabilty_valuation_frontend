@@ -8,24 +8,15 @@
     <br>
     <div v-if="this.recipes== null"  style=" text-align:center;  color:whitesmoke;">
       <strong style="color:whitesmoke; ">Loading...</strong>
-      <!-- <b-spinner class="ml-auto"></b-spinner> -->
     </div>
     <h3 v-if="this.recipes==false"  style=" text-align:center;  color:whitesmoke;"> No recipes watched</h3>
     <div v-else >
     <b-row  v-for="r in this.recipes" :key="r.id">
-      <!-- <b-col > -->
       <RecipePreview class="p" :recipe="r" :key="render"></RecipePreview>
-      <!-- </b-col> -->
     </b-row>
     </div>
     
-    <!-- <button
-      v-if="buttonAction"
-      v-on:click="updateRandomRecipes()"
-      type="button"
-    >
-      random
-    </button> -->
+
   </div>
 </template>
 
