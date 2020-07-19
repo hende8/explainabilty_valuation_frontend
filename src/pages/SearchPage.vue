@@ -107,22 +107,22 @@
     </div>
     <br />
     <div>
-      <b-row v-if="this.hasResult" >
+      <b-row v-if="this.hasResult">
         <b style=" color:whitesmoke;">
-        <b-form-group label="Sort by:">
-          <b-form-radio
-            @change.native="sortByPopularity($event)"
-            value="Popularity"
-            name="some-radios"
-            >Popularity</b-form-radio
-          >
-          <b-form-radio
-            @change.native="sortByCookingDuration($event)"
-            value="duration"
-            name="some-radios"
-            >Cooking duration</b-form-radio
-          >
-        </b-form-group>
+          <b-form-group label="Sort by:">
+            <b-form-radio
+              @change.native="sortByPopularity($event)"
+              value="Popularity"
+              name="some-radios"
+              >Popularity</b-form-radio
+            >
+            <b-form-radio
+              @change.native="sortByCookingDuration($event)"
+              value="duration"
+              name="some-radios"
+              >Cooking duration</b-form-radio
+            >
+          </b-form-group>
         </b>
         <b-row cols="3">
           <b-col v-for="item in results" :key="item.recipeID">
@@ -130,7 +130,9 @@
           </b-col>
         </b-row>
       </b-row>
-      <h1 v-if="this.notFoundRecipes" style=" color:whitesmoke;" >Search not found , try again!</h1>
+      <h1 v-if="this.notFoundRecipes" style=" color:whitesmoke;">
+        Search not found , try again!
+      </h1>
     </div>
   </div>
 </template>
@@ -198,12 +200,11 @@ export default {
             diet: this.dietChoose,
           },
         });
-      } catch (err) {
-      }
+      } catch (err) {}
       if (response.status == "200") {
         this.hasResult = false;
         this.hasResult = true;
-        
+
         let ans = response.data;
         if (this.$root.store.username) {
           ans = await this.getUserInformation(ans);
@@ -217,11 +218,12 @@ export default {
       return $dirty ? !$error : null;
     },
     onSearch() {
+      this.notFoundRecipes = false;
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      this.lastSearchResults=null;
+      this.lastSearchResults = null;
       this.search = this.form.search;
       this.searchRecipes();
     },
