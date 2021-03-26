@@ -7,7 +7,7 @@
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
     <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-            <b-nav-item href="#" disabled style="color: #7952b3;"> Hello To Evaluation </b-nav-item> 
+            <b-nav-item href="#" disabled style="color: #7952b3;"> Hello To Evaluation System</b-nav-item> 
         </b-navbar-nav>
         <b-navbar-nav>
             <b-nav-item-dropdown right>
