@@ -120,6 +120,7 @@ export default {
       }
 
       this.$root.store.setData(this.form.dataset,this.form.predict_model)
+      console.log(this.form.dataset)
       // this.createExplanationValuation();
     },
     async createExplanationValuation() {
