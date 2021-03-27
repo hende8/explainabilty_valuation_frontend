@@ -86,10 +86,16 @@ Vue.config.productionTip = false;
 
 const shared_data = {
   username: localStorage.username,
+  data:localStorage.data,
+  model:localStorage.model,
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
 
+  },
+  setData(data,model){
+    localStorage.setItem("data",data)
+    localStorage.setItem("model",model)
   },
   async logout() {
     app.logout();

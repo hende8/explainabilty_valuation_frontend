@@ -18,10 +18,11 @@ export default {
     async test() {
       try {
         const response = await this.axios.post(
-          "http://localhost:3000/evaluation", // to fix it
+          "http://localhost:5000/MakeShapModel/GetAllDataShap", // to fix it
           {
-            dataset: this.form.dataset,
-            predict_model: this.form.predict_model,
+            data: this.$root.store.data,
+            model: this.$root.store.model,
+            features:[gender,age_group,symptom_well,symptom_sore_throat,symptom_cough,symptom_shortness_of_breath,symptom_smell_or_taste_loss,symptom_fever,condition_any]
           }
         );
         if (response.status == "201") {

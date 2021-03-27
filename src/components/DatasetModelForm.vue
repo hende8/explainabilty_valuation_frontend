@@ -118,7 +118,9 @@ export default {
       if (this.$v.form.$anyError) {
         return;
       }
-      this.createExplanationValuation();
+
+      this.$root.store.setData(this.form.dataset,this.form.predict_model)
+      // this.createExplanationValuation();
     },
     async createExplanationValuation() {
       try {
