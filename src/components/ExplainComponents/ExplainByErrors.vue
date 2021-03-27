@@ -7,7 +7,7 @@
       variant="primary"
       style="width: 90px"
       class="ml-5 w-10"
-      >Get graphs</b-button
+      >Get graphsssss</b-button
     >    
 
   <!-- <b-card  no-body class="overflow-hidden" style="max-width: 1700px;" v-for="r in this.images" :key="r.details">
