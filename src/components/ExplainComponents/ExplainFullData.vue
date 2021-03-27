@@ -17,15 +17,16 @@ export default {
   methods: {
     
     async test() {
+      const dataToSend = new FormData();
+      s= this.$root.store.data
+      console.log(this.$root.store.data)
       try {
         const response = await this.axios.post(
-          "http://localhost:5000/MakeShapModel/GetAllDataShap", // to fix it
-          {
+          "http://localhost:5000/MakeShapModel/GetAllDataShap",{
             data: this.$root.store.data,
             model: this.$root.store.model,
-            features:[gender,age_group,symptom_well,symptom_sore_throat,symptom_cough,symptom_shortness_of_breath,symptom_smell_or_taste_loss,symptom_fever,condition_any]
-          }
-        );
+            features: ["gender","age_group","symptom_well","symptom_sore_throat","symptom_cough","symptom_shortness_of_breath","symptom_smell_or_taste_loss","symptom_fever","condition_any"]
+          });
         // if (response.status == "201") {
         //   this.$router.push("/evaluation");
         // }

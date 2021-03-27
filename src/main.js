@@ -96,6 +96,8 @@ const shared_data = {
   setData(data,model){
     localStorage.setItem("data",data)
     localStorage.setItem("model",model)
+    this.data=data
+    this.model=model
   },
   async logout() {
     app.logout();
