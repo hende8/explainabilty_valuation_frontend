@@ -1,52 +1,47 @@
 <template>
   <div>
-    <b-navbar class="nav" toggleable="lg" style="z-index:10000; position: fixed; top:0; mergin:0; left:0; width:100%" >
-      <b-collapse id="nav-collapse" is-nav>
+<b-navbar toggleable="lg" type="dark" variant="dark">
+    <b-navbar-brand href='/main'>
+        <p class="h3 mb-2"><b-icon icon="house-door-fill" style="color: #7952b3;"></b-icon></p>
+    </b-navbar-brand>
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+    <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <router-link tag="h4" :to="{ name: 'main' }" class="logo" style=" margin-right:13px" >
-            Happy Recipes
-          </router-link>
-          <router-link tag="b-nav-item" style="margin-right:13px" :to="{ name: 'main' }"
-            >
-            <span class="n">Home</span></router-link
-          >
-          <router-link tag="b-nav-item" style="margin-right:13px" :to="{ name: 'search' }"
-            > <span class="n">Search</span></router-link
-          >
-          <router-link tag="b-nav-item" style="color: white; margin-right:13px" :to="{ name: 'about' }"
-            > <span class="n" >About</span></router-link
-          >
+            <b-nav-item href="#" disabled style="color: #7952b3;"> Hello To Evaluation System</b-nav-item> 
         </b-navbar-nav>
+        <b-navbar-nav>
+            <b-nav-item-dropdown right>
+                <template v-slot:button-content>
+                    <b-icon icon="question-square" style="color: #7952b3;"></b-icon>
+                    <em> Choose Explainatiom Model </em>
+                </template>
+                <b-dropdown-item router-link :to="{ name: 'shap' }"><b-icon icon="star-fill" style="color: #7952b3;"></b-icon>  SHAP</b-dropdown-item>
+                <b-dropdown-item router-link :to="{ name: 'lime' }"><b-icon icon="receipt" style="color: #7952b3;"></b-icon>  Lime</b-dropdown-item>
+            </b-nav-item-dropdown>
+            <b-nav-item router-link :to="{ name: 'evaluation' }">
+              <b-icon icon="display" style="color: #7952b3;"></b-icon>
 
-        <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown v-if = "!this.$root.store.username" text="Hello guest" toggle-class="text-white" right >
-        <router-link tag="b-dropdown-item" to="/register" href="#">Sign up</router-link>
-        <router-link tag="b-dropdown-item" to="/login" >Sign in</router-link>
-        </b-nav-item-dropdown>
-              <b-nav-item-dropdown v-if="this.$root.store.username" text="Personal" toggle-class="text-white"  right>
-        <router-link tag="b-dropdown-item" to="/myFavoriteRecipes" href="#">My Favorite Recipes</router-link>
-        <router-link tag="b-dropdown-item" to="/myRecipes" href="#">My Recipes</router-link>
-        <router-link tag="b-dropdown-item" to="/myFamilyRecipes" href="#">My Family Recipes</router-link>
-      </b-nav-item-dropdown>
-        <b-nav-item-dropdown v-if="this.$root.store.username" :text="this.$root.store.username" toggle-class="text-white"  right>
-
-        <router-link tag="b-dropdown-item" :to="{ name: 'main' }" @click.native="logout" >Loguot</router-link>
-      </b-nav-item-dropdown>
-
+              Evaluation Tools
+              </b-nav-item>
         </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+          <b-navbar-nav class="ml-auto">
+
+            <b-nav-item ></b-nav-item>
+            <b-nav-item ></b-nav-item>
+        <b-navbar-nav>
+            <b-nav-item ></b-nav-item>
+            <b-nav-item ></b-nav-item>
+        </b-navbar-nav>
+        </b-navbar-nav>
+    </b-collapse>
+</b-navbar>
   </div>
 
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      username: this.$root.store.username,
-    };
-  },
+
   methods: {
     logout() {
       this.username = null;
