@@ -1,50 +1,6 @@
 <template>
-<div style="margin: auto;
-  width: 50%;
-  border: 3px solid green;
-  padding: 10px;">
-  <form>
-    <section v-if="step == 1">
-      <h1>Upload a dataset</h1>
-      <input
-        id="input_csv"
-        @change="onFileChange"
-        type="file"
-        accept=".csv"
-        class="form-control-lg form-control-lg"
-      />
-    </section>
-
-    <section v-if="step == 2">
-      <h1>Upload a prediction model</h1>
-      <input
-        id="input_pkl"
-        type="file"
-        accept=".pkl"
-        class="form-control-lg form-control-lg"
-      />
-    </section>
-    <section v-if="step == 3">
-      <h1>Choose a features</h1>
-    </section>
-    <section v-if="step == 4">
-            <h1>Choose an explanation model</h1>
-      <select v-model="form.explain_model">
-        <option>SHAP</option>
-        <option>lime</option>
-      </select>
-    </section>
-    <button
-      @click.prevent="previousStep"
-      v-if="step != total_steps && step != 1"
-    >
-      Previous step
-    </button>
-    <button @click.prevent="nextStep" v-if="step != total_steps">
-      Next step
-    </button>
-    <button v-if="step == total_steps" @click="submit">Finish</button>
-  </form>
+  <div>
+    <DatasetModelForm class="datasetModelForm" />
   </div>
 </template>
 
@@ -57,8 +13,13 @@ import {
   sameAs,
   email,
 } from "vuelidate/lib/validators";
+
+import DatasetModelForm from "../components/DatasetModelForm";
+
 export default {
-  components: {},
+  components: {
+    DatasetModelForm,
+  },
   data() {
     return {
       step: 1,

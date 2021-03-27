@@ -7,13 +7,13 @@
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
     <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-            <b-nav-item href="#" disabled style="color: #7952b3;"> Hello To Evaluation System</b-nav-item> 
+            <b-nav-item href="#" disabled style="color: #7952b3;"> Evaluation System</b-nav-item> 
         </b-navbar-nav>
         <b-navbar-nav>
             <b-nav-item-dropdown right>
                 <template v-slot:button-content>
                     <b-icon icon="question-square" style="color: #7952b3;"></b-icon>
-                    <em> Choose Explainatiom Model </em>
+                    <em>Explainatiom Model </em>
                 </template>
                 <b-dropdown-item router-link :to="{ name: 'shap' }"><b-icon icon="star-fill" style="color: #7952b3;"></b-icon>  SHAP</b-dropdown-item>
                 <b-dropdown-item router-link :to="{ name: 'lime' }"><b-icon icon="receipt" style="color: #7952b3;"></b-icon>  Lime</b-dropdown-item>
