@@ -132,7 +132,7 @@ export default {
         var formData = new FormData();
         formData.append("data",this.form.dataset)
         formData.append("model",this.form.predict_model)
-        const response = await this.axios.get(
+        const response = await this.axios.post(
           'http://localhost:5000/MakeShapModel/GetAllDataShap',formData,{
           headers: {
             'Content-Type': 'multipart/form-data'
