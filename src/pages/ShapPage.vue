@@ -1,4 +1,4 @@
-<template>
+<עןא mplate>
   <div>
     <b-container>
       <section class="text-center my-5">
