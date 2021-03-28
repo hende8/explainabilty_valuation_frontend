@@ -132,6 +132,8 @@ export default {
         var formData = new FormData();
         formData.append("data",this.form.dataset)
         formData.append("model",this.form.predict_model)
+        let f = {features : "gender,age_group,symptom_well,symptom_sore_throat,symptom_cough,symptom_shortness_of_breath,symptom_smell_or_taste_loss,symptom_fever,condition_any"};
+        formData.append("features",f)
         const response = await this.axios.post(
           'http://localhost:5000/MakeShapModel/GetAllDataShap',formData,{
           headers: {
