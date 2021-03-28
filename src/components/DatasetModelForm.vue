@@ -23,6 +23,7 @@
           <b-form-file
             size="sm"
             accept=".csv"
+            enctype="multipart/form-data"
             v-model="form.dataset"
             :state="validateState('dataset')"
             placeholder="Choose a file or drop it here..."
@@ -121,8 +122,36 @@ export default {
 
       this.$root.store.setData(this.form.dataset,this.form.predict_model)
       console.log(this.form.dataset)
-      // this.createExplanationValuation();
+      this.test();
     },
+     async test() {
+      // const dataToSend = new FormData();
+      // s= this.$root.store.data
+      // console.log(this.$root.store.data)
+      try {
+        var formData = new FormData();
+        formData.append("data",this.form.dataset)
+        formData.append("model",this.form.predict_model)
+        const response = await this.axios.get(
+          'http://localhost:5000/MakeShapModel/GetAllDataShap',formData,{
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          
+          // features: ["gender","age_group","symptom_well","symptom_sore_throat","symptom_cough","symptom_shortness_of_breath","symptom_smell_or_taste_loss","symptom_fever","condition_any"]
+          
+          });
+        // if (response.status == "201") {
+        //   this.$router.push("/evaluation");
+        // }
+
+        console.log(response)
+      } catch (err) {
+        this.form.submitError = err.response.data.message;
+      }
+ 
+
+  },
     async createExplanationValuation() {
       try {
         const response = await this.axios.post(
