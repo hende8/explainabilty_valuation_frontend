@@ -69,8 +69,12 @@
         show
         >Process failed: {{ form.submitError }}</b-alert
       >
+
     </div>
-    <img :src="this.image"/>
+
+
+
+
   </div>
   
 </template>
@@ -127,7 +131,7 @@ export default {
       this.$root.store.setData(this.form.dataset,this.form.predict_model)
       console.log(this.form.dataset)
       
-      this.test();
+      // this.test();
     },
      async test() {
       // const dataToSend = new FormData();

@@ -64,6 +64,11 @@ const routes = [
     component: () => import("./pages/LimePage"),
   },
   {
+    path: "/explain",
+    name: "explainPage",
+    component: () => import("./pages/ShapPage"),
+  },
+  {
     path: "/evaluation",
     name: "evaluation",
     component: () => import("./pages/EvaluationPage"),
