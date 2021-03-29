@@ -25,6 +25,7 @@
     "vuesax": "^4.0.1-alpha.25"
   },
   "devDependencies": {
+    "@vue/babel-preset-app": "^4.5.12",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-plugin-router": "~4.4.0",
