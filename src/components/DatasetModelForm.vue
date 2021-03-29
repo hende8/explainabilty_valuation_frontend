@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div style="width: 1200px; position: absolute">
+    <div style="width: 1200px; position: absolute" v-if="!lime_or_shap">
       <h1>Evaluation and Explanation system</h1>
       <h5>
         In this system you will get an explanation and avaluation about those
@@ -14,9 +14,15 @@
         <b>Note:</b> The dataset must include the exact features that you have
         trained in your predict model.
       </h5>
+      <br />
+      <br />
 
       <!-- Styled -->
-      <b-form @submit.prevent="onSubmit" @reset.prevent="onReset">
+      <b-form
+        @submit.prevent="onSubmit"
+        @reset.prevent="onReset"
+        v-show="!submit_form"
+      >
         <b-col sm="5">
           <h2>Choose a dataset</h2>
 
@@ -58,9 +64,49 @@
           variant="primary"
           style="width: 90px"
           class="ml-5 w-10"
-          >Finish</b-button
+          >Next</b-button
         >
       </b-form>
+
+      <div v-show="submit_form">
+        <b-form>
+          <h2>please choose your features that you pretrained about</h2>
+          <label v-for="f in features_list" :key="f">
+            <b-row>
+              <input
+                type="checkbox"
+                :id="f"
+                :value="f"
+                v-model="checkedFeatures"
+              />{{ f }}
+            </b-row>
+          </label>
+          <br />
+          <span>Checked features: {{ checkedFeatures }}</span>
+          <br />
+          <br />
+          <h2>choose your target prediction model:</h2>
+          <select v-model="selected_target">
+            <option v-for="f in features_list" :key="f" required>
+              {{ f }}
+            </option>
+          </select>
+          <b-form-invalid-feedback v-if="$v.features_form.features == 0"
+            >you have to choose features</b-form-invalid-feedback
+          >
+          <b-form-invalid-feedback
+            v-if="!$v.features_form.selected_target.required"
+            >please select a feature target</b-form-invalid-feedback
+          >
+        </b-form>
+        <b-button
+          variant="primary"
+          style="width: 90px"
+          class="ml-5 w-10"
+          @click="finish_fill_deatils"
+          >Finish</b-button
+        >
+      </div>
       <b-alert
         class="mt-2"
         v-if="form.submitError"
@@ -68,6 +114,18 @@
         dismissible
         show
         >Process failed: {{ form.submitError }}</b-alert
+      >
+    </div>
+    <div v-if="lime_or_shap">
+      <b-button @click="shapChosen" style="width: 150px" variant="danger"
+        >SHAP</b-button
+      >
+      <b-button
+        @click="limeChosen"
+        variant="primary"
+        style="width: 150px"
+        class="ml-5 w-10"
+        >lime</b-button
       >
     </div>
   </div>
@@ -88,7 +146,16 @@ export default {
       form: {
         dataset: null,
         predict_model: null,
-        submitError:undefined
+        features_list: null,
+        feature_target: "",
+        submitError: undefined,
+      },
+      submit_form: false,
+      checkedFeatures: [],
+      lime_or_shap: false,
+      features_form: {
+        features: [],
+        selected_target: "",
       },
     };
   },
@@ -100,6 +167,9 @@ export default {
       predict_model: {
         required,
       },
+    },
+    features_form: {
+      selected_target: required,
     },
   },
   methods: {
@@ -120,40 +190,88 @@ export default {
         return;
       }
 
-      this.$root.store.setData(this.form.dataset,this.form.predict_model)
-      console.log(this.form.dataset)
-      this.test();
+      this.$root.store.setData(this.form.dataset, this.form.predict_model);
+      console.log(this.form.dataset);
+      this.test2();
     },
-     async test() {
+    finish_fill_deatils() {
+      this.$v.features_form.$touch();
+      if (this.$v.features_form.$anyError) {
+        return;
+      }
+      this.$root.store.setData(
+        this.form.dataset,
+        this.form.predict_model,
+        this.features_form.features,
+        this.features_form.selected_target
+      );
+      this.lime_or_shap = true;
+    },
+    async test2() {
+      try {
+        var formData = new FormData();
+        formData.append("data", this.form.dataset);
+        formData.append("model", this.form.predict_model);
+        let f = {
+          features:
+            "gender,age_group,symptom_well,symptom_sore_throat,symptom_cough,symptom_shortness_of_breath,symptom_smell_or_taste_loss,symptom_fever,condition_any",
+        };
+        formData.append("features", f);
+        const response = await this.axios.post(
+          "http://localhost:5000/finish",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        let features_list = response.data.split(",");
+        this.features_list = features_list;
+        this.submit_form = true;
+      } catch (err) {
+        this.form.submitError = err.response.data.message;
+      }
+    },
+    shapChosen(){
+      this.$router.push("/shap");
+    },
+    limeChosen(){
+      this.$router.push("/lime");
+    },
+    async test() {
       // const dataToSend = new FormData();
       // s= this.$root.store.data
       // console.log(this.$root.store.data)
       try {
         var formData = new FormData();
-        formData.append("data",this.form.dataset)
-        formData.append("model",this.form.predict_model)
-        let f = {features : "gender,age_group,symptom_well,symptom_sore_throat,symptom_cough,symptom_shortness_of_breath,symptom_smell_or_taste_loss,symptom_fever,condition_any"};
-        formData.append("features",f)
+        formData.append("data", this.form.dataset);
+        formData.append("model", this.form.predict_model);
+        let f = {
+          features:
+            "gender,age_group,symptom_well,symptom_sore_throat,symptom_cough,symptom_shortness_of_breath,symptom_smell_or_taste_loss,symptom_fever,condition_any",
+        };
+        formData.append("features", f);
         const response = await this.axios.post(
-          'http://localhost:5000/MakeShapModel/GetAllDataShap',formData,{
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          },
-          
-          // features: ["gender","age_group","symptom_well","symptom_sore_throat","symptom_cough","symptom_shortness_of_breath","symptom_smell_or_taste_loss","symptom_fever","condition_any"]
-          
-          });
+          "http://localhost:5000/MakeShapModel/GetAllDataShap",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+
+            // features: ["gender","age_group","symptom_well","symptom_sore_throat","symptom_cough","symptom_shortness_of_breath","symptom_smell_or_taste_loss","symptom_fever","condition_any"]
+          }
+        );
         // if (response.status == "201") {
         //   this.$router.push("/evaluation");
         // }
 
-        console.log(response)
+        console.log(response);
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
- 
-
-  },
+    },
     async createExplanationValuation() {
       try {
         const response = await this.axios.post(
@@ -179,4 +297,8 @@ export default {
 </script>
 
 <style scoped>
+input {
+  width: 70px;
+  padding: 5px;
+}
 </style>

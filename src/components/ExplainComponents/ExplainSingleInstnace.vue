@@ -4,7 +4,9 @@
       In this section you are able to explain your predicticting result.<br />
       Please fill the missing values and get explain for your results
     </h2>
-    <b-button @click="showFeatures" variant="primary">Exolore explanations</b-button>
+    <b-button @click="showFeatures" variant="primary"
+      >Exolore explanations</b-button
+    >
     <div v-show="showFeaturesBool">
       <b-form
         v-for="f in this.features"
@@ -14,14 +16,20 @@
       >
         <b-col sm="3">
           <b-form-group id="input-group-1" :label="f" label-for="input-1">
-            <b-form-input id="input-1" 
-            v-model="form[f]"
+            <b-form-input
+              id="input-1"
+              v-model="form[f]"
             ></b-form-input>
+            <!-- <b-form-invalid-feedback v-if="!$v.form.f.required"
+              >{{f}} is required</b-form-invalid-feedback
+            > -->
           </b-form-group>
         </b-col>
       </b-form>
       <b-button @click="onReset" variant="danger">Reset</b-button>
-      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button @click="getShapExplanation" type="submit" variant="primary"
+        >Submit</b-button
+      >
     </div>
   </div>
 </template>
@@ -35,12 +43,22 @@ export default {
     }, {});
     return {
       form: form_create,
-      showFeaturesBool:false
+      showFeaturesBool: false,
     };
   },
   props: {
     features: Array,
   },
+    // validations: {
+    // form: {
+    //   dataset: {
+    //     required,
+    //   },
+    //   predict_model: {
+    //     required,
+    //   },
+    // },
+  // },
 
   methods: {
     async test() {
@@ -78,15 +96,14 @@ export default {
       }
 
       this.$root.store.setData(this.form.dataset, this.form.predict_model);
-      this.test();
+      this.getShapExplanation();
     },
-    showFeatures(){
-      this.showFeaturesBool=true
-      
-      },
+    showFeatures() {
+      this.showFeaturesBool = true;
+    },
+    async getShapExplanation() {},
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>
 

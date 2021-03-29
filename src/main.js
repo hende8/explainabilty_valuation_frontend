@@ -88,16 +88,22 @@ const shared_data = {
   username: localStorage.username,
   data:localStorage.data,
   model:localStorage.model,
+  features:localStorage.features,
+  target_feature:localStorage.target_feature,
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
 
   },
-  setData(data,model){
+  setData(data,model,features,target_feature){
     localStorage.setItem("data",data)
     localStorage.setItem("model",model)
+    localStorage.setItem("features",features)
+    localStorage.setItem("target_feature",target_feature)
     this.data=data
     this.model=model
+    this.features=features
+    this.target_feature=target_feature
   },
   async logout() {
     app.logout();
