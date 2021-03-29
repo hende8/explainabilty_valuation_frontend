@@ -70,7 +70,9 @@
         >Process failed: {{ form.submitError }}</b-alert
       >
     </div>
+    <img :src="this.image"/>
   </div>
+  
 </template>
 
 <script>
@@ -83,6 +85,7 @@ import {
   email,
 } from "vuelidate/lib/validators";
 export default {
+
   data() {
     return {
       form: {
@@ -90,6 +93,7 @@ export default {
         predict_model: null,
         submitError:undefined
       },
+      image: null,
     };
   },
   validations: {
@@ -122,6 +126,7 @@ export default {
 
       this.$root.store.setData(this.form.dataset,this.form.predict_model)
       console.log(this.form.dataset)
+      
       this.test();
     },
      async test() {
@@ -132,7 +137,7 @@ export default {
         var formData = new FormData();
         formData.append("data",this.form.dataset)
         formData.append("model",this.form.predict_model)
-        let f = {features : "gender,age_group,symptom_well,symptom_sore_throat,symptom_cough,symptom_shortness_of_breath,symptom_smell_or_taste_loss,symptom_fever,condition_any"};
+        let f = "gender,age_group,symptom_well,symptom_sore_throat,symptom_cough,symptom_shortness_of_breath,symptom_smell_or_taste_loss,symptom_fever,condition_any";
         formData.append("features",f)
         const response = await this.axios.post(
           'http://localhost:5000/MakeShapModel/GetAllDataShap',formData,{
@@ -147,7 +152,8 @@ export default {
         //   this.$router.push("/evaluation");
         // }
 
-        console.log(response)
+        console.log(response.data)
+        this.image=response.data
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
