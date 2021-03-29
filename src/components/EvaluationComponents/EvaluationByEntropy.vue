@@ -3,7 +3,7 @@
     <h4>This is page for showing the evauation for explaination method</h4>
 
     <b-button
-      @click="getevaluateByEntropy"
+      @click="getEvaluationByEntropy()"
       variant="primary"
       style="width: 90px"
       class="ml-5 w-10"
@@ -43,19 +43,35 @@ export default {
   },
 
   methods: {
-    // async getShapByErrors() {
-      // let info = await this.axios.get(
-      //   "http://localhost:8080/shap/GetShapByErrors/"
-      // );
-      // errors_plot = [];
-      // info.data.forEach((element) => {
-      //   errors_plot.push(element);
-      // });
-    //   this.images= ["https://picsum.photos/400/400/?image=20","https://picsum.photos/400/400/?image=20","https://picsum.photos/400/400/?image=20"]
-    //   console.log(this.images)
-    // },
-  },
-};
+    async getEvaluationByEntropy() {
+      this.images=[]
+      try {
+        var formData = new FormData();
+        formData.append("data",this.$root.store.data)
+        formData.append("model",this.$root.store.model)
+        let f = "gender,age_group,symptom_well,symptom_sore_throat,symptom_cough,symptom_shortness_of_breath,symptom_smell_or_taste_loss,symptom_fever,condition_any";
+        formData.append("features",f)
+        formData.append("label","label")
+        const response = await this.axios.post(
+          'http://localhost:5000/ShapEvaluation/GetShapEvaluationByEntropy',formData,{
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          
+          
+          });
+
+        console.log(response.data)
+        this.images= response.data.data
+        console.log(this.images)
+
+      } catch (err) {
+        this.form.submitError = err.response.data.message;
+      }
+    },
+
+  }
+}
 </script>
 
 <style scoped>

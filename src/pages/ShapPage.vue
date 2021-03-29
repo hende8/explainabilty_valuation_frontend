@@ -3,7 +3,7 @@
     <b-container>
       <section class="text-center my-5">
         <h2>
-          <b>SHAP</b>
+          <b>{{title}}</b>
         </h2>
         <p>Lets explore our data using SHAP explaination model</p>
       </section>
@@ -50,11 +50,19 @@ import ExplainFullData from "../components/ExplainComponents/ExplainFullData.vue
 import ExplainSingleInstnace from "../components/ExplainComponents/ExplainSingleInstnace.vue";
 export default {
   components: {  ExplainByErrors, ExplainFullData, ExplainSingleInstnace },
+  props:{
+    title:{
+      type:String,
+      require:true
+    }
+  },
   data() {
     return {
       current_component: "introduction",
-      features: ["gender","age_group","symptom_well","symptom_sore_throat","symptom_cough","symptom_shortness_of_breath","symptom_smell_or_taste_loss","symptom_fever","condition_any"]
-
+      // data:  this.$root.store.data,
+      // model:  this.$root.store.model,
+      features: ["gender","age_group","symptom_well","symptom_sore_throat","symptom_cough","symptom_shortness_of_breath","symptom_smell_or_taste_loss","symptom_fever","condition_any"],
+      title2:this.title
     };
   },
   methods: {
@@ -62,6 +70,9 @@ export default {
       this.current_component = componenet_name;
     },
   },
+  created(){
+    console.log(this.title)    
+  }
 };
 </script>
 

@@ -115,6 +115,7 @@
         show
         >Process failed: {{ form.submitError }}</b-alert
       >
+
     </div>
     <div v-if="lime_or_shap">
       <b-button @click="shapChosen" style="width: 150px" variant="danger"
@@ -129,6 +130,7 @@
       >
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -141,6 +143,7 @@ import {
   email,
 } from "vuelidate/lib/validators";
 export default {
+
   data() {
     return {
       form: {
@@ -157,6 +160,7 @@ export default {
         features: [],
         selected_target: "",
       },
+      image: null,
     };
   },
   validations: {
@@ -190,8 +194,8 @@ export default {
         return;
       }
 
-      this.$root.store.setData(this.form.dataset, this.form.predict_model);
-      console.log(this.form.dataset);
+      // this.$root.store.setData(this.form.dataset, this.form.predict_model);
+      // console.log(this.form.dataset);
       this.test2();
     },
     finish_fill_deatils() {
@@ -267,7 +271,8 @@ export default {
         //   this.$router.push("/evaluation");
         // }
 
-        console.log(response);
+        console.log(response.data)
+        this.image=response.data
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
