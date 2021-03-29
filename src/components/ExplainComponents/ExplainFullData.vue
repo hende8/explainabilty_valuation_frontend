@@ -15,7 +15,6 @@ export default {
   },
   
   methods: {
-    
     async test() {
       const dataToSend = new FormData();
       s= this.$root.store.data

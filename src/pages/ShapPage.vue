@@ -1,4 +1,4 @@
-<עןא mplate>
+<template>
   <div>
     <b-container>
       <section class="text-center my-5">
@@ -28,7 +28,7 @@
         </b-card-body>
         <b-card-body v-if="current_component == 'Single instance'">
           <h1>Single instance</h1>
-          <ExplainSingleInstnace class="SHAPSingleInstnace" />
+          <ExplainSingleInstnace class="SHAPSingleInstnace" :features="features" />
         </b-card-body>
         <b-card-body v-if="current_component == 'Full data'">
           <h1>Full data</h1>
@@ -40,29 +40,11 @@
         </b-card-body>
       </div>
     </b-container>
-    <b-container>
-      <side-bar>
-        <sidebar-item
-          :link="{
-            name: 'lime',
-            path: '/lime',
-          }"
-        >
-        </sidebar-item>
-        <sidebar-item
-          :link="{
-            name: 'shap',
-            path: '/shap',
-          }"
-        >
-        </sidebar-item>
-      </side-bar>
-    </b-container>
+
   </div>
 </template>
 
 <script>
-import SideBar from "../components/SideBar.vue";
 import ExplainByErrors from "../components/ExplainComponents/ExplainByErrors.vue";
 import ExplainFullData from "../components/ExplainComponents/ExplainFullData.vue";
 import ExplainSingleInstnace from "../components/ExplainComponents/ExplainSingleInstnace.vue";
@@ -70,8 +52,9 @@ export default {
   components: {  ExplainByErrors, ExplainFullData, ExplainSingleInstnace },
   data() {
     return {
-      SideBar,
       current_component: "introduction",
+      features: ["gender","age_group","symptom_well","symptom_sore_throat","symptom_cough","symptom_shortness_of_breath","symptom_smell_or_taste_loss","symptom_fever","condition_any"]
+
     };
   },
   methods: {
