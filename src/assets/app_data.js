@@ -313,6 +313,7 @@ intolerances:[
 }
 export const app_data={
   shap_full_data:undefined,
+  shap_by_errors:undefined,
 
   
 };

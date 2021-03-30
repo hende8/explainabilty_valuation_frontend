@@ -1,13 +1,31 @@
 <template>
   <div class="container">
-    <h2>You are more than walcome to use our innovative tool.... TO BE CONTINUE</h2>
+    <h2>
+      You are more than walcome to use our innovative tool.... TO BE CONTINUE
+    </h2>
     <b-button
-      v-show="this.image == undefined"
+      v-show="this.image == undefined && !spinner"
       @click="getGraphAllData"
       type="submit"
       variant="primary"
       >get graph</b-button
     >
+    <div v-show="spinner">
+      <div style="position: fixed; /* or absolute */ top: 50%; left: 50%">
+        <b-spinner
+          style="width: 3rem; height: 3rem"
+          label="Large Spinner"
+        ></b-spinner>
+        <b-spinner
+          style="width: 3rem; height: 3rem"
+          label="Large Spinner"
+          type="grow"
+        ></b-spinner>
+        <br />
+      </div>
+              <h5>its may take a few minutes...</h5>
+
+    </div>
     <div v-if="this.image != undefined">
       <b-card-group>
         <b-card no-body class="overflow-hidden" style="max-width: 2000px">
@@ -44,12 +62,14 @@ export default {
   data() {
     return {
       image: undefined,
+      spinner: false,
     };
   },
 
   methods: {
     async getGraphAllData() {
       try {
+        this.spinner = true;
         var formData = new FormData();
         formData.append("data", this.$root.store.data);
         formData.append("model", this.$root.store.model);
@@ -65,24 +85,23 @@ export default {
             },
           }
         );
-
+        this.spinner = false;
         this.image = response.data;
-        app_data.shap_full_data=this.image
+        app_data.shap_full_data = this.image;
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
     },
-    clearImage(){
-      this.image=undefined
-      app_data.shap_full_data=undefined
+    clearImage() {
+      this.image = undefined;
+      app_data.shap_full_data = undefined;
     },
   },
-  mounted(){
-      if (app_data.shap_full_data != undefined) {
-        this.image=app_data.shap_full_data
-      }
-
-  }
+  mounted() {
+    if (app_data.shap_full_data != undefined) {
+      this.image = app_data.shap_full_data;
+    }
+  },
 };
 </script>
 
