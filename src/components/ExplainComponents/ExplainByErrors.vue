@@ -60,8 +60,8 @@ export default {
           });
 
 
-        console.log(response)
-        this.images= response.data
+        console.log(response.data)
+        this.images= response.data.data
 
       } catch (err) {
         this.form.submitError = err.response.data.message;
