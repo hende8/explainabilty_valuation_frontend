@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <h2>You are more than walcome to use our tool.... TO BE CONTINUE</h2>
+    <h2>You are more than walcome to use our innovative tool.... TO BE CONTINUE</h2>
     <b-button
       v-show="this.image == undefined"
-      @click="test"
+      @click="getGraphAllData"
       type="submit"
       variant="primary"
       >get graph</b-button
@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import app_data from "../../assets/app_data";
+
 export default {
   data() {
     return {
@@ -46,7 +48,7 @@ export default {
   },
 
   methods: {
-    async test() {
+    async getGraphAllData() {
       try {
         var formData = new FormData();
         formData.append("data", this.$root.store.data);
@@ -64,16 +66,23 @@ export default {
           }
         );
 
-        console.log(response);
         this.image = response.data;
+        app_data.shap_full_data=this.image
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
     },
     clearImage(){
       this.image=undefined
+      app_data.shap_full_data=undefined
     },
   },
+  mounted(){
+      if (app_data.shap_full_data != undefined) {
+        this.image=app_data.shap_full_data
+      }
+
+  }
 };
 </script>
 

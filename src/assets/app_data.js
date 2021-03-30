@@ -312,9 +312,7 @@ intolerances:[
 
 }
 export const app_data={
-  recipes:undefined,
-  lastWatch:undefined,
-  myFavorite: undefined,
-  myFamily: undefined
+  shap_full_data:undefined,
+
   
 };
