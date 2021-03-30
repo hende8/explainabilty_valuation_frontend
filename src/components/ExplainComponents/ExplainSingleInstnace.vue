@@ -16,10 +16,7 @@
       >
         <b-col sm="3">
           <b-form-group id="input-group-1" :label="f" label-for="input-1">
-            <b-form-input
-              id="input-1"
-              v-model="form[f]"
-            ></b-form-input>
+            <b-form-input id="input-1" v-model="form[f]"></b-form-input>
             <!-- <b-form-invalid-feedback v-if="!$v.form.f.required"
               >{{f}} is required</b-form-invalid-feedback
             > -->
@@ -30,6 +27,7 @@
       <b-button @click="getShapExplanation" type="submit" variant="primary"
         >Submit</b-button
       >
+        <img  v-if="this.image != undefined" :src="this.image"   sclass="rounded" >
     </div>
   </div>
 </template>
@@ -42,6 +40,7 @@ export default {
       return acc;
     }, {});
     return {
+      image:undefined,
       form: form_create,
       showFeaturesBool: false,
     };
@@ -49,15 +48,15 @@ export default {
   props: {
     features: Array,
   },
-    // validations: {
-    // form: {
-    //   dataset: {
-    //     required,
-    //   },
-    //   predict_model: {
-    //     required,
-    //   },
-    // },
+  // validations: {
+  // form: {
+  //   dataset: {
+  //     required,
+  //   },
+  //   predict_model: {
+  //     required,
+  //   },
+  // },
   // },
 
   methods: {
@@ -95,15 +94,40 @@ export default {
         return;
       }
 
-      this.$root.store.setData(this.form.dataset, this.form.predict_model);
       this.getShapExplanation();
     },
     showFeatures() {
       this.showFeaturesBool = true;
     },
-    async getShapExplanation() {},
+    async getShapExplanation() {
+      var temp_form = this.form;
+      var df = this.features.reduce(function (res, item) {
+        res[item] = temp_form[item]; // or what ever object you want inside
+        return res;
+      }, {});
+      try {
+      var formData = new FormData();
+      formData.append("data", JSON.stringify(df));
+      formData.append("model", this.$root.store.model);
+      formData.append("features", this.$root.store.features);
+        const response = await this.axios.post(
+          "http://localhost:5000/MakeShapModel/GetInstanceShap",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        console.log(response);
+        this.image = response.data;
+        console.log(this.image)
+      } catch (err) {
+        this.form.submitError = err.response.data.message;
+      }
+    },
   },
-  mounted() {},
 };
 </script>
 

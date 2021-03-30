@@ -33,12 +33,9 @@ export default {
             'Content-Type': 'multipart/form-data'
           },
           
-          // features: ["gender","age_group","symptom_well","symptom_sore_throat","symptom_cough","symptom_shortness_of_breath","symptom_smell_or_taste_loss","symptom_fever","condition_any"]
           
           });
-        // if (response.status == "201") {
-        //   this.$router.push("/evaluation");
-        // }
+
 
         console.log(response)
         this.image= response.data

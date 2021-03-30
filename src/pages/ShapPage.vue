@@ -59,9 +59,7 @@ export default {
   data() {
     return {
       current_component: "introduction",
-      // data:  this.$root.store.data,
-      // model:  this.$root.store.model,
-      features: ["gender","age_group","symptom_well","symptom_sore_throat","symptom_cough","symptom_shortness_of_breath","symptom_smell_or_taste_loss","symptom_fever","condition_any"],
+      features: this.$root.store.features,
       title2:this.title
     };
   },
@@ -70,8 +68,9 @@ export default {
       this.current_component = componenet_name;
     },
   },
-  created(){
-    console.log(this.title)    
+  mounted(){
+    console.log(this.$root.store.features)    
+    console.log(this.$root.store.target_feature)    
   }
 };
 </script>
