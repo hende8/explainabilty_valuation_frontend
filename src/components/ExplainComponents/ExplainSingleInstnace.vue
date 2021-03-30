@@ -1,33 +1,62 @@
 <template>
   <div class="container">
-    <h2>
-      In this section you are able to explain your predicticting result.<br />
-      Please fill the missing values and get explain for your results
-    </h2>
-    <b-button @click="showFeatures" variant="primary"
-      >Exolore explanations</b-button
-    >
-    <div v-show="showFeaturesBool">
-      <b-form
-        v-for="f in this.features"
-        :key="f"
-        @submit.prevent="onSubmit"
-        @reset.prevent="onReset"
+    <div >
+      <h2>
+        In this section you are able to explain your predicticting result.<br />
+        Please fill the missing values and get explain for your results
+      </h2>
+      <b-button v-show="this.image==undefined" @click="showFeatures" variant="primary"
+        >Exolore explanations</b-button
       >
-        <b-col sm="3">
-          <b-form-group id="input-group-1" :label="f" label-for="input-1">
-            <b-form-input id="input-1" v-model="form[f]"></b-form-input>
-            <!-- <b-form-invalid-feedback v-if="!$v.form.f.required"
+      <div v-show="showFeaturesBool && this.image == undefined ">
+        <b-form
+          v-for="f in this.features"
+          :key="f"
+          @submit.prevent="onSubmit"
+          @reset.prevent="onReset"
+        >
+          <b-col sm="3">
+            <b-form-group id="input-group-1" :label="f" label-for="input-1">
+              <b-form-input id="input-1" v-model="form[f]"></b-form-input>
+              <!-- <b-form-invalid-feedback v-if="!$v.form.f.required"
               >{{f}} is required</b-form-invalid-feedback
             > -->
-          </b-form-group>
-        </b-col>
-      </b-form>
-      <b-button @click="onReset" variant="danger">Reset</b-button>
-      <b-button @click="getShapExplanation" type="submit" variant="primary"
-        >Submit</b-button
-      >
-        <img  v-if="this.image != undefined" :src="this.image"   sclass="rounded" >
+            </b-form-group>
+          </b-col>
+        </b-form>
+        <b-button @click="onReset" variant="danger">Reset</b-button>
+        <b-button  @click="getShapExplanation" type="submit" variant="primary"
+          >Submit</b-button
+        >
+      </div>
+      <div v-if="this.image != undefined">
+        <b-card-group>
+          <b-card no-body class="overflow-hidden" style="max-width: 2000px">
+            <b-row no-gutters>
+              <b-col md="8">
+                <b-card-img
+                  :src="this.image"
+                  alt="Image"
+                  class="rounded-0"
+                ></b-card-img>
+              </b-col>
+              <b-col md="8">
+                <b-card-body title="Horizontal Card">
+                  <b-card-text>
+                    This is a wider card with supporting text as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
+                  </b-card-text>
+                </b-card-body>
+              </b-col>
+            </b-row>
+          </b-card>
+        </b-card-group>
+        <br>
+                <b-button @click="tryAgain" type="submit" variant="primary"
+          >Try again</b-button
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -40,7 +69,7 @@ export default {
       return acc;
     }, {});
     return {
-      image:undefined,
+      image: undefined,
       form: form_create,
       showFeaturesBool: false,
     };
@@ -106,10 +135,10 @@ export default {
         return res;
       }, {});
       try {
-      var formData = new FormData();
-      formData.append("data", JSON.stringify(df));
-      formData.append("model", this.$root.store.model);
-      formData.append("features", this.$root.store.features);
+        var formData = new FormData();
+        formData.append("data", JSON.stringify(df));
+        formData.append("model", this.$root.store.model);
+        formData.append("features", this.$root.store.features);
         const response = await this.axios.post(
           "http://localhost:5000/MakeShapModel/GetInstanceShap",
           formData,
@@ -122,10 +151,14 @@ export default {
 
         console.log(response);
         this.image = response.data;
-        console.log(this.image)
+        console.log(this.image);
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
+    },
+    tryAgain(){
+      this.onReset()
+      this.image=undefined
     },
   },
 };

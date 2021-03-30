@@ -117,7 +117,15 @@
       >
     </div>
     <div v-if="lime_or_shap">
-      <b-button @click="shapChosen" style="width: 150px" variant="danger"
+      <button id="close-image" @click="shapChosen" style="width: 150px">
+        <img  src="https://user-images.githubusercontent.com/38404461/65588818-7734b500-df88-11e9-907c-a0bc0c0fdfc1.png" />
+      </button>
+      <button id="close-image" @click="limeChosen" style="width: 150px" >
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Lime_%28transportation_company%29_logo.svg" />
+      </button>
+      <!-- <button id="close-CSS"></button> -->
+
+      <!-- <b-button @click="shapChosen" style="width: 150px" variant="danger"
         >SHAP</b-button
       >
       <b-button
@@ -126,7 +134,7 @@
         style="width: 150px"
         class="ml-5 w-10"
         >lime</b-button
-      >
+      > -->
     </div>
   </div>
 </template>
@@ -261,5 +269,26 @@ export default {
 input {
   width: 70px;
   padding: 5px;
+}
+#close-image,#close-CSS {
+  display: inline-block;
+  height: 134px;
+  padding: 0;
+  margin: 0;
+  vertical-align: top;
+  width: 104px;
+}
+
+#close-image img {
+  display: block;
+  height: 130px;
+  width: 100px;
+}
+
+#close-CSS {
+  background-image: url("https://user-images.githubusercontent.com/38404461/65588818-7734b500-df88-11e9-907c-a0bc0c0fdfc1.png");
+  background-size: 100px 130px;
+  height: 134px;
+  width: 104px;
 }
 </style>
