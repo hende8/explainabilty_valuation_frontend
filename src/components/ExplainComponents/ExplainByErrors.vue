@@ -3,7 +3,7 @@
     <h1>Explanation to be added</h1>
 
     <b-button
-      @click="getShapByErrors"
+      @click="getShapByErrors()"
       variant="primary"
       style="width: 90px"
       class="ml-5 w-10"
@@ -45,16 +45,29 @@ export default {
 
   methods: {
     async getShapByErrors() {
-      // let info = await this.axios.get(
-      //   "http://localhost:8080/shap/GetShapByErrors/"
-      // );
-      // errors_plot = [];
-      // info.data.forEach((element) => {
-      //   errors_plot.push(element);
-      // });
-      this.images= ["https://picsum.photos/400/400/?image=20","https://picsum.photos/400/400/?image=20","https://picsum.photos/400/400/?image=20"]
-      console.log(this.images)
+      try {
+        var formData = new FormData();
+        formData.append("data",this.$root.store.data)
+        formData.append("model",this.$root.store.model)
+        formData.append("features",this.$root.store.features)
+        formData.append("label",this.$root.store.target_feature)
+        const response = await this.axios.post(
+          'http://localhost:5000/MakeShapModel/GetShapByErrors',formData,{
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+                    
+          });
+
+
+        console.log(response.data)
+        this.images= response.data.data
+
+      } catch (err) {
+        this.form.submitError = err.response.data.message;
+      }
     },
+
   },
 };
 </script>
