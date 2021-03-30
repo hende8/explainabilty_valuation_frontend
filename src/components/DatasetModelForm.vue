@@ -86,7 +86,7 @@
           <br />
           <br />
           <h2>choose your target prediction model:</h2>
-          <select v-model="selected_target">
+          <select v-model="features_form.selected_target">
             <option v-for="f in features_list" :key="f" required>
               {{ f }}
             </option>
@@ -115,7 +115,6 @@
         show
         >Process failed: {{ form.submitError }}</b-alert
       >
-
     </div>
     <div v-if="lime_or_shap">
       <b-button @click="shapChosen" style="width: 150px" variant="danger"
@@ -130,7 +129,6 @@
       >
     </div>
   </div>
-  
 </template>
 
 <script>
@@ -143,7 +141,6 @@ import {
   email,
 } from "vuelidate/lib/validators";
 export default {
-
   data() {
     return {
       form: {
@@ -153,13 +150,13 @@ export default {
         feature_target: "",
         submitError: undefined,
       },
-      submit_form: false,
-      checkedFeatures: [],
-      lime_or_shap: false,
       features_form: {
         features: [],
         selected_target: "",
       },
+      submit_form: false,
+      checkedFeatures: [],
+      lime_or_shap: false,
       image: null,
     };
   },
@@ -193,10 +190,7 @@ export default {
       if (this.$v.form.$anyError) {
         return;
       }
-
-      // this.$root.store.setData(this.form.dataset, this.form.predict_model);
-      // console.log(this.form.dataset);
-      this.test2();
+      this.submitDatasetModel();
     },
     finish_fill_deatils() {
       this.$v.features_form.$touch();
@@ -206,23 +200,18 @@ export default {
       this.$root.store.setData(
         this.form.dataset,
         this.form.predict_model,
-        this.features_form.features,
+        this.checkedFeatures,
         this.features_form.selected_target
       );
       this.lime_or_shap = true;
     },
-    async test2() {
+    async submitDatasetModel() {
       try {
         var formData = new FormData();
         formData.append("data", this.form.dataset);
         formData.append("model", this.form.predict_model);
-        let f = {
-          features:
-            "gender,age_group,symptom_well,symptom_sore_throat,symptom_cough,symptom_shortness_of_breath,symptom_smell_or_taste_loss,symptom_fever,condition_any",
-        };
-        formData.append("features", f);
         const response = await this.axios.post(
-          "http://localhost:5000/finish",
+          "http://localhost:5000/submitDatasetModel",
           formData,
           {
             headers: {
@@ -237,46 +226,13 @@ export default {
         this.form.submitError = err.response.data.message;
       }
     },
-    shapChosen(){
+    shapChosen() {
       this.$router.push("/shap");
     },
-    limeChosen(){
+    limeChosen() {
       this.$router.push("/lime");
     },
-    async test() {
-      // const dataToSend = new FormData();
-      // s= this.$root.store.data
-      // console.log(this.$root.store.data)
-      try {
-        var formData = new FormData();
-        formData.append("data", this.form.dataset);
-        formData.append("model", this.form.predict_model);
-        let f = {
-          features:
-            "gender,age_group,symptom_well,symptom_sore_throat,symptom_cough,symptom_shortness_of_breath,symptom_smell_or_taste_loss,symptom_fever,condition_any",
-        };
-        formData.append("features", f);
-        const response = await this.axios.post(
-          "http://localhost:5000/MakeShapModel/GetAllDataShap",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
 
-            // features: ["gender","age_group","symptom_well","symptom_sore_throat","symptom_cough","symptom_shortness_of_breath","symptom_smell_or_taste_loss","symptom_fever","condition_any"]
-          }
-        );
-        // if (response.status == "201") {
-        //   this.$router.push("/evaluation");
-        // }
-
-        console.log(response.data)
-        this.image=response.data
-      } catch (err) {
-        this.form.submitError = err.response.data.message;
-      }
-    },
     async createExplanationValuation() {
       try {
         const response = await this.axios.post(
