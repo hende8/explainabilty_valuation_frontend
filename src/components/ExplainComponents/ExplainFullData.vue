@@ -42,16 +42,7 @@ export default {
 
         console.log(response)
         this.image= response.data
-    //     this.image= 'data:image/jpeg;base64,' + btoa(response.data);
-    //     var responseBlob = new Blob([response.data], {type:"image/png"}); 
-    //     var reader = new window.FileReader();
-    //     reader.readAsDataURL(responseBlob);
-    //     console.log(reader.result)
-    //     reader.onload = function() {
-    //           this.image=reader.result
-    //           console.log(this.image)
 
-    // }
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
