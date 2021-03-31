@@ -1,13 +1,11 @@
 <template>
   <div>
+
     <DatasetModelForm class="datasetModelForm" />
-      <div>
-           <router-link
-      :to="{ name: 'explainPage', params: {title: 'Shap' } }"
-    >
-    <button> shap</button>
-       </router-link></div>
+
+
   </div>
+     
 </template>
 
 <script>

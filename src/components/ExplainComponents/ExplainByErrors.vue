@@ -1,24 +1,39 @@
 <template>
   <div class="container">
-    <h1>Explanation to be added</h1>
+        <h2>
+      You are more than walcome to use our innovative tool.... TO BE CONTINUE
+    </h2>
 
     <b-button
-      @click="getShapByErrors"
+      @click="getShapByErrors()"
       variant="primary"
       style="width: 90px"
       class="ml-5 w-10"
+      v-show="!spinner && this.images.length==0"
       >Get graphs</b-button
     >
+     <div v-show="spinner">
+      <div style="position: fixed; /* or absolute */ top: 50%; left: 50%">
+        <b-spinner
+          style="width: 3rem; height: 3rem"
+          label="Large Spinner"
+        ></b-spinner>
+        <b-spinner
+          style="width: 3rem; height: 3rem"
+          label="Large Spinner"
+          type="grow"
+        ></b-spinner>
+        <br />
+      </div>
+              <h5>its may take a few minutes...</h5>
+
+    </div>
     <div>
-      <b-card-group  deck v-for="img in images" :key="img">
+      <b-card-group deck v-for="img in images" :key="img" v-show="!spinner">
         <b-card no-body class="overflow-hidden" style="max-width: 2000px">
           <b-row no-gutters>
             <b-col md="6">
-              <b-card-img
-                :src="img"
-                alt="Image"
-                class="rounded-0"
-              ></b-card-img>
+              <b-card-img :src="img" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
             <b-col md="6">
               <b-card-body title="Horizontal Card">
@@ -32,29 +47,62 @@
         </b-card>
       </b-card-group>
     </div>
+          <b-button v-show="this.images.length>0" @click="clearImages" type="submit" variant="primary"
+        >Clear</b-button
+      >
+
+            <!-- <b-button @click="clearImage" type="submit" variant="primary"
+        >Clear</b-button
+      > -->
   </div>
 </template>
 
 <script>
+import app_data from "../../assets/app_data";
+
 export default {
   data() {
     return {
       images: [],
+      spinner:false,
     };
   },
 
   methods: {
     async getShapByErrors() {
-      // let info = await this.axios.get(
-      //   "http://localhost:8080/shap/GetShapByErrors/"
-      // );
-      // errors_plot = [];
-      // info.data.forEach((element) => {
-      //   errors_plot.push(element);
-      // });
-      this.images= ["https://picsum.photos/400/400/?image=20","https://picsum.photos/400/400/?image=20","https://picsum.photos/400/400/?image=20"]
-      console.log(this.images)
+      try {
+        this.spinner=true
+        var formData = new FormData();
+        formData.append("data", this.$root.store.data);
+        formData.append("model", this.$root.store.model);
+        formData.append("features", this.$root.store.features);
+        formData.append("label", this.$root.store.target_feature);
+        const response = await this.axios.post(
+          "http://localhost:5000/MakeShapModel/GetShapByErrors",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        this.spinner=false
+        console.log(response.data);
+        this.images = response.data.data;
+        app_data.shap_by_errors = response.data.data;
+      } catch (err) {
+        this.form.submitError = err.response.data.message;
+      }
     },
+    clearImages(){
+      app_data.shap_by_errors=undefined
+      this.images=[]
+    }
+  },
+  mounted() {
+    if (app_data.shap_by_errors != undefined) {
+      this.images = app_data.shap_by_errors;
+    }
   },
 };
 </script>
