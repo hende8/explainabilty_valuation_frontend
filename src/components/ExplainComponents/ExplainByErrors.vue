@@ -1,10 +1,14 @@
 <template>
   <div class="container">
-        <h2>
-      You are more than walcome to use our innovative tool.... TO BE CONTINUE
-    </h2>
+    <div>
+      <b-card title="Explain by errors" sub-title="">
+        <b-card-text>
+          You are more than walcome to use our innovative tool.... TO BE
+          CONTINUE
+        </b-card-text>
 
-    <b-button
+        <b-card-text> to be CONTINUE </b-card-text>
+            <b-button
       @click="getShapByErrors()"
       variant="primary"
       style="width: 90px"
@@ -12,7 +16,8 @@
       v-show="!spinner && this.images.length==0"
       >Get graphs</b-button
     >
-     <div v-show="spinner">
+
+    <div v-show="spinner">
       <div style="position: fixed; /* or absolute */ top: 50%; left: 50%">
         <b-spinner
           style="width: 3rem; height: 3rem"
@@ -25,8 +30,7 @@
         ></b-spinner>
         <br />
       </div>
-              <h5>its may take a few minutes...</h5>
-
+      <h5>its may take a few minutes...</h5>
     </div>
     <div>
       <b-card-group deck v-for="img in images" :key="img" v-show="!spinner">
@@ -47,13 +51,15 @@
         </b-card>
       </b-card-group>
     </div>
-          <b-button v-show="this.images.length>0" @click="clearImages" type="submit" variant="primary"
-        >Clear</b-button
-      >
-
-            <!-- <b-button @click="clearImage" type="submit" variant="primary"
-        >Clear</b-button
-      > -->
+    <b-button
+      v-show="this.images.length > 0"
+      @click="clearImages"
+      type="submit"
+      variant="primary"
+      >Clear</b-button
+    >
+          </b-card>
+    </div>
   </div>
 </template>
 
@@ -64,14 +70,14 @@ export default {
   data() {
     return {
       images: [],
-      spinner:false,
+      spinner: false,
     };
   },
 
   methods: {
     async getShapByErrors() {
       try {
-        this.spinner=true
+        this.spinner = true;
         var formData = new FormData();
         formData.append("data", this.$root.store.data);
         formData.append("model", this.$root.store.model);
@@ -86,7 +92,7 @@ export default {
             },
           }
         );
-        this.spinner=false
+        this.spinner = false;
         console.log(response.data);
         this.images = response.data.data;
         app_data.shap_by_errors = response.data.data;
@@ -94,10 +100,10 @@ export default {
         this.form.submitError = err.response.data.message;
       }
     },
-    clearImages(){
-      app_data.shap_by_errors=undefined
-      this.images=[]
-    }
+    clearImages() {
+      app_data.shap_by_errors = undefined;
+      this.images = [];
+    },
   },
   mounted() {
     if (app_data.shap_by_errors != undefined) {

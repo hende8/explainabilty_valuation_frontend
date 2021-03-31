@@ -9,6 +9,9 @@
       </section>
       <div>
         <b-nav tabs fill>
+          <b-nav-item @click="swapComponents('Introduction')"
+            >Introduction</b-nav-item
+          >
           <b-nav-item @click="swapComponents('EvaluateByClustering')"
             >Clustering Intersection</b-nav-item
           >
@@ -20,7 +23,9 @@
           </b-nav-item>
           >
         </b-nav>
-
+        <b-card-body v-if="current_component == 'Introduction'">
+          <h1>Introduction</h1>
+        </b-card-body>
         <b-card-body v-if="current_component == 'EvaluateByClustering'">
           <h1>Evaluation By Clustering</h1>
           <EvaluateByClustering class="SHAPSingleInstnace" />
@@ -62,7 +67,11 @@ import EvaluateByClustering from "../components/EvaluationComponents/EvaluateByC
 import EvaluationByEntropy from "../components/EvaluationComponents/EvaluationByEntropy.vue";
 import EvaluationByCounterfactual from "../components/EvaluationComponents/EvaluationByCounterfactual.vue";
 export default {
-  components: { EvaluationByEntropy, EvaluationByCounterfactual, EvaluateByClustering },
+  components: {
+    EvaluationByEntropy,
+    EvaluationByCounterfactual,
+    EvaluateByClustering,
+  },
   data() {
     return {
       SideBar,
