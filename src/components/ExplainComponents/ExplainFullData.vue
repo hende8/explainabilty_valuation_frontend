@@ -10,10 +10,10 @@
         <b-card-text> to be CONTINUE </b-card-text>
         <b-button
           v-show="this.image == undefined && !spinner"
-          @click="getGraphAllData"
+          @click="explainFullData"
           type="submit"
           variant="primary"
-          >get graph</b-button
+          >Get graph</b-button
         >
 
         <div v-show="spinner">
@@ -54,9 +54,15 @@
               </b-row>
             </b-card>
           </b-card-group>
-          <b-button @click="clearImage" type="submit" variant="primary"
+          <div style="text-align: center;padding: 20px;">
+ <b-button
+            @click="clearImage"
+            type="submit"
+            variant="primary"
+            style="margin: 0 auto"
             >Clear</b-button
-          >
+          >          </div>
+         
         </div>
       </b-card>
     </div>
@@ -75,15 +81,13 @@ export default {
   },
 
   methods: {
-    async getGraphAllData() {
+    async explainFullData() {
       try {
         this.spinner = true;
         var formData = new FormData();
         formData.append("data", this.$root.store.data);
         formData.append("model", this.$root.store.model);
-        let f =
-          "gender,age_group,symptom_well,symptom_sore_throat,symptom_cough,symptom_shortness_of_breath,symptom_smell_or_taste_loss,symptom_fever,condition_any";
-        formData.append("features", f);
+        formData.append("features", this.$root.store.features);
         const response = await this.axios.post(
           "http://localhost:5000/MakeShapModel/GetAllDataShap",
           formData,

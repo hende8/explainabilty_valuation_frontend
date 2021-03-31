@@ -51,6 +51,8 @@
         </b-card>
       </b-card-group>
     </div>
+              <div style="text-align: center;padding: 20px;">
+
     <b-button
       v-show="this.images.length > 0"
       @click="clearImages"
@@ -58,6 +60,7 @@
       variant="primary"
       >Clear</b-button
     >
+    </div>
           </b-card>
     </div>
   </div>

@@ -83,9 +83,12 @@
               </b-card>
             </b-card-group>
             <br />
+                      <div style="text-align: center;padding: 20px;">
+
             <b-button @click="tryAgain" type="submit" variant="primary"
               >Try again</b-button
             >
+            </div>
           </div>
         </b-card>
       </div>

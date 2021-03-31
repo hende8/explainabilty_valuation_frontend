@@ -318,6 +318,8 @@ export const app_data={
   target:undefined,
   shap_full_data:undefined,
   shap_by_errors:undefined,
-
+  evaluation_by_clustering:undefined,
+  evaluation_by_counterfactual:undefined,
+  evaluation_by_entropy:undefined,
   
 };
