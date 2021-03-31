@@ -4,7 +4,7 @@
       <b-card title="Evaluation By Clustering" sub-title="">
         <b-card-text>
           <div v-show="!spinner">
-            <label for="sb-inline">Choose number of clusters:</label>
+            <label for="sb-inline">Choose number of clusters: </label>
             <b-form-spinbutton
               id="sb-inline"
               v-model="cluster_value"

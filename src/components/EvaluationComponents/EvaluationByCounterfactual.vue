@@ -8,7 +8,7 @@
             variant="primary"
             style="width: 90px"
             class="ml-5 w-10"
-            v-show="!spinner"
+            v-show="!spinner && this.images.length==0"
             >Get graphs</b-button
           >
           <div v-show="spinner">
@@ -31,7 +31,6 @@
               deck
               v-for="img in images"
               :key="img"
-              v-show="this.images.length > 0"
             >
               <b-card no-body class="overflow-hidden" style="max-width: 2000px">
                 <b-row no-gutters>
@@ -60,7 +59,7 @@
                 variant="primary"
                 style="width: 90px"
                 class="ml-5 w-10"
-                v-show="!spinner && this.images.length > 0"
+                v-show="this.images.length>0"
                 >Clear</b-button
               >
             </div>
@@ -110,9 +109,12 @@ export default {
     },
     clear() {
       this.images = [];
-      app_data.evaluation_by_counterfactual = [];
+      app_data.evaluation_by_counterfactual = undefined;
     },
   },
+  mounted(){
+    this.images=app_data.evaluation_by_counterfactual;
+  }
 };
 </script>
 

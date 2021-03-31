@@ -9,7 +9,7 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav >
-          <b-nav-item href="#" disabled style="color: #7952b3" >
+          <b-nav-item href="#" disabled style="color: #7952b3"  >
             Evaluation System</b-nav-item
           >
         </b-navbar-nav>
@@ -58,7 +58,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.$router.currentRoute.fullPath)
   },
 };
 </script>
@@ -71,7 +70,7 @@ export default {
 }
 .logo {
   border: 2px solid rgba(231, 231, 231, 0.993);
-  border-radius: 10px 10px 10px 10px;
+  border-radius: 5px 10px 10px 10px;
   color: #fffffffd;
   background: #333333;
   text-shadow: #fff 0px 0px 15px, #5a2dff 0px 0px 20px, #5a2dff 0px 0px 30px,

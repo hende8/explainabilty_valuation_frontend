@@ -32,9 +32,6 @@
               <b-col sm="3">
                 <b-form-group id="input-group-1" :label="f" label-for="input-1">
                   <b-form-input id="input-1" v-model="form[f]"></b-form-input>
-                  <!-- <b-form-invalid-feedback v-if="!$v.form.f.required"
-              >{{f}} is required</b-form-invalid-feedback
-            > -->
                 </b-form-group>
               </b-col>
             </b-form>
@@ -97,6 +94,7 @@
 </template>
 
 <script>
+import app_data from '../../assets/app_data'
 export default {
   data() {
     let form_create = this.features.reduce((acc, elem) => {
@@ -188,7 +186,7 @@ export default {
         );
         this.spinner = false;
         this.image = response.data;
-        console.log(this.image);
+        app_data.shap_single_instance=this.image
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
@@ -198,6 +196,9 @@ export default {
       this.image = undefined;
     },
   },
+  mounted(){
+    this.image=app_data.shap_single_instance
+  }
 };
 </script>
 
