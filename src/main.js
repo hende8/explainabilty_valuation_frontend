@@ -34,7 +34,9 @@ import {
   FormRadioPlugin,
   ListGroupPlugin,
   FormFilePlugin,
-  SidebarPlugin
+  SidebarPlugin,
+  FormSpinbuttonPlugin,
+  CarouselPlugin,
  
 } from "bootstrap-vue";
 [
@@ -53,7 +55,9 @@ import {
   FormRadioPlugin,
   ListGroupPlugin,
   FormFilePlugin,
-  SidebarPlugin
+  SidebarPlugin,
+  FormSpinbuttonPlugin,
+  CarouselPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
