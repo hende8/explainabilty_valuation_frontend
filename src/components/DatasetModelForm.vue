@@ -67,7 +67,20 @@
           >Next</b-button
         >
       </b-form>
-
+<!-- <div id="app">
+ <label v-show="submit_form">
+   <input v-show="submit_form" type="checkbox" v-model="selectedAll" />
+   Select all
+ </label>
+  <ul>
+    <li v-for="f in features_list" :key="f">
+      <label>
+        <input type="checkbox" v-model="checkedFeatures" :value="f" />
+         {{ f }}
+      </label> 
+    </li>
+  </ul>
+</div> -->
       <div v-show="submit_form">
         <b-form>
           <h2>please choose your features that you pretrained about</h2>
@@ -118,10 +131,14 @@
     </div>
     <div v-if="lime_or_shap">
       <button id="close-image" @click="shapChosen" style="width: 150px">
-        <img  src="https://user-images.githubusercontent.com/38404461/65588818-7734b500-df88-11e9-907c-a0bc0c0fdfc1.png" />
+        <img
+          src="https://user-images.githubusercontent.com/38404461/65588818-7734b500-df88-11e9-907c-a0bc0c0fdfc1.png"
+        />
       </button>
-      <button id="close-image" @click="limeChosen" style="width: 150px" >
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Lime_%28transportation_company%29_logo.svg" />
+      <button id="close-image" @click="limeChosen" style="width: 150px">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Lime_%28transportation_company%29_logo.svg"
+        />
       </button>
       <!-- <button id="close-CSS"></button> -->
 
@@ -154,7 +171,7 @@ export default {
       form: {
         dataset: null,
         predict_model: null,
-        features_list: null,
+        features_list: [],
         feature_target: "",
         submitError: undefined,
       },
@@ -162,6 +179,8 @@ export default {
         features: [],
         selected_target: "",
       },
+      allSelected: false,
+      indeterminate: false,
       submit_form: false,
       checkedFeatures: [],
       lime_or_shap: false,
@@ -262,6 +281,24 @@ export default {
       return $dirty ? !$error : null;
     },
   },
+  computed: {
+    selectedAll: {
+      set(val) {
+        console.log("set")
+        console.log(this.features)
+        this.checkedFeatures = []
+        if (val) {
+          for(let i = 1; i <= this.checkedFeatures.length; i++) {
+            this.checkedFeatures.push(this.features[i])
+          }
+        }
+      },
+      get() {
+        console.log("get")
+        return this.checkedFeatures.length === this.count
+      }
+    }
+  }
 };
 </script>
 
@@ -270,7 +307,8 @@ input {
   width: 70px;
   padding: 5px;
 }
-#close-image,#close-CSS {
+#close-image,
+#close-CSS {
   display: inline-block;
   height: 134px;
   padding: 0;

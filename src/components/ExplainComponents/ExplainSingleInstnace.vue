@@ -1,14 +1,17 @@
 <template>
   <div class="container">
-    <div >
+    <div>
       <h2>
         In this section you are able to explain your predicticting result.<br />
         Please fill the missing values and get explain for your results
       </h2>
-      <b-button v-show="this.image==undefined" @click="showFeatures" variant="primary"
-        >Exolore explanations</b-button
+      <b-button
+        v-show="this.image == undefined && !this.spinner && !showFeaturesBool"
+        @click="showFeatures"
+        variant="primary"
+        >Explore explanations</b-button
       >
-      <div v-show="showFeaturesBool && this.image == undefined ">
+      <div v-show="showFeaturesBool && this.image == undefined && !this.spinner">
         <b-form
           v-for="f in this.features"
           :key="f"
@@ -25,9 +28,22 @@
           </b-col>
         </b-form>
         <b-button @click="onReset" variant="danger">Reset</b-button>
-        <b-button  @click="getShapExplanation" type="submit" variant="primary"
+        <b-button @click="getShapExplanation" type="submit" variant="primary"
           >Submit</b-button
         >
+      </div>
+      <div v-show="spinner">
+        <b-spinner
+          style="width: 3rem; height: 3rem"
+          label="Large Spinner"
+        ></b-spinner>
+        <b-spinner
+          style="width: 3rem; height: 3rem"
+          label="Large Spinner"
+          type="grow"
+        ></b-spinner>
+        <br>
+        <h3>its may take a few minutes...</h3>
       </div>
       <div v-if="this.image != undefined">
         <b-card-group>
@@ -52,8 +68,8 @@
             </b-row>
           </b-card>
         </b-card-group>
-        <br>
-                <b-button @click="tryAgain" type="submit" variant="primary"
+        <br />
+        <b-button @click="tryAgain" type="submit" variant="primary"
           >Try again</b-button
         >
       </div>
@@ -72,6 +88,7 @@ export default {
       image: undefined,
       form: form_create,
       showFeaturesBool: false,
+      spinner:false
     };
   },
   props: {
@@ -129,6 +146,7 @@ export default {
       this.showFeaturesBool = true;
     },
     async getShapExplanation() {
+      this.spinner=true
       var temp_form = this.form;
       var df = this.features.reduce(function (res, item) {
         res[item] = temp_form[item]; // or what ever object you want inside
@@ -139,6 +157,7 @@ export default {
         formData.append("data", JSON.stringify(df));
         formData.append("model", this.$root.store.model);
         formData.append("features", this.$root.store.features);
+        
         const response = await this.axios.post(
           "http://localhost:5000/MakeShapModel/GetInstanceShap",
           formData,
@@ -148,17 +167,16 @@ export default {
             },
           }
         );
-
-        console.log(response);
+        this.spinner=false
         this.image = response.data;
         console.log(this.image);
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
     },
-    tryAgain(){
-      this.onReset()
-      this.image=undefined
+    tryAgain() {
+      this.onReset();
+      this.image = undefined;
     },
   },
 };

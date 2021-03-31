@@ -1,9 +1,12 @@
 <template>
   <div class="container">
-    <h1>Explanation to be added</h1>
+    <h4>This is page for showing the evauation for explaination method</h4>
+
+      <label for="sb-inline">Choose number of clusters:</label>
+      <b-form-spinbutton id="sb-inline" v-model="cluster_value" inline></b-form-spinbutton>
 
     <b-button
-      @click="getevaluateByClustering"
+      @click="getEvaluationByClustering()"
       variant="primary"
       style="width: 90px"
       class="ml-5 w-10"
@@ -20,10 +23,9 @@
               ></b-card-img>
             </b-col>
             <b-col md="6">
-              <b-card-body title="Horizontal Card">
+              <b-card-body title="Consistent level">
                 <b-card-text>
-                  This is a wider card with supporting text as a natural lead-in
-                  to additional content. This content is a little bit longer.
+                  {{info_message}}
                 </b-card-text>
               </b-card-body>
             </b-col>
@@ -31,6 +33,7 @@
         </b-card>
       </b-card-group>
     </div>
+    
   </div>
 </template>
 
@@ -38,24 +41,44 @@
 export default {
   data() {
     return {
+      cluster_value: 11,
       images: [],
+      info_message: "",
     };
   },
 
   methods: {
-    // async getShapByErrors() {
-    //   // let info = await this.axios.get(
-    //   //   "http://localhost:8080/shap/GetShapByErrors/"
-    //   // );
-    //   // errors_plot = [];
-    //   // info.data.forEach((element) => {
-    //   //   errors_plot.push(element);
-    //   // });
-    //   this.images= ["https://picsum.photos/400/400/?image=20","https://picsum.photos/400/400/?image=20","https://picsum.photos/400/400/?image=20"]
-    //   console.log(this.images)
-    // },
-  },
-};
+    async getEvaluationByClustering() {
+      this.images=[]
+      try {
+        var formData = new FormData();
+        formData.append("data",this.$root.store.data)
+        formData.append("model",this.$root.store.model)
+        let f = "gender,age_group,symptom_well,symptom_sore_throat,symptom_cough,symptom_shortness_of_breath,symptom_smell_or_taste_loss,symptom_fever,condition_any";
+        formData.append("features",f)
+        formData.append("label","label")
+        formData.append("clustersNum", this.cluster_value)
+        const response = await this.axios.post(
+          'http://localhost:5000/ShapEvaluation/GetShapEvaluationByClusters',formData,{
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          
+          
+          });
+
+        console.log(response.data)
+        this.images= response.data.data
+        console.log(this.images)
+        this.info_message = response.data.info_message
+
+      } catch (err) {
+        this.form.submitError = err.response.data.message;
+      }
+    },
+
+  }
+}
 </script>
 
 <style scoped>

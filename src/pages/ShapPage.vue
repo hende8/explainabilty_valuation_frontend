@@ -69,8 +69,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.$root.store.features);
-    console.log(this.$root.store.target_feature);
   },
 };
 </script>
