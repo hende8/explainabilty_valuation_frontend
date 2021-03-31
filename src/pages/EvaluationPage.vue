@@ -15,7 +15,7 @@
           <b-nav-item @click="swapComponents('EvaluationByEntropy')"
             >Evaluation By Entropy</b-nav-item
           >
-          <b-nav-item @click="swapComponents('Counterfactual')"
+          <b-nav-item @click="swapComponents('EvaluationByCounterfactual')"
             >Counterfactual
           </b-nav-item>
           >

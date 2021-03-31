@@ -44,14 +44,14 @@ export default {
 
   methods: {
     async getEvaluationByEntropy() {
+      console.log("entropy")
       this.images=[]
       try {
         var formData = new FormData();
         formData.append("data",this.$root.store.data)
         formData.append("model",this.$root.store.model)
-        let f = "gender,age_group,symptom_well,symptom_sore_throat,symptom_cough,symptom_shortness_of_breath,symptom_smell_or_taste_loss,symptom_fever,condition_any";
-        formData.append("features",f)
-        formData.append("label","label")
+        formData.append("features",this.$root.store.features)
+        formData.append("label",this.$root.store.target_feature)
         const response = await this.axios.post(
           'http://localhost:5000/ShapEvaluation/GetShapEvaluationByEntropy',formData,{
           headers: {
