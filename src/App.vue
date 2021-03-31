@@ -40,6 +40,7 @@ export default {
   color: #2c3e50;
   min-height: 100vh;
   background-size: 100% 100%;
+  margin: 0px;
 
 }
 

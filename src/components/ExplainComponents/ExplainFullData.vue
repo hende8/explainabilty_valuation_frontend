@@ -1,19 +1,23 @@
 <template>
   <div class="container">
     <div>
-      <b-card title="Explain full data" sub-title="">
+      <b-card
+        title="Explain importance of each feature in the dataset"
+        sub-title=""
+      >
         <b-card-text>
-          You are more than walcome to use our innovative tool.... TO BE
-          CONTINUE
+          The idea behind SHAP feature importance is simple: Features with large
+          absolute Shapley values are important.<br> Since we want the global
+          importance, we sum the absolute Shapley values per feature across the
+          data.
         </b-card-text>
 
-        <b-card-text> to be CONTINUE </b-card-text>
         <b-button
           v-show="this.image == undefined && !spinner"
           @click="explainFullData"
           type="submit"
           variant="primary"
-          >Get graph</b-button
+          >Show graph</b-button
         >
 
         <div v-show="spinner">
@@ -43,26 +47,25 @@
                   ></b-card-img>
                 </b-col>
                 <b-col md="8">
-                  <b-card-body title="Horizontal Card">
+                  <b-card-body>
                     <b-card-text>
-                      This is a wider card with supporting text as a natural
-                      lead-in to additional content. This content is a little
-                      bit longer.
+                      The mean absolute value of each feature over all the
+                      instances (rows) of the dataset.
                     </b-card-text>
                   </b-card-body>
                 </b-col>
               </b-row>
             </b-card>
           </b-card-group>
-          <div style="text-align: center;padding: 20px;">
- <b-button
-            @click="clearImage"
-            type="submit"
-            variant="primary"
-            style="margin: 0 auto"
-            >Clear</b-button
-          >          </div>
-         
+          <div style="text-align: center; padding: 20px">
+            <b-button
+              @click="clearImage"
+              type="submit"
+              variant="primary"
+              style="margin: 0 auto"
+              >Clear</b-button
+            >
+          </div>
         </div>
       </b-card>
     </div>

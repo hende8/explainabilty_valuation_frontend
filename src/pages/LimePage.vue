@@ -14,16 +14,16 @@
       <div>
         <b-nav tabs fill>
           <b-nav-item @click="swapComponents('introduction')"
-            >Introduction</b-nav-item
+              >Introduction</b-nav-item
           >
           <b-nav-item @click="swapComponents('Single instance')"
-            >Single instance</b-nav-item
+            disabled>Single instance</b-nav-item
           >
           <b-nav-item @click="swapComponents('Full data')"
-            >Full data
+            disabled>Full data
           </b-nav-item>
           <b-nav-item @click="swapComponents('SHAP by errors')"
-            >SHAP by errors</b-nav-item
+            disabled>SHAP by errors</b-nav-item
           >
         </b-nav>
 

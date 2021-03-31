@@ -14,7 +14,7 @@
       style="width: 90px"
       class="ml-5 w-10"
       v-show="!spinner && this.images.length==0"
-      >Get graphs</b-button
+      >Show graphs</b-button
     >
 
     <div v-show="spinner">

@@ -2,40 +2,44 @@
   <div class="container">
     <div>
       <div>
-        <b-card title="Explain single instance" sub-title="">
+        <b-card title="Explanations for single instance" sub-title="">
           <b-card-text>
-            In this section you are able to explain your predicticting
-            result.<br />
-            Please fill the missing values and get explain for your results
+            In this feature your are able to fill a new instance and get an explanation about based on the trained dataset.
+            <br />
           </b-card-text>
 
-          <b-card-text> to be CONTINUE </b-card-text>
           <b-button
             v-show="
               this.image == undefined && !this.spinner && !showFeaturesBool
             "
             @click="showFeatures"
             variant="primary"
-            >Explore explanations</b-button
+            >Explain an instance</b-button
           >
           <div
             v-show="
               showFeaturesBool && this.image == undefined && !this.spinner
             "
           >
+            <div v-if="showFeaturesBool">
+              Please fill the missing values and get explain for your prediction
+              result.
+            </div>
             <b-form
               v-for="f in this.features"
               :key="f"
               @submit.prevent="onSubmit"
               @reset.prevent="onReset"
             >
-              <b-col sm="3">
+              <b-col sm="4">
+                <b>
                 <b-form-group id="input-group-1" :label="f" label-for="input-1">
                   <b-form-input id="input-1" v-model="form[f]"></b-form-input>
                 </b-form-group>
+                </b>
               </b-col>
             </b-form>
-            <b-button @click="onReset" variant="danger">Reset</b-button>
+            <b-button @click="onReset" variant="danger" style="margin-left:50px;margin-right: 15px;">Reset</b-button>
             <b-button
               @click="getShapExplanation"
               type="submit"
@@ -68,11 +72,14 @@
                     ></b-card-img>
                   </b-col>
                   <b-col md="8">
-                    <b-card-body title="Horizontal Card">
+                    <b-card-body title="">
                       <b-card-text>
-                        This is a wider card with supporting text as a natural
-                        lead-in to additional content. This content is a little
-                        bit longer.
+                        The above explanation shows features each contributing
+                        to push the model output from the base value (the
+                        average model output over the training dataset we
+                        passed) to the model output. Features pushing the
+                        prediction higher are shown in red, those pushing the
+                        prediction lower are in blue.
                       </b-card-text>
                     </b-card-body>
                   </b-col>
@@ -80,11 +87,10 @@
               </b-card>
             </b-card-group>
             <br />
-                      <div style="text-align: center;padding: 20px;">
-
-            <b-button @click="tryAgain" type="submit" variant="primary"
-              >Try again</b-button
-            >
+            <div style="text-align: center; padding: 20px">
+              <b-button @click="tryAgain" type="submit" variant="primary"
+                >Try again</b-button
+              >
             </div>
           </div>
         </b-card>
@@ -94,7 +100,7 @@
 </template>
 
 <script>
-import app_data from '../../assets/app_data'
+import app_data from "../../assets/app_data";
 export default {
   data() {
     let form_create = this.features.reduce((acc, elem) => {
@@ -186,7 +192,7 @@ export default {
         );
         this.spinner = false;
         this.image = response.data;
-        app_data.shap_single_instance=this.image
+        app_data.shap_single_instance = this.image;
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
@@ -194,11 +200,12 @@ export default {
     tryAgain() {
       this.onReset();
       this.image = undefined;
+      app_data.shap_single_instance = undefined;
     },
   },
-  mounted(){
-    this.image=app_data.shap_single_instance
-  }
+  mounted() {
+    this.image = app_data.shap_single_instance;
+  },
 };
 </script>
 
