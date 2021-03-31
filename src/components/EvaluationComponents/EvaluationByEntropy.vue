@@ -7,24 +7,19 @@
       variant="primary"
       style="width: 90px"
       class="ml-5 w-10"
-      >Get graphs</b-button>
+      >Get graphs</b-button
+    >
     <div>
-      <b-card-group  deck v-for="img in images" :key="img">
+      <!-- <b-card-group  deck v-for="img in images" :key="img"> -->
+      <b-card-group deck v-for="(img, index) in this.images" :key="index">
         <b-card no-body class="overflow-hidden" style="max-width: 2000px">
           <b-row no-gutters>
             <b-col md="6">
-              <b-card-img
-                :src="img"
-                alt="Image"
-                class="rounded-0"
-              ></b-card-img>
+              <b-card-img :src="img" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
             <b-col md="6">
-              <b-card-body title="Horizontal Card">
-                <b-card-text>
-                  This is a wider card with supporting text as a natural lead-in
-                  to additional content. This content is a little bit longer.
-                </b-card-text>
+              <b-card-body :title="this.titles[index]">
+                <b-card-text> {{ this.text[index] }} </b-card-text>
               </b-card-body>
             </b-col>
           </b-row>
@@ -39,40 +34,46 @@ export default {
   data() {
     return {
       images: [],
+      titles: [],
+      text: [],
     };
   },
 
   methods: {
     async getEvaluationByEntropy() {
-      console.log("entropy")
-      this.images=[]
+      console.log("entropy");
+      this.images = [];
       try {
         var formData = new FormData();
-        formData.append("data",this.$root.store.data)
-        formData.append("model",this.$root.store.model)
-        formData.append("features",this.$root.store.features)
-        formData.append("label",this.$root.store.target_feature)
+        formData.append("data", this.$root.store.data);
+        formData.append("model", this.$root.store.model);
+        formData.append("features", this.$root.store.features);
+        formData.append("label", this.$root.store.target_feature);
         const response = await this.axios.post(
-          'http://localhost:5000/ShapEvaluation/GetShapEvaluationByEntropy',formData,{
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          },
-          
-          
-          });
+          "http://localhost:5000/ShapEvaluation/GetShapEvaluationByEntropy",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
-        console.log(response.data)
-        this.images= response.data.data
-        console.log(this.images)
+        console.log(response.data);
+        this.text = response.data.text;
 
+        this.titles = response.data.title;
+        this.images = response.data.data;
+
+        console.log(this.titles);
+
+        console.log(this.images);
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
     },
-
-  }
-}
+  },
+};
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
