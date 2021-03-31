@@ -3,16 +3,13 @@
     <div id="nav">
       <NavBar> </NavBar>
     </div>
-    <div>
-      <SideBar> </SideBar>
-    </div>
+
     <router-view />
   </div>
 </template>
 
 <script>
 import NavBar from "./components/NavBar";
-import SideBar from "./components/SideBar"
 
 export default {
   name: "App",
@@ -28,7 +25,6 @@ export default {
   },
   components: {
     NavBar,
-    SideBar,
   }
 
 };

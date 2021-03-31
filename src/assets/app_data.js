@@ -312,6 +312,10 @@ intolerances:[
 
 }
 export const app_data={
+  model_predict:undefined,
+  data:undefined,
+  features:undefined,
+  target:undefined,
   shap_full_data:undefined,
   shap_by_errors:undefined,
 
