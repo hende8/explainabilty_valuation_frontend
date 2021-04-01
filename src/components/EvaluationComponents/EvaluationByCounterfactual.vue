@@ -3,13 +3,21 @@
     <div>
       <b-card title="Evaluation By Counterfactual" sub-title="">
         <b-card-text>
+          In this feature, we seek to review and categorize research on
+          counterfactual explanations, a specific class of explanation that
+          provides a link between what could have happened had input to a model
+          been changed in a particular way.
+          <br/>
+          This feature change 2 features of instance by thier most importance explaination values. Then our tool compare between the prior predict result to the origin predict value.          With this assumpation we evaluate the correctness of explaination values.
+
+          
           <b-button
             @click="getEvaluationByCounterfactual()"
             variant="primary"
             style="width: 90px"
             class="ml-5 w-10"
-            v-show="!spinner && this.images.length==0"
-            >Get graphs</b-button
+            v-show="!spinner && this.images.length == 0"
+            >Show graphs</b-button
           >
           <div v-show="spinner">
             <div style="position: fixed; /* or absolute */ top: 50%; left: 50%">
@@ -27,11 +35,7 @@
             <h5>its may take a few minutes...</h5>
           </div>
           <div>
-            <b-card-group
-              deck
-              v-for="img in images"
-              :key="img"
-            >
+            <b-card-group deck v-for="img in images" :key="img">
               <b-card no-body class="overflow-hidden" style="max-width: 2000px">
                 <b-row no-gutters>
                   <b-col md="6">
@@ -59,7 +63,7 @@
                 variant="primary"
                 style="width: 90px"
                 class="ml-5 w-10"
-                v-show="this.images.length>0"
+                v-show="this.images.length > 0"
                 >Clear</b-button
               >
             </div>
@@ -112,9 +116,9 @@ export default {
       app_data.evaluation_by_counterfactual = undefined;
     },
   },
-  mounted(){
-    this.images=app_data.evaluation_by_counterfactual;
-  }
+  mounted() {
+    this.images = app_data.evaluation_by_counterfactual;
+  },
 };
 </script>
 
