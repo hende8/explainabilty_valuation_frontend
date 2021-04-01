@@ -11,7 +11,50 @@
       style="width: 90px"
       class="ml-5 w-10"
       >Get graphs</b-button>
-    <div>
+    <h2>{{SHAP_info_message}}</h2>
+    <h2>{{lime_info_message}}</h2>
+    <div id="toggles">
+      <!-- Using modifiers -->
+      <b-button v-b-toggle="'collapse-1'" class="m-1">Show LIME Clusters Plots</b-button>
+
+      <!-- Using value -->
+      <b-button v-b-toggle="'collapse-2'" class="m-1">Show SHAP Clusters Plots</b-button>
+
+      <!-- Element to collapse -->
+      <b-collapse id="collapse-2">
+        <b-card-group  deck v-for="img in SHAP_images" :key="img">
+        <b-card no-body class="overflow-hidden" style="max-width: 2000px">
+          <b-row no-gutters>
+            <b-col md="6">
+              <b-card-img
+                :src="img"
+                alt="Image"
+                class="rounded-0"
+              ></b-card-img>
+            </b-col>
+          </b-row>
+        </b-card>
+      </b-card-group>
+      </b-collapse>
+
+      <b-collapse id="collapse-1">
+        <b-card-group  deck v-for="img in lime_images" :key="img">
+        <b-card no-body class="overflow-hidden" style="max-width: 2000px">
+          <b-row no-gutters>
+            <b-col md="6">
+              <b-card-img
+                :src="img"
+                alt="Image"
+                class="rounded-0"
+              ></b-card-img>
+            </b-col>
+          </b-row>
+        </b-card>
+      </b-card-group>
+    </b-collapse>
+    </div>
+
+    <!-- <div>
       <b-card-group  deck v-for="img in images" :key="img">
         <b-card no-body class="overflow-hidden" style="max-width: 2000px">
           <b-row no-gutters>
@@ -32,8 +75,7 @@
           </b-row>
         </b-card>
       </b-card-group>
-    </div>
-    
+    </div> -->
   </div>
 </template>
 
@@ -42,14 +84,17 @@ export default {
   data() {
     return {
       cluster_value: 11,
-      images: [],
-      info_message: "",
+      SHAP_images: [],
+      lime_images: [],
+      SHAP_info_message: "",
+      lime_info_message: "",
     };
   },
 
   methods: {
     async getEvaluationByClustering() {
-      this.images=[]
+      this.SHAP_images=[]
+      this.lime_images=[]
       try {
         var formData = new FormData();
         formData.append("data",this.$root.store.data)
@@ -68,10 +113,13 @@ export default {
           });
 
         console.log(response.data)
-        this.images= response.data.data
+        this.SHAP_images= response.data.SHAP_data
+        this.lime_images= response.data.lime_data
         console.log(this.images)
-        this.info_message = response.data.info_message
+        this.SHAP_info_message = response.data.SHAP_info_message
+        this.lime_info_message = response.data.lime_info_message
 
+        
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
@@ -82,4 +130,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>
