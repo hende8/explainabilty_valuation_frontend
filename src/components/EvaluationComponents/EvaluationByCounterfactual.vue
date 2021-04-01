@@ -3,21 +3,22 @@
     <div>
       <b-card title="Evaluation By Counterfactual" sub-title="">
         <b-card-text>
+          <b-card-text>
           In this feature, we seek to review and categorize research on
           counterfactual explanations, a specific class of explanation that
           provides a link between what could have happened had input to a model
           been changed in a particular way.
-          <br/>
-          This feature change 2 features of instance by thier most importance explaination values. Then our tool compare between the prior predict result to the origin predict value.          With this assumpation we evaluate the correctness of explaination values.
-
-          
+          <br />
+          This feature change 2 features of instance by thier most importance
+          explaination values. Then our tool compare between the prior predict
+          result to the origin predict value. With this assumpation we evaluate
+          the correctness of explaination values.
+          </b-card-text>
           <b-button
             @click="getEvaluationByCounterfactual()"
             variant="primary"
-            style="width: 90px"
-            class="ml-5 w-10"
             v-show="!spinner && this.images.length == 0"
-            >Show graphs</b-button
+            >Get graphs</b-button
           >
           <div v-show="spinner">
             <div style="position: fixed; /* or absolute */ top: 50%; left: 50%">
@@ -61,8 +62,6 @@
               <b-button
                 @click="clear()"
                 variant="primary"
-                style="width: 90px"
-                class="ml-5 w-10"
                 v-show="this.images.length > 0"
                 >Clear</b-button
               >
