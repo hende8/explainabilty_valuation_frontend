@@ -22,8 +22,7 @@
             <!-- <b-button
               @click="getEvaluationByClustering()"
               variant="primary"
-              style="width: 90px"
-              class="ml-5 w-10"
+              style="margin-left:10px;"
               v-show="!spinner"
               >Get graphs</b-button
             > -->
