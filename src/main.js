@@ -157,7 +157,7 @@ var app = new Vue({
     },
   },
   created(){
-    window.document.title = 'Happy Recipes'; 
+    window.document.title = 'XAI Evaluation'; 
   },
 
   render: (h) => h(App),

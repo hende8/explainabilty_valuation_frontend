@@ -67,32 +67,19 @@
           >Next</b-button
         >
       </b-form>
-<!-- <div id="app">
- <label v-show="submit_form">
-   <input v-show="submit_form" type="checkbox" v-model="selectedAll" />
-   Select all
- </label>
-  <ul>
-    <li v-for="f in features_list" :key="f">
-      <label>
-        <input type="checkbox" v-model="checkedFeatures" :value="f" />
-         {{ f }}
-      </label> 
-    </li>
-  </ul>
-</div> -->
+
       <div v-show="submit_form">
         <b-form>
           <h2>please choose your features that you pretrained about</h2>
-          <label v-for="f in features_list" :key="f">
-            <b-row>
-              <input
-                type="checkbox"
-                :id="f"
-                :value="f"
-                v-model="checkedFeatures"
-              />{{ f }}
-            </b-row>
+          <input type="checkbox"   @change="selectAll"/>
+          <label for="vehicle3"> selectAll</label><br /><br />
+          <label v-for="f in this.features_list" :key="f">
+            <input
+              type="checkbox"
+              :id="f"
+              :value="f"
+              v-model="checkedFeatures"
+            />{{ f }}
           </label>
           <br />
           <span>Checked features: {{ checkedFeatures }}</span>
@@ -100,7 +87,7 @@
           <br />
           <h2>choose your target prediction model:</h2>
           <select v-model="features_form.selected_target">
-            <option v-for="f in features_list" :key="f" required>
+            <option v-for="f in this.features_list" :key="f" required>
               {{ f }}
             </option>
           </select>
@@ -157,6 +144,7 @@
 </template>
 
 <script>
+import app_data from "../assets/app_data";
 import {
   required,
   minLength,
@@ -183,6 +171,7 @@ export default {
       indeterminate: false,
       submit_form: false,
       checkedFeatures: [],
+      size_features:0,
       lime_or_shap: false,
       image: null,
     };
@@ -201,6 +190,14 @@ export default {
     },
   },
   methods: {
+    selectAll(){
+      if( this.checkedFeatures.length!=this.size_features){
+      this.checkedFeatures=this.features_list
+      }
+      else if(this.checkedFeatures.length==this.size_features){
+        this.checkedFeatures=[]
+      }
+    },
     onReset() {
       this.form = {
         dataset: null,
@@ -230,6 +227,10 @@ export default {
         this.checkedFeatures,
         this.features_form.selected_target
       );
+      app_data.model_predict = this.form.predict_model;
+      app_data.data = this.form.dataset;
+      app_data.features = this.checkedFeatures;
+      app_data.target = this.features_form.selected_target;
       this.lime_or_shap = true;
     },
     async submitDatasetModel() {
@@ -248,6 +249,7 @@ export default {
         );
         let features_list = response.data.split(",");
         this.features_list = features_list;
+        this.size_features= this.features_list.length
         this.submit_form = true;
       } catch (err) {
         this.form.submitError = err.response.data.message;
@@ -281,24 +283,7 @@ export default {
       return $dirty ? !$error : null;
     },
   },
-  computed: {
-    selectedAll: {
-      set(val) {
-        console.log("set")
-        console.log(this.features)
-        this.checkedFeatures = []
-        if (val) {
-          for(let i = 1; i <= this.checkedFeatures.length; i++) {
-            this.checkedFeatures.push(this.features[i])
-          }
-        }
-      },
-      get() {
-        console.log("get")
-        return this.checkedFeatures.length === this.count
-      }
-    }
-  }
+  
 };
 </script>
 
