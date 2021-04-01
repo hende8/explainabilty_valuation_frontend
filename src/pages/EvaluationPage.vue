@@ -9,6 +9,9 @@
       </section>
       <div>
         <b-nav tabs fill>
+          <b-nav-item @click="swapComponents('Introduction')"
+            >Introduction</b-nav-item
+          >
           <b-nav-item @click="swapComponents('EvaluateByClustering')"
             >Clustering Intersection</b-nav-item
           >
@@ -18,19 +21,23 @@
           <b-nav-item @click="swapComponents('EvaluationByCounterfactual')"
             >Counterfactual
           </b-nav-item>
-          >
         </b-nav>
+        <b-card-body v-if="current_component == 'Introduction'">
+          <div>
+            <b-card title="Introduction" sub-title="">
+              <b-card-text> </b-card-text>
 
+              <b-card-text> to be CONTINUE </b-card-text>
+            </b-card>
+          </div>
+        </b-card-body>
         <b-card-body v-if="current_component == 'EvaluateByClustering'">
-          <h1>Evaluation By Clustering</h1>
           <EvaluateByClustering class="SHAPSingleInstnace" />
         </b-card-body>
         <b-card-body v-if="current_component == 'EvaluationByEntropy'">
-          <h1>Evaluation By Entropy</h1>
           <EvaluationByEntropy class="SHAPSingleInstnace" />
         </b-card-body>
         <b-card-body v-if="current_component == 'EvaluationByCounterfactual'">
-          <h1>Evaluation By Counterfactual</h1>
           <EvaluationByCounterfactual class="SHAPFullData" />
         </b-card-body>
       </div>
@@ -62,7 +69,11 @@ import EvaluateByClustering from "../components/EvaluationComponents/EvaluateByC
 import EvaluationByEntropy from "../components/EvaluationComponents/EvaluationByEntropy.vue";
 import EvaluationByCounterfactual from "../components/EvaluationComponents/EvaluationByCounterfactual.vue";
 export default {
-  components: { EvaluationByEntropy, EvaluationByCounterfactual, EvaluateByClustering },
+  components: {
+    EvaluationByEntropy,
+    EvaluationByCounterfactual,
+    EvaluateByClustering,
+  },
   data() {
     return {
       SideBar,

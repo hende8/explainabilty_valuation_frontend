@@ -1,56 +1,70 @@
 <template>
   <div class="container">
-    <h2>
-      You are more than walcome to use our innovative tool.... TO BE CONTINUE
-    </h2>
-    <b-button
-      v-show="this.image == undefined"
-      @click="explainFullData()"
-      type="submit"
-      variant="primary"
-      >get graph</b-button
-    >
-    <div v-show="spinner">
-      <div style="position: fixed; /* or absolute */ top: 50%; left: 50%">
-        <b-spinner
-          style="width: 3rem; height: 3rem"
-          label="Large Spinner"
-        ></b-spinner>
-        <b-spinner
-          style="width: 3rem; height: 3rem"
-          label="Large Spinner"
-          type="grow"
-        ></b-spinner>
-        <br />
-      </div>
-              <h5>its may take a few minutes...</h5>
+    <div>
+      <b-card title="Explain full data" sub-title="">
+        <b-card-text>
+          You are more than walcome to use our innovative tool.... TO BE
+          CONTINUE
+        </b-card-text>
 
-    </div>
-    <div v-if="this.image != undefined">
-      <b-card-group>
-        <b-card no-body class="overflow-hidden" style="max-width: 2000px">
-          <b-row no-gutters>
-            <b-col md="8">
-              <b-card-img
-                :src="this.image"
-                alt="Image"
-                class="rounded-0"
-              ></b-card-img>
-            </b-col>
-            <b-col md="8">
-              <b-card-body title="Horizontal Card">
-                <b-card-text>
-                  This is a wider card with supporting text as a natural lead-in
-                  to additional content. This content is a little bit longer.
-                </b-card-text>
-              </b-card-body>
-            </b-col>
-          </b-row>
-        </b-card>
-      </b-card-group>
-      <b-button @click="clearImage" type="submit" variant="primary"
-        >Clear</b-button
-      >
+        <b-card-text> to be CONTINUE </b-card-text>
+        <b-button
+          v-show="this.image == undefined && !spinner"
+          @click="explainFullData"
+          type="submit"
+          variant="primary"
+          >Get graph</b-button
+        >
+
+        <div v-show="spinner">
+          <div style="position: fixed; /* or absolute */ top: 50%; left: 50%">
+            <b-spinner
+              style="width: 3rem; height: 3rem"
+              label="Large Spinner"
+            ></b-spinner>
+            <b-spinner
+              style="width: 3rem; height: 3rem"
+              label="Large Spinner"
+              type="grow"
+            ></b-spinner>
+            <br />
+          </div>
+          <h5>its may take a few minutes...</h5>
+        </div>
+        <div v-if="this.image != undefined">
+          <b-card-group>
+            <b-card no-body class="overflow-hidden" style="max-width: 2000px">
+              <b-row no-gutters>
+                <b-col md="8">
+                  <b-card-img
+                    :src="this.image"
+                    alt="Image"
+                    class="rounded-0"
+                  ></b-card-img>
+                </b-col>
+                <b-col md="8">
+                  <b-card-body title="Horizontal Card">
+                    <b-card-text>
+                      This is a wider card with supporting text as a natural
+                      lead-in to additional content. This content is a little
+                      bit longer.
+                    </b-card-text>
+                  </b-card-body>
+                </b-col>
+              </b-row>
+            </b-card>
+          </b-card-group>
+          <div style="text-align: center;padding: 20px;">
+ <b-button
+            @click="clearImage"
+            type="submit"
+            variant="primary"
+            style="margin: 0 auto"
+            >Clear</b-button
+          >          </div>
+         
+        </div>
+      </b-card>
     </div>
   </div>
 </template>

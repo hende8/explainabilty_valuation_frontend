@@ -67,26 +67,13 @@
           >Next</b-button
         >
       </b-form>
-      <!-- <div id="app">
- <label v-show="submit_form">
-   <input v-show="submit_form" type="checkbox" v-model="selectedAll" />
-   Select all
- </label>
-  <ul>
-    <li v-for="f in features_list" :key="f">
-      <label>
-        <input type="checkbox" v-model="checkedFeatures" :value="f" />
-         {{ f }}
-      </label> 
-    </li>
-  </ul>
-</div> -->
+
       <div v-show="submit_form">
         <b-form>
           <h2>please choose your features that you pretrained about</h2>
           <input type="checkbox"   @change="selectAll"/>
           <label for="vehicle3"> selectAll</label><br /><br />
-          <label v-for="f in features_list" :key="f">
+          <label v-for="f in this.features_list" :key="f">
             <input
               type="checkbox"
               :id="f"
@@ -100,7 +87,7 @@
           <br />
           <h2>choose your target prediction model:</h2>
           <select v-model="features_form.selected_target">
-            <option v-for="f in features_list" :key="f" required>
+            <option v-for="f in this.features_list" :key="f" required>
               {{ f }}
             </option>
           </select>

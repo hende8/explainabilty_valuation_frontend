@@ -1,83 +1,100 @@
 <template>
   <div class="container">
     <div>
-      <h2>
-        In this section you are able to explain your predicticting result.<br />
-        Please fill the missing values and get explain for your results
-      </h2>
-      <b-button
-        v-show="this.image == undefined && !this.spinner && !showFeaturesBool"
-        @click="showFeatures"
-        variant="primary"
-        >Explore explanations</b-button
-      >
-      <div v-show="showFeaturesBool && this.image == undefined && !this.spinner">
-        <b-form
-          v-for="f in this.features"
-          :key="f"
-          @submit.prevent="onSubmit"
-          @reset.prevent="onReset"
-        >
-          <b-col sm="3">
-            <b-form-group id="input-group-1" :label="f" label-for="input-1">
-              <b-form-input id="input-1" v-model="form[f]"></b-form-input>
-              <!-- <b-form-invalid-feedback v-if="!$v.form.f.required"
-              >{{f}} is required</b-form-invalid-feedback
-            > -->
-            </b-form-group>
-          </b-col>
-        </b-form>
-        <b-button @click="onReset" variant="danger">Reset</b-button>
-        <b-button @click="getShapExplanation" type="submit" variant="primary"
-          >Submit</b-button
-        >
-      </div>
-      <div v-show="spinner">
-        <b-spinner
-          style="width: 3rem; height: 3rem"
-          label="Large Spinner"
-        ></b-spinner>
-        <b-spinner
-          style="width: 3rem; height: 3rem"
-          label="Large Spinner"
-          type="grow"
-        ></b-spinner>
-        <br>
-        <h3>its may take a few minutes...</h3>
-      </div>
-      <div v-if="this.image != undefined">
-        <b-card-group>
-          <b-card no-body class="overflow-hidden" style="max-width: 2000px">
-            <b-row no-gutters>
-              <b-col md="8">
-                <b-card-img
-                  :src="this.image"
-                  alt="Image"
-                  class="rounded-0"
-                ></b-card-img>
+      <div>
+        <b-card title="Explain single instance" sub-title="">
+          <b-card-text>
+            In this section you are able to explain your predicticting
+            result.<br />
+            Please fill the missing values and get explain for your results
+          </b-card-text>
+
+          <b-card-text> to be CONTINUE </b-card-text>
+          <b-button
+            v-show="
+              this.image == undefined && !this.spinner && !showFeaturesBool
+            "
+            @click="showFeatures"
+            variant="primary"
+            >Explore explanations</b-button
+          >
+          <div
+            v-show="
+              showFeaturesBool && this.image == undefined && !this.spinner
+            "
+          >
+            <b-form
+              v-for="f in this.features"
+              :key="f"
+              @submit.prevent="onSubmit"
+              @reset.prevent="onReset"
+            >
+              <b-col sm="3">
+                <b-form-group id="input-group-1" :label="f" label-for="input-1">
+                  <b-form-input id="input-1" v-model="form[f]"></b-form-input>
+                </b-form-group>
               </b-col>
-              <b-col md="8">
-                <b-card-body title="Horizontal Card">
-                  <b-card-text>
-                    This is a wider card with supporting text as a natural
-                    lead-in to additional content. This content is a little bit
-                    longer.
-                  </b-card-text>
-                </b-card-body>
-              </b-col>
-            </b-row>
-          </b-card>
-        </b-card-group>
-        <br />
-        <b-button @click="tryAgain" type="submit" variant="primary"
-          >Try again</b-button
-        >
+            </b-form>
+            <b-button @click="onReset" variant="danger">Reset</b-button>
+            <b-button
+              @click="getShapExplanation"
+              type="submit"
+              variant="primary"
+              >Submit</b-button
+            >
+          </div>
+          <div v-show="spinner">
+            <b-spinner
+              style="width: 3rem; height: 3rem"
+              label="Large Spinner"
+            ></b-spinner>
+            <b-spinner
+              style="width: 3rem; height: 3rem"
+              label="Large Spinner"
+              type="grow"
+            ></b-spinner>
+            <br />
+            <h3>its may take a few minutes...</h3>
+          </div>
+          <div v-if="this.image != undefined">
+            <b-card-group>
+              <b-card no-body class="overflow-hidden" style="max-width: 2000px">
+                <b-row no-gutters>
+                  <b-col md="8">
+                    <b-card-img
+                      :src="this.image"
+                      alt="Image"
+                      class="rounded-0"
+                    ></b-card-img>
+                  </b-col>
+                  <b-col md="8">
+                    <b-card-body title="Horizontal Card">
+                      <b-card-text>
+                        This is a wider card with supporting text as a natural
+                        lead-in to additional content. This content is a little
+                        bit longer.
+                      </b-card-text>
+                    </b-card-body>
+                  </b-col>
+                </b-row>
+              </b-card>
+            </b-card-group>
+            <br />
+                      <div style="text-align: center;padding: 20px;">
+
+            <b-button @click="tryAgain" type="submit" variant="primary"
+              >Try again</b-button
+            >
+            </div>
+          </div>
+        </b-card>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import app_data from '../../assets/app_data'
 export default {
   data() {
     let form_create = this.features.reduce((acc, elem) => {
@@ -88,7 +105,7 @@ export default {
       image: undefined,
       form: form_create,
       showFeaturesBool: false,
-      spinner:false
+      spinner: false,
     };
   },
   props: {
@@ -146,7 +163,7 @@ export default {
       this.showFeaturesBool = true;
     },
     async getShapExplanation() {
-      this.spinner=true
+      this.spinner = true;
       var temp_form = this.form;
       var df = this.features.reduce(function (res, item) {
         res[item] = temp_form[item]; // or what ever object you want inside
@@ -157,7 +174,7 @@ export default {
         formData.append("data", JSON.stringify(df));
         formData.append("model", this.$root.store.model);
         formData.append("features", this.$root.store.features);
-        
+
         const response = await this.axios.post(
           "http://localhost:5000/MakeShapModel/GetInstanceShap",
           formData,
@@ -167,9 +184,9 @@ export default {
             },
           }
         );
-        this.spinner=false
+        this.spinner = false;
         this.image = response.data;
-        console.log(this.image);
+        app_data.shap_single_instance=this.image
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
@@ -179,6 +196,9 @@ export default {
       this.image = undefined;
     },
   },
+  mounted(){
+    this.image=app_data.shap_single_instance
+  }
 };
 </script>
 
