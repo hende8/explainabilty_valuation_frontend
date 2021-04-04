@@ -3,11 +3,18 @@
     <div>
       <b-card title="Evaluation By Clustering" sub-title="">
         <b-card-text>
-          In this feature, we seek to review and categorize research on clusters
-          intersection explanations, a specific class of explanation that
-          provides a link between 2 kind of clustering splitting - splitting
-          records into clusters by real values and splitting by explaination
-          methods values
+          Consistency by entropy of ranked attributing features to prediction:
+          In this evaluation you can see the entropy of ranked features that
+          attribute to the prediction (the first is the most attributing) in
+          instances that were clustered together. If the entropy in a cluster is
+          higher, then the explaining features (features that attributed to the
+          prediction) are ranked in a similar way Consistency by clustering
+          similarity: In this evaluation the consistency is measured by the
+          similarity of clusters of instances with clusters by the explanations
+          of the instances. A higher similarity means that similar instances
+          were clustered together and also their explanations were clustered
+          together.
+
           <br />
           <br />
           This feature check the consistent of clusters inteersection
@@ -55,16 +62,20 @@
             <h5>its may take a few minutes...</h5>
           </div>
 
-
-
           <div id="toggles">
             <!-- Using modifiers -->
-            <b-button v-show="!spinner && SHAP_images.length > 0" v-b-toggle="'collapse-1'" class="m-1"
+            <b-button
+              v-show="!spinner && SHAP_images.length > 0"
+              v-b-toggle="'collapse-1'"
+              class="m-1"
               >Show LIME Clusters Plots</b-button
             >
 
             <!-- Using value -->
-            <b-button v-show="!spinner && SHAP_images.length > 0" v-b-toggle="'collapse-2'" class="m-1"
+            <b-button
+              v-show="!spinner && SHAP_images.length > 0"
+              v-b-toggle="'collapse-2'"
+              class="m-1"
               >Show SHAP Clusters Plots</b-button
             >
 
@@ -108,19 +119,17 @@
                 </b-card>
               </b-card-group>
             </b-collapse>
-            <div style="text-align: center;padding: 20px;">
-
-            <b-button
-              @click="clear()"
-              variant="primary"
-              style="width: 90px"
-              class="ml-5 w-10"
-              v-show="!spinner && SHAP_images.length > 0"
-              >Clear</b-button
-            >
+            <div style="text-align: center; padding: 20px">
+              <b-button
+                @click="clear()"
+                variant="primary"
+                style="width: 90px"
+                class="ml-5 w-10"
+                v-show="!spinner && SHAP_images.length > 0"
+                >Clear</b-button
+              >
             </div>
           </div>
-          
 
           <!-- <div v-show="spinner">
             <div style="position: fixed; /* or absolute */ top: 50%; left: 50%">

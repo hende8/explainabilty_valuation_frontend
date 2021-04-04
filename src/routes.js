@@ -13,6 +13,11 @@ const routes = [
     component: () => import("./pages/ShapPage"),
   },
   {
+    path: "/about",
+    name: "about",
+    component: () => import("./pages/AboutPage"),
+  },
+  {
     path: "/lime",
     name: "lime",
     component: () => import("./pages/LimePage"),

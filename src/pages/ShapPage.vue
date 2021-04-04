@@ -10,7 +10,7 @@
         <p>Lets explore our data using SHAP explaination model</p>
       </section>
       <div>
-        <b-nav tabs fill>
+        <b-nav tabs fill >
           <b-nav-item @click="swapComponents('introduction')"
             >Introduction</b-nav-item
           >
@@ -25,9 +25,9 @@
           >
         </b-nav>
 
-        <b-card-body v-if="current_component == 'introduction'">
+        <b-card-body v-if="current_component == 'introduction'" >
           <div>
-            <b-card title="SHAP (SHapley Additive exPlanations)" sub-title="">
+            <b-card title="SHAP (SHapley Additive exPlanations)" sub-title="" body-class="text-center" header-tag="nav">
               <b-card-text>
                 SHAP (SHapley Additive exPlanations) by Lundberg and Lee (2016)
                 is a method to explain individual predictions. SHAP is based on
@@ -75,7 +75,7 @@
             </b-card>
           </div>
         </b-card-body>
-        <b-card-body v-if="current_component == 'Single instance'">
+        <b-card-body v-if="current_component == 'Single instance'" >
           <ExplainSingleInstnace
             class="SHAPSingleInstnace"
             :features="features"

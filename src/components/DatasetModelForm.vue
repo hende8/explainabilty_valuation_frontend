@@ -3,16 +3,24 @@
     <div style="width: 1200px; position: absolute" v-if="!lime_or_shap">
       <h1>Evaluation and Explanation system</h1>
       <h5>
-        In this system you will get an explanation and avaluation about those
-        explains.
+        The first step before using the framework is uploading two files:
+        <ul>
+          <li>
+            A dataset (that contains only the features you used for training the
+            model)
+          </li>
+          <li>
+           A trained machine learning model.
+          </li>
+        </ul>
       </h5>
       <h5>
         Before you are using our system, we would like to ask you to get in
         advance a dataset and the predict model that pretrained on it.
       </h5>
       <h5>
-        <b>Note:</b> The dataset must include the exact features that you have
-        trained in your predict model.
+        <b>Note:</b> Currently the framework supports tree based machine
+        learning models.
       </h5>
       <br />
       <br />
@@ -41,7 +49,7 @@
         </b-col>
         <br />
         <b-col sm="5">
-          <h2>Choose a predict model</h2>
+          <h2>Choose a trained machine learning model</h2>
 
           <b-form-file
             size="sm"
@@ -56,13 +64,16 @@
           >
         </b-col>
         <br />
-        <b-button type="reset" style="width: 90px" variant="danger"
+        <b-button
+          type="reset"
+          style="width: 90px; margin-left: 65px"
+          variant="danger"
           >Reset</b-button
         >
         <b-button
           type="submit"
           variant="primary"
-          style="width: 90px"
+          style="width: 90px; margin-left: 15px"
           class="ml-5 w-10"
           >Next</b-button
         >
@@ -85,7 +96,7 @@
           <span>Checked features: {{ checkedFeatures }}</span>
           <br />
           <br />
-          <h2>choose your target prediction model:</h2>
+          <h2>Choose the ‘label’ feature:</h2>
           <select v-model="features_form.selected_target">
             <option v-for="f in features_list" :key="f" required>
               {{ f }}
@@ -118,7 +129,7 @@
     </div>
 
     <div v-if="lime_or_shap">
-            <div
+      <div
         style="
           margin: 10;
           position: absolute;
@@ -134,9 +145,7 @@
           :options="btnOps"
           cls="btn-cls"
           v-on:click.native="shapChosen"
-                  style="margin:10px;"
-
-
+          style="margin: 10px"
         >
           Explanation
         </ParticleEffectButton>
@@ -146,11 +155,10 @@
           :options="btnOps"
           cls="btn-cls"
           v-on:click.native="limeChosen"
-        style="margin:10px;"
+          style="margin: 10px"
         >
           Evaluation
         </ParticleEffectButton>
-
       </div>
     </div>
   </div>
@@ -198,8 +206,8 @@ export default {
         color: function () {
           return Math.random() < 0.5 ? "#333333" : "#333333";
         },
-              visible: true,
-      animating: false,
+        visible: true,
+        animating: false,
       },
       // visible: true,
       // animating: false,

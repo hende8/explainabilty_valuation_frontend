@@ -28,13 +28,7 @@
               <b-card-text> </b-card-text>
 
               <b-card-text>
-                EXplainable AI (XAI) methods have been proposed to interpret
-                through model explanations that highlight the parts of the
-                inputs deemed important to arrive at a decision at a specific
-                target. However, it remains challenging to quantify the
-                correctness of their interpretability as current evaluation
-                approaches either requires subjective input from humans or incur
-                high computation cost with automated evaluation.
+Evaluating the explanation's quality is important for realizing the true benefits for end-users in practical settings. In this framework we provide evaluations of the explanation methods by comparing between them. You can see different evaluation metrics: Consistency, Faithfulness (also called fidelity) and robustness.
                 <br />
                 <br />
                 On this website, we implement evaluation of explanations. Our

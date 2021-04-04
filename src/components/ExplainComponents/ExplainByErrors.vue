@@ -1,13 +1,17 @@
 <template>
   <div class="container">
     <div>
-      <b-card title="Explain by errors" sub-title="">
+      <b-card
+        title="Error analysis using predictions’ explanations"
+        sub-title=""
+      >
         <b-card-text>
-          You are more than walcome to use our innovative tool.... TO BE
-          CONTINUE
+          The plots in this screen present the features the most contributed to
+          correct predictions and to wrong predictions. This analysis may assist
+          you to understand the weak and strong points in your models and using
+          this information you can try to improve your model.
         </b-card-text>
 
-        <b-card-text> to be CONTINUE </b-card-text>
         <b-button
           @click="getShapByErrors()"
           variant="primary"
