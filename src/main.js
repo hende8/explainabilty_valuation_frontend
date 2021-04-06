@@ -37,6 +37,7 @@ import {
   SidebarPlugin,
   FormSpinbuttonPlugin,
   CarouselPlugin,
+  ImagePlugin,
  
 } from "bootstrap-vue";
 [
@@ -58,6 +59,7 @@ import {
   SidebarPlugin,
   FormSpinbuttonPlugin,
   CarouselPlugin,
+  ImagePlugin
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 

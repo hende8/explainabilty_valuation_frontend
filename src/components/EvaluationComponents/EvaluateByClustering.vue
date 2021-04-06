@@ -3,6 +3,21 @@
     <div>
       <b-card title="Evaluation By Clustering" sub-title="">
         <b-card-text>
+          Consistency by entropy of ranked attributing features to prediction:
+          In this evaluation you can see the entropy of ranked features that
+          attribute to the prediction (the first is the most attributing) in
+          instances that were clustered together. If the entropy in a cluster is
+          higher, then the explaining features (features that attributed to the
+          prediction) are ranked in a similar way Consistency by clustering
+          similarity: In this evaluation the consistency is measured by the
+          similarity of clusters of instances with clusters by the explanations
+          of the instances. A higher similarity means that similar instances
+          were clustered together and also their explanations were clustered
+          together.
+
+          <br />
+          <br />
+          This feature check the consistent of clusters inteersection
           <div v-show="!spinner">
             <label for="sb-inline">Choose number of clusters: </label>
             <b-form-spinbutton
@@ -11,17 +26,112 @@
               inline
             ></b-form-spinbutton>
 
-            <b-button
+            <!-- <b-button
               @click="getEvaluationByClustering()"
               variant="primary"
-              style="width: 90px"
-              class="ml-5 w-10"
+              style="margin-left:10px;"
               v-show="!spinner"
               >Get graphs</b-button
-            >
+            > -->
           </div>
 
+          <b-button
+            @click="getEvaluationByClustering()"
+            variant="primary"
+            style="width: 90px"
+            class="ml-5 w-10"
+            v-show="!spinner"
+            >Get graphs</b-button
+          >
+          <h2>{{ SHAP_info_message }}</h2>
+          <h2>{{ lime_info_message }}</h2>
+
           <div v-show="spinner">
+            <div style="position: fixed; /* or absolute */ top: 50%; left: 50%">
+              <b-spinner
+                style="width: 3rem; height: 3rem"
+                label="Large Spinner"
+              ></b-spinner>
+              <b-spinner
+                style="width: 3rem; height: 3rem"
+                label="Large Spinner"
+                type="grow"
+              ></b-spinner>
+              <br />
+            </div>
+            <h5>its may take a few minutes...</h5>
+          </div>
+
+          <div id="toggles">
+            <!-- Using modifiers -->
+            <b-button
+              v-show="!spinner && SHAP_images.length > 0"
+              v-b-toggle="'collapse-1'"
+              class="m-1"
+              >Show LIME Clusters Plots</b-button
+            >
+
+            <!-- Using value -->
+            <b-button
+              v-show="!spinner && SHAP_images.length > 0"
+              v-b-toggle="'collapse-2'"
+              class="m-1"
+              >Show SHAP Clusters Plots</b-button
+            >
+
+            <!-- Element to collapse -->
+            <b-collapse id="collapse-2">
+              <b-card-group deck v-for="img in SHAP_images" :key="img">
+                <b-card
+                  no-body
+                  class="overflow-hidden"
+                  style="max-width: 2000px"
+                >
+                  <b-row no-gutters>
+                    <b-col md="6">
+                      <b-card-img
+                        :src="img"
+                        alt="Image"
+                        class="rounded-0"
+                      ></b-card-img>
+                    </b-col>
+                  </b-row>
+                </b-card>
+              </b-card-group>
+            </b-collapse>
+
+            <b-collapse id="collapse-1">
+              <b-card-group deck v-for="img in lime_images" :key="img">
+                <b-card
+                  no-body
+                  class="overflow-hidden"
+                  style="max-width: 2000px"
+                >
+                  <b-row no-gutters>
+                    <b-col md="6">
+                      <b-card-img
+                        :src="img"
+                        alt="Image"
+                        class="rounded-0"
+                      ></b-card-img>
+                    </b-col>
+                  </b-row>
+                </b-card>
+              </b-card-group>
+            </b-collapse>
+            <div style="text-align: center; padding: 20px">
+              <b-button
+                @click="clear()"
+                variant="primary"
+                style="width: 90px"
+                class="ml-5 w-10"
+                v-show="!spinner && SHAP_images.length > 0"
+                >Clear</b-button
+              >
+            </div>
+          </div>
+
+          <!-- <div v-show="spinner">
             <div style="position: fixed; /* or absolute */ top: 50%; left: 50%">
               <b-spinner
                 style="width: 3rem; height: 3rem"
@@ -68,7 +178,7 @@
               >Clear</b-button
             >
             </div>
-          </div>
+          </div> -->
         </b-card-text>
       </b-card>
     </div>
@@ -82,15 +192,18 @@ export default {
   data() {
     return {
       cluster_value: 11,
-      images: [],
-      info_message: "",
+      SHAP_images: [],
+      lime_images: [],
+      SHAP_info_message: "",
+      lime_info_message: "",
       spinner: false,
     };
   },
 
   methods: {
     async getEvaluationByClustering() {
-      this.images = [];
+      this.SHAP_images = [];
+      this.lime_images = [];
       this.spinner = true;
       try {
         var formData = new FormData();
@@ -110,17 +223,24 @@ export default {
             },
           }
         );
+
+        console.log(response.data);
+        this.SHAP_images = response.data.SHAP_data;
+        this.lime_images = response.data.lime_data;
+        console.log(this.images);
+        this.SHAP_info_message = response.data.SHAP_info_message;
+        this.lime_info_message = response.data.lime_info_message;
         this.spinner = false;
-        this.images = response.data.data;
-        app_data.evaluation_by_clustering = this.images;
-        this.info_message = response.data.info_message;
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
     },
     clear() {
-      this.images = [];
-      app_data.evaluation_by_clustering = [];
+      this.SHAP_images = [];
+      this.lime_images = [];
+      (this.SHAP_info_message = ""),
+        (this.lime_info_message = ""),
+        (app_data.evaluation_by_clustering = []);
     },
   },
 };

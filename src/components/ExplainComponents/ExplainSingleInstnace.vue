@@ -2,10 +2,10 @@
   <div class="container">
     <div>
       <div>
-        <b-card title="Explanations for single instance" sub-title="">
+        <b-card title="Explanation for a single record’s prediction
+" sub-title="">
           <b-card-text>
-            In this feature your are able to fill a new instance and get an explanation about based on the trained dataset.
-            <br />
+In this screen you may insert your own record’s values. The system will calculate the prediction and explain it using an explanation method.            <br />
           </b-card-text>
 
           <b-button

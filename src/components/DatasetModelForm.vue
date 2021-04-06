@@ -3,16 +3,24 @@
     <div style="width: 1200px; position: absolute" v-if="!lime_or_shap">
       <h1>Evaluation and Explanation system</h1>
       <h5>
-        In this system you will get an explanation and avaluation about those
-        explains.
+        The first step before using the framework is uploading two files:
+        <ul>
+          <li>
+            A dataset (that contains only the features you used for training the
+            model)
+          </li>
+          <li>
+           A trained machine learning model.
+          </li>
+        </ul>
       </h5>
       <h5>
         Before you are using our system, we would like to ask you to get in
         advance a dataset and the predict model that pretrained on it.
       </h5>
       <h5>
-        <b>Note:</b> The dataset must include the exact features that you have
-        trained in your predict model.
+        <b>Note:</b> Currently the framework supports tree based machine
+        learning models.
       </h5>
       <br />
       <br />
@@ -41,7 +49,7 @@
         </b-col>
         <br />
         <b-col sm="5">
-          <h2>Choose a predict model</h2>
+          <h2>Choose a trained machine learning model</h2>
 
           <b-form-file
             size="sm"
@@ -56,13 +64,16 @@
           >
         </b-col>
         <br />
-        <b-button type="reset" style="width: 90px" variant="danger"
+        <b-button
+          type="reset"
+          style="width: 90px; margin-left: 65px"
+          variant="danger"
           >Reset</b-button
         >
         <b-button
           type="submit"
           variant="primary"
-          style="width: 90px"
+          style="width: 90px; margin-left: 15px"
           class="ml-5 w-10"
           >Next</b-button
         >
@@ -71,9 +82,9 @@
       <div v-show="submit_form">
         <b-form>
           <h2>please choose your features that you pretrained about</h2>
-          <input type="checkbox"   @change="selectAll"/>
+          <input type="checkbox" @change="selectAll" />
           <label for="vehicle3"> selectAll</label><br /><br />
-          <label v-for="f in this.features_list" :key="f">
+          <label v-for="f in features_list" :key="f">
             <input
               type="checkbox"
               :id="f"
@@ -85,9 +96,9 @@
           <span>Checked features: {{ checkedFeatures }}</span>
           <br />
           <br />
-          <h2>choose your target prediction model:</h2>
+          <h2>Choose the ‘label’ feature:</h2>
           <select v-model="features_form.selected_target">
-            <option v-for="f in this.features_list" :key="f" required>
+            <option v-for="f in features_list" :key="f" required>
               {{ f }}
             </option>
           </select>
@@ -116,34 +127,46 @@
         >Process failed: {{ form.submitError }}</b-alert
       >
     </div>
-    <div v-if="lime_or_shap">
-      <button id="close-image" @click="shapChosen" style="width: 150px">
-        <img
-          src="https://user-images.githubusercontent.com/38404461/65588818-7734b500-df88-11e9-907c-a0bc0c0fdfc1.png"
-        />
-      </button>
-      <button id="close-image" @click="limeChosen" style="width: 150px">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Lime_%28transportation_company%29_logo.svg"
-        />
-      </button>
-      <!-- <button id="close-CSS"></button> -->
 
-      <!-- <b-button @click="shapChosen" style="width: 150px" variant="danger"
-        >SHAP</b-button
+    <div v-if="lime_or_shap">
+      <div
+        style="
+          margin: 10;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+        "
       >
-      <b-button
-        @click="limeChosen"
-        variant="primary"
-        style="width: 150px"
-        class="ml-5 w-10"
-        >lime</b-button
-      > -->
+        <ParticleEffectButton
+          :visible.sync="btnOps.visible"
+          :animating.sync="btnOps.animating"
+          :options="btnOps"
+          cls="btn-cls"
+          v-on:click.native="shapChosen"
+          style="margin: 10px"
+        >
+          Explanation
+        </ParticleEffectButton>
+        <ParticleEffectButton
+          :visible.sync="btnOps.visible"
+          :animating.sync="btnOps.animating"
+          :options="btnOps"
+          cls="btn-cls"
+          v-on:click.native="limeChosen"
+          style="margin: 10px"
+        >
+          Evaluation
+        </ParticleEffectButton>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import ParticleEffectButton from "vue-particle-effect-buttons";
+
 import app_data from "../assets/app_data";
 import {
   required,
@@ -171,10 +194,27 @@ export default {
       indeterminate: false,
       submit_form: false,
       checkedFeatures: [],
-      size_features:0,
+      size_features: 0,
       lime_or_shap: false,
       image: null,
+      btnOps: {
+        type: "triangle",
+        easing: "easeOutQuart",
+        size: 6,
+        particlesAmountCoefficient: 4,
+        oscillationCoefficient: 2,
+        color: function () {
+          return Math.random() < 0.5 ? "#333333" : "#333333";
+        },
+        visible: true,
+        animating: false,
+      },
+      // visible: true,
+      // animating: false,
     };
+  },
+  components: {
+    ParticleEffectButton,
   },
   validations: {
     form: {
@@ -190,12 +230,11 @@ export default {
     },
   },
   methods: {
-    selectAll(){
-      if( this.checkedFeatures.length!=this.size_features){
-      this.checkedFeatures=this.features_list
-      }
-      else if(this.checkedFeatures.length==this.size_features){
-        this.checkedFeatures=[]
+    selectAll() {
+      if (this.checkedFeatures.length != this.size_features) {
+        this.checkedFeatures = this.features_list;
+      } else if (this.checkedFeatures.length == this.size_features) {
+        this.checkedFeatures = [];
       }
     },
     onReset() {
@@ -249,17 +288,20 @@ export default {
         );
         let features_list = response.data.split(",");
         this.features_list = features_list;
-        this.size_features= this.features_list.length
+        this.size_features = this.features_list.length;
         this.submit_form = true;
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
     },
-    shapChosen() {
+    async shapChosen() {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       this.$router.push("/shap");
     },
-    limeChosen() {
-      this.$router.push("/lime");
+    async limeChosen() {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      this.$router.push("/evaluation");
     },
 
     async createExplanationValuation() {
@@ -283,7 +325,6 @@ export default {
       return $dirty ? !$error : null;
     },
   },
-  
 };
 </script>
 

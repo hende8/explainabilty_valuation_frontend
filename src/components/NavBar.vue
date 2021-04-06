@@ -9,9 +9,10 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav >
-          <b-nav-item href="#" disabled style="color: #7952b3"  >
+          <b-nav-item href="/main"  style="color: #7952b3"  >
             Evaluation System</b-nav-item
           >
+
         </b-navbar-nav>
         <b-navbar-nav  v-if="this.$root.store.nav">
           <b-nav-item-dropdown right >
@@ -33,15 +34,15 @@
 
             Evaluation Tools
           </b-nav-item>
+                  <b-navbar-nav >
+          <b-nav-item router-link :to="{ name: 'about' }"  style="color: #7952b3"  >
+            <b-icon icon="info-square-fill" style="color: #7952b3"></b-icon>
+            About</b-nav-item
+          >
+
         </b-navbar-nav>
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item></b-nav-item>
-          <b-nav-item></b-nav-item>
-          <b-navbar-nav>
-            <b-nav-item></b-nav-item>
-            <b-nav-item></b-nav-item>
-          </b-navbar-nav>
         </b-navbar-nav>
+
       </b-collapse>
     </b-navbar>
   </div>
@@ -52,10 +53,6 @@ import app_data from '../assets/app_data'
 
 export default {
   methods: {
-    logout() {
-      this.username = null;
-      this.$root.store.logout(this.username);
-    },
   },
   mounted() {
   },

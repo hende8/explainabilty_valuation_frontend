@@ -1,23 +1,16 @@
 <template>
   <div class="container">
     <div>
-      <b-card title="Evaluation By Counterfactual" sub-title="">
+      <b-card title="Faithfulness" sub-title="">
         <b-card-text>
-          In this feature, we seek to review and categorize research on
-          counterfactual explanations, a specific class of explanation that
-          provides a link between what could have happened had input to a model
-          been changed in a particular way.
-          <br/>
-          This feature change 2 features of instance by thier most importance explaination values. Then our tool compare between the prior predict result to the origin predict value.          With this assumpation we evaluate the correctness of explaination values.
-
-          
+          <b-card-text>
+In this evaluation we measure the faithfulness degree with regard to the target system by measuring the relevance of explanations in practical settings. We change the two most attributing features (determined by explanation method) to the closest instance in the dataset with an opposite label (the instance’s counterfactual) and compare between the probability of that opposite class between the explanation models. If this change caused a higher difference in the probabilities (before and after the change) in explanation method A than explanation method B, then explanation method A is more faithful to the target.
+          </b-card-text>
           <b-button
             @click="getEvaluationByCounterfactual()"
             variant="primary"
-            style="width: 90px"
-            class="ml-5 w-10"
             v-show="!spinner && this.images.length == 0"
-            >Show graphs</b-button
+            >Get graphs</b-button
           >
           <div v-show="spinner">
             <div style="position: fixed; /* or absolute */ top: 50%; left: 50%">
@@ -61,8 +54,6 @@
               <b-button
                 @click="clear()"
                 variant="primary"
-                style="width: 90px"
-                class="ml-5 w-10"
                 v-show="this.images.length > 0"
                 >Clear</b-button
               >
