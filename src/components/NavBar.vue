@@ -13,11 +13,11 @@
             Evaluation System</b-nav-item
           >
         </b-navbar-nav>
-        <b-navbar-nav>
+        <b-navbar-nav  v-if="this.$root.store.nav">
           <b-nav-item-dropdown right >
             <template v-slot:button-content>
-              <b-icon icon="question-square" style="color: #7952b3"></b-icon>
-              <em>Explainatiom Model </em>
+              <b-icon icon="question-square" style="color: #7952b3; "></b-icon>
+              <em>Explaination Model </em>
             </template>
             <b-dropdown-item router-link :to="{ name: 'shap' }"
               ><b-icon icon="star-fill" style="color: #7952b3"></b-icon>

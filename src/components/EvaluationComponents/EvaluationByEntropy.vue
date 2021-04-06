@@ -46,11 +46,9 @@
                   ></b-card-img>
                 </b-col>
                 <b-col md="6">
-                  <b-card-body :title="this.titles[index]">
+                  <b-card-body :title="titles[index]">
                     <b-card-text>
-                      This is a wider card with supporting text as a natural
-                      lead-in to additional content. This content is a little
-                      bit longer.
+                      {{text[index]}}
                     </b-card-text>
                   </b-card-body>
                 </b-col>

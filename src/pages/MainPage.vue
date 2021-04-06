@@ -52,8 +52,6 @@ export default {
       },
     },
   },
-
-  mounted() {},
   methods: {
     validateState(param) {
       const { $dirty, $error } = this.$v.form[param];

@@ -89,40 +89,25 @@ Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 
 const shared_data = {
-  username: localStorage.username,
   data:localStorage.data,
   model:localStorage.model,
   features:localStorage.features,
   target_feature:localStorage.target_feature,
-  login(username) {
-    localStorage.setItem("username", username);
-    this.username = username;
-
-  },
+  nav:localStorage.nav,
   setData(data,model,features,target_feature){
     localStorage.setItem("data",data)
     localStorage.setItem("model",model)
     localStorage.setItem("features",features)
     localStorage.setItem("target_feature",target_feature)
+    localStorage.setItem("nav",true)
+
     this.data=data
     this.model=model
     this.features=features
     this.target_feature=target_feature
+    this.nav=true
   },
-  async logout() {
-    app.logout();
 
-    localStorage.removeItem("username");
-    localStorage.removeItem("lastSearch");
-    this.username = undefined;
-    // app_data.lastSearch=[];
-    app_data.recipes = undefined;
-    app_data.lastWatch = undefined;
-    app_data.myFavorite = undefined;
-    app_data.myFamily = undefined;
-    Vue.$cookies.remove("session");
-
-  },
 };
 import { app_data } from "./assets/app_data";
 Vue.prototype.$store = app_data;
