@@ -83,6 +83,9 @@ export default {
       spinner: false,
     };
   },
+  props: {
+    explanation_model: String,
+  },
 
   methods: {
     async getShapByErrors() {
@@ -93,8 +96,15 @@ export default {
         formData.append("model", this.$root.store.model);
         formData.append("features", this.$root.store.features);
         formData.append("label", this.$root.store.target_feature);
+        var path = "";
+        if (this.explanation_model == "SHAP") {
+          path = "http://localhost:5000/MakeShapModel/GetShapByErrors";
+        } else {
+          path = "http://localhost:5000/MakeLimeModel/GetLimeByErrors";
+        }
         const response = await this.axios.post(
-          "http://localhost:5000/MakeShapModel/GetShapByErrors",
+          // "http://localhost:5000/MakeShapModel/GetShapByErrors",
+          path,
           formData,
           {
             headers: {
@@ -103,21 +113,35 @@ export default {
           }
         );
         this.spinner = false;
-        console.log(response.data);
+        if (this.explanation_model == "SHAP") {
+          app_data.shap_by_errors = response.data.data;
+        } else {
+          app_data.lime_by_errors = response.data.data;
+        }
         this.images = response.data.data;
-        app_data.shap_by_errors = response.data.data;
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
     },
     clearImages() {
-      app_data.shap_by_errors = undefined;
+      if (this.explanation_model == "SHAP") {
+        app_data.shap_by_errors = undefined;
+      } else {
+        app_data.lime_by_errors = undefined;
+      }
       this.images = [];
     },
   },
   mounted() {
-    if (app_data.shap_by_errors != undefined) {
-      this.images = app_data.shap_by_errors;
+    if (
+      app_data.shap_by_errors != undefined ||
+      app_data.lime_by_errors != undefined
+    ) {
+      if (this.explanation_model == "SHAP") {
+        this.images = app_data.shap_by_errors;
+      } else {
+        this.images = app_data.lime_by_errors;
+      }
     }
   },
 };

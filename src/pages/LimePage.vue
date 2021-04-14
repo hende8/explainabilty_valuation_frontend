@@ -14,16 +14,16 @@
       <div>
         <b-nav tabs fill>
           <b-nav-item @click="swapComponents('introduction')"
-              >Introduction</b-nav-item
+            >Introduction</b-nav-item
           >
           <b-nav-item @click="swapComponents('Single instance')"
-            disabled>Single instance</b-nav-item
+            >Single instance</b-nav-item
           >
-          <b-nav-item @click="swapComponents('Full data')"
-            disabled>Full data
+          <b-nav-item @click="swapComponents('Full data')" 
+            >Full data
           </b-nav-item>
-          <b-nav-item @click="swapComponents('SHAP by errors')"
-            disabled>SHAP by errors</b-nav-item
+          <b-nav-item @click="swapComponents('SHAP by errors')" 
+            >SHAP by errors</b-nav-item
           >
         </b-nav>
 
@@ -51,13 +51,14 @@
           <ExplainSingleInstnace
             class="SHAPSingleInstnace"
             :features="features"
+            explanation_model="Lime"
           />
         </b-card-body>
         <b-card-body v-if="current_component == 'Full data'">
-          <ExplainFullData class="SHAPFullData" />
+          <ExplainFullData class="SHAPFullData" explanation_model="Lime"/>
         </b-card-body>
         <b-card-body v-if="current_component == 'SHAP by errors'">
-          <ExplainByErrors class="SHAPByErrors" />
+          <ExplainByErrors class="SHAPByErrors" explanation_model="Lime" />
         </b-card-body>
       </div>
     </b-container>

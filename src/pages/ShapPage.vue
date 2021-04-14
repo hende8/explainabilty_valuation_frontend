@@ -79,13 +79,14 @@
           <ExplainSingleInstnace
             class="SHAPSingleInstnace"
             :features="features"
+            explanation_model="SHAP"
           />
         </b-card-body>
         <b-card-body v-if="current_component == 'Full data'">
-          <ExplainFullData class="SHAPFullData" />
+          <ExplainFullData class="SHAPFullData" explanation_model="SHAP"/>
         </b-card-body>
         <b-card-body v-if="current_component == 'SHAP by errors'">
-          <ExplainByErrors class="SHAPByErrors" />
+          <ExplainByErrors class="SHAPByErrors" explanation_model="SHAP" />
         </b-card-body>
       </div>
     </b-container>

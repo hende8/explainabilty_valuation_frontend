@@ -83,7 +83,6 @@ export default {
 
   methods: {
     async getEvaluationByEntropy() {
-      console.log("entropy");
       this.images = [];
       this.spinner = true;
       try {
@@ -106,22 +105,28 @@ export default {
         this.text = response.data.text;
         this.titles = response.data.title;
         this.images = response.data.data;
-
-        console.log(this.titles);
-        console.log(this.images);
+        app_data.evaluation_by_entropy={
+          titles:response.data.title,
+          images:response.data.data,
+          text:response.data.text
+        }
         this.spinner = false;
-        app_data.evaluation_by_entropy = this.images;
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
     },
     clear() {
       this.images = [];
-      app_data.evaluation_by_entropy = [];
+      this.titles = [];
+      app_data.evaluation_by_entropy = undefined;
     },
   },
   mounted(){
-    this.images=app_data.evaluation_by_entropy
+    if(app_data.evaluation_by_entropy !=undefined){
+    this.images=app_data.evaluation_by_entropy.images
+    this.titles=app_data.evaluation_by_entropy.titles
+    this.text=app_data.evaluation_by_entropy.text
+    }
   }
 };
 </script>

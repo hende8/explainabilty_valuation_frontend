@@ -9,16 +9,16 @@
       </section>
       <div>
         <b-nav tabs fill>
-          <b-nav-item @click="swapComponents('Introduction')"
-            >Introduction</b-nav-item
-          >
-          <b-nav-item @click="swapComponents('EvaluateByClustering')"
+          <b-nav-item  @click="swapComponents('Introduction')">
+            Introduction
+          </b-nav-item>
+          <b-nav-item  @click="swapComponents('EvaluateByClustering')"
             >Clustering Intersection</b-nav-item
           >
-          <b-nav-item @click="swapComponents('EvaluationByEntropy')"
+          <b-nav-item  @click="swapComponents('EvaluationByEntropy')"
             >Evaluation By Entropy</b-nav-item
           >
-          <b-nav-item @click="swapComponents('EvaluationByCounterfactual')"
+          <b-nav-item  @click="swapComponents('EvaluationByCounterfactual')"
             >Counterfactual
           </b-nav-item>
         </b-nav>
@@ -28,7 +28,12 @@
               <b-card-text> </b-card-text>
 
               <b-card-text>
-Evaluating the explanation's quality is important for realizing the true benefits for end-users in practical settings. In this framework we provide evaluations of the explanation methods by comparing between them. You can see different evaluation metrics: Consistency, Faithfulness (also called fidelity) and robustness.
+                Evaluating the explanation's quality is important for realizing
+                the true benefits for end-users in practical settings. In this
+                framework we provide evaluations of the explanation methods by
+                comparing between them. You can see different evaluation
+                metrics: Consistency, Faithfulness (also called fidelity) and
+                robustness.
                 <br />
                 <br />
                 On this website, we implement evaluation of explanations. Our
@@ -48,7 +53,6 @@ Evaluating the explanation's quality is important for realizing the true benefit
                     img-alt="Image"
                     img-top
                   >
-
                   </b-card>
                   <b-card
                     title="Evaluation by entropy"
@@ -56,7 +60,6 @@ Evaluating the explanation's quality is important for realizing the true benefit
                     img-alt="Image"
                     img-top
                   >
-
                   </b-card>
 
                   <b-card
@@ -65,7 +68,6 @@ Evaluating the explanation's quality is important for realizing the true benefit
                     img-alt="Image"
                     img-top
                   >
-
                   </b-card>
                 </b-card-group>
               </div>

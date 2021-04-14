@@ -2,10 +2,15 @@
   <div class="container">
     <div>
       <div>
-        <b-card title="Explanation for a single record’s prediction
-" sub-title="">
+        <b-card
+          title="Explanation for a single record’s prediction
+"
+          sub-title=""
+        >
           <b-card-text>
-In this screen you may insert your own record’s values. The system will calculate the prediction and explain it using an explanation method.            <br />
+            In this screen you may insert your own record’s values. The system
+            will calculate the prediction and explain it using an explanation
+            method. <br />
           </b-card-text>
 
           <b-button
@@ -33,13 +38,22 @@ In this screen you may insert your own record’s values. The system will calcul
             >
               <b-col sm="4">
                 <b>
-                <b-form-group id="input-group-1" :label="f" label-for="input-1">
-                  <b-form-input id="input-1" v-model="form[f]"></b-form-input>
-                </b-form-group>
+                  <b-form-group
+                    id="input-group-1"
+                    :label="f"
+                    label-for="input-1"
+                  >
+                    <b-form-input id="input-1" v-model="form[f]"></b-form-input>
+                  </b-form-group>
                 </b>
               </b-col>
             </b-form>
-            <b-button @click="onReset" variant="danger" style="margin-left:50px;margin-right: 15px;">Reset</b-button>
+            <b-button
+              @click="onReset"
+              variant="danger"
+              style="margin-left: 50px; margin-right: 15px"
+              >Reset</b-button
+            >
             <b-button
               @click="getShapExplanation"
               type="submit"
@@ -116,17 +130,8 @@ export default {
   },
   props: {
     features: Array,
+    explanation_model: String,
   },
-  // validations: {
-  // form: {
-  //   dataset: {
-  //     required,
-  //   },
-  //   predict_model: {
-  //     required,
-  //   },
-  // },
-  // },
 
   methods: {
     async test() {
@@ -151,11 +156,6 @@ export default {
         return acc;
       }, {});
       this.form = clear_array;
-      // this.$refs.fileinput.reset();
-
-      // this.$nextTick(() => {
-      //   this.$v.$reset();
-      // });
     },
     onSubmit() {
       this.$v.form.$touch();
@@ -178,33 +178,47 @@ export default {
       try {
         var formData = new FormData();
         formData.append("data", JSON.stringify(df));
+        formData.append("data_origin", app_data.data);
         formData.append("model", this.$root.store.model);
         formData.append("features", this.$root.store.features);
-
-        const response = await this.axios.post(
-          "http://localhost:5000/MakeShapModel/GetInstanceShap",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        var path = "";
+        if (this.explanation_model == "SHAP") {
+          path = "http://localhost:5000/MakeShapModel/GetInstanceShap";
+        } else {
+          path = "http://localhost:5000/MakeLimeModel/GetInstanceLime";
+        }
+        const response = await this.axios.post(path, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         this.spinner = false;
         this.image = response.data;
-        app_data.shap_single_instance = this.image;
+        if (this.explanation_model == "SHAP") {
+          app_data.shap_single_instance = this.image;
+        } else {
+          app_data.lime_single_instance = this.image;
+        }
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
     },
     tryAgain() {
       this.onReset();
-      this.image = undefined;
+      if (this.explanation_model == "SHAP") {
       app_data.shap_single_instance = undefined;
+      } else {
+      app_data.lime_single_instance = undefined;
+      }
+      this.image = undefined;
     },
   },
   mounted() {
-    this.image = app_data.shap_single_instance;
+    if (this.explanation_model == "SHAP") {
+      this.image = app_data.shap_single_instance;
+    } else {
+      this.image = app_data.lime_single_instance;
+    }
   },
 };
 </script>

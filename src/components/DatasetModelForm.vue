@@ -83,7 +83,7 @@
         <b-form>
           <h2>please choose your features that you pretrained about</h2>
           <input type="checkbox" @change="selectAll" />
-          <label for="vehicle3"> selectAll</label><br /><br />
+          <label for="vehicle3"> Select all</label><br /><br />
           <label v-for="f in features_list" :key="f">
             <input
               type="checkbox"

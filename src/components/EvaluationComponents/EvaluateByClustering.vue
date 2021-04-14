@@ -227,7 +227,12 @@ export default {
         console.log(response.data);
         this.SHAP_images = response.data.SHAP_data;
         this.lime_images = response.data.lime_data;
-        console.log(this.images);
+        app_data.evaluation_by_clustering={
+          SHAP_images:response.data.SHAP_data,
+          SHAP_info_message:response.data.SHAP_info_message,
+          lime_images:response.data.lime_data,
+          lime_info_message:response.data.lime_info_message
+        }
         this.SHAP_info_message = response.data.SHAP_info_message;
         this.lime_info_message = response.data.lime_info_message;
         this.spinner = false;
@@ -241,8 +246,19 @@ export default {
       (this.SHAP_info_message = ""),
         (this.lime_info_message = ""),
         (app_data.evaluation_by_clustering = []);
+        app_data.evaluation_by_clustering=undefined
+
+
     },
   },
+  mounted(){
+    if(app_data.evaluation_by_clustering !=undefined){
+      this.SHAP_images=app_data.evaluation_by_clustering.SHAP_images;
+      this.SHAP_info_message=app_data.evaluation_by_clustering.SHAP_info_message;
+      this.lime_images=app_data.evaluation_by_clustering.lime_images;
+      this.lime_info_message=app_data.evaluation_by_clustering.lime_info_message;
+    }
+  }
 };
 </script>
 

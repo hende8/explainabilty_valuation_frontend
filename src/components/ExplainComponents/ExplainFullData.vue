@@ -7,9 +7,9 @@
       >
         <b-card-text>
           The idea behind SHAP feature importance is simple: Features with large
-          absolute Shapley values are important.<br> Since we want the global
-          importance, we sum the absolute Shapley values per feature across the
-          data.
+          absolute Shapley values are important.<br />
+          Since we want the global importance, we sum the absolute Shapley
+          values per feature across the data.
         </b-card-text>
 
         <b-button
@@ -82,6 +82,9 @@ export default {
       spinner: false,
     };
   },
+  props: {
+    explanation_model: String,
+  },
 
   methods: {
     async explainFullData() {
@@ -90,31 +93,50 @@ export default {
         var formData = new FormData();
         formData.append("data", this.$root.store.data);
         formData.append("model", this.$root.store.model);
+        formData.append("label", app_data.target);
         formData.append("features", this.$root.store.features);
-        const response = await this.axios.post(
-          "http://localhost:5000/MakeShapModel/GetAllDataShap",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        var path = "";
+        if (this.explanation_model == "SHAP") {
+          path = "http://localhost:5000/MakeShapModel/GetAllDataShap";
+        } else {
+          path = "http://localhost:5000/MakeLimeModel/GetAllDataLime";
+        }
+        const response = await this.axios.post(path, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         this.spinner = false;
         this.image = response.data;
-        app_data.shap_full_data = this.image;
+        if (this.explanation_model == "SHAP") {
+          app_data.shap_full_data = this.image;
+        } else {
+          app_data.lime_full_data = this.image;
+        }
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
     },
     clearImage() {
       this.image = undefined;
-      app_data.shap_full_data = undefined;
+      if (this.explanation_model == "SHAP") {
+        app_data.shap_full_data = undefined;
+      } else {
+        app_data.lime_full_data = undefined;
+      }
     },
   },
   mounted() {
-    if (app_data.shap_full_data != undefined) {
-      this.image = app_data.shap_full_data;
+    if (
+      app_data.shap_full_data != undefined ||
+      app_data.lime_full_data != undefined
+    ) {
+      if (this.explanation_model == "SHAP") {
+        this.image = app_data.shap_full_data;
+      } else {
+        this.image = app_data.lime_full_data;
+      }
+
     }
   },
 };

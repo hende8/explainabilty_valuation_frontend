@@ -4,7 +4,16 @@
       <b-card title="Faithfulness" sub-title="">
         <b-card-text>
           <b-card-text>
-In this evaluation we measure the faithfulness degree with regard to the target system by measuring the relevance of explanations in practical settings. We change the two most attributing features (determined by explanation method) to the closest instance in the dataset with an opposite label (the instance’s counterfactual) and compare between the probability of that opposite class between the explanation models. If this change caused a higher difference in the probabilities (before and after the change) in explanation method A than explanation method B, then explanation method A is more faithful to the target.
+            In this evaluation we measure the faithfulness degree with regard to
+            the target system by measuring the relevance of explanations in
+            practical settings. We change the two most attributing features
+            (determined by explanation method) to the closest instance in the
+            dataset with an opposite label (the instance’s counterfactual) and
+            compare between the probability of that opposite class between the
+            explanation models. If this change caused a higher difference in the
+            probabilities (before and after the change) in explanation method A
+            than explanation method B, then explanation method A is more
+            faithful to the target.
           </b-card-text>
           <b-button
             @click="getEvaluationByCounterfactual()"
@@ -39,11 +48,9 @@ In this evaluation we measure the faithfulness degree with regard to the target 
                     ></b-card-img>
                   </b-col>
                   <b-col md="6">
-                    <b-card-body title="Horizontal Card">
+                    <b-card-body title="Counterfactual graph">
                       <b-card-text>
-                        This is a wider card with supporting text as a natural
-                        lead-in to additional content. This content is a little
-                        bit longer.
+                        In this graph two features have been changed.
                       </b-card-text>
                     </b-card-body>
                   </b-col>
