@@ -9,17 +9,20 @@
       </section>
       <div>
         <b-nav tabs fill>
-          <b-nav-item  @click="swapComponents('Introduction')">
+          <b-nav-item @click="swapComponents('Introduction')">
             Introduction
           </b-nav-item>
-          <b-nav-item  @click="swapComponents('EvaluateByClustering')"
+          <b-nav-item @click="swapComponents('EvaluateByClustering')"
             >Clustering Intersection</b-nav-item
           >
-          <b-nav-item  @click="swapComponents('EvaluationByEntropy')"
+          <b-nav-item @click="swapComponents('EvaluationByEntropy')"
             >Evaluation By Entropy</b-nav-item
           >
-          <b-nav-item  @click="swapComponents('EvaluationByCounterfactual')"
+          <b-nav-item @click="swapComponents('EvaluationByCounterfactual')"
             >Counterfactual
+          </b-nav-item>
+          <b-nav-item @click="swapComponents('EvaluationBynRobustness')"
+            >Robustness
           </b-nav-item>
         </b-nav>
         <b-card-body v-if="current_component == 'Introduction'">
@@ -83,6 +86,9 @@
         <b-card-body v-if="current_component == 'EvaluationByCounterfactual'">
           <EvaluationByCounterfactual class="SHAPFullData" />
         </b-card-body>
+        <b-card-body v-if="current_component == 'EvaluationBynRobustness'">
+          <EvaluationBynRobustness class="SHAPFullData" />
+        </b-card-body>
       </div>
     </b-container>
     <b-container>
@@ -111,11 +117,13 @@ import SideBar from "../components/SideBar.vue";
 import EvaluateByClustering from "../components/EvaluationComponents/EvaluateByClustering.vue";
 import EvaluationByEntropy from "../components/EvaluationComponents/EvaluationByEntropy.vue";
 import EvaluationByCounterfactual from "../components/EvaluationComponents/EvaluationByCounterfactual.vue";
+import EvaluationBynRobustness from "../components/EvaluationComponents/EvaluationBynRobustness.vue"
 export default {
   components: {
     EvaluationByEntropy,
     EvaluationByCounterfactual,
     EvaluateByClustering,
+    EvaluationBynRobustness,
   },
   data() {
     return {

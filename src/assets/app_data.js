@@ -18,5 +18,12 @@ export const app_data = {
   evaluation_by_clustering: undefined,
   evaluation_by_counterfactual: undefined,
   evaluation_by_entropy: undefined,
+  
+  evaluation_by_robustness_data:undefined,
+  evaluation_by_robustness_model:undefined,
+  evaluation_by_robustness_label:undefined,
+  evaluation_by_robustness_rob_features:undefined,
+  evaluation_by_robustness_images:undefined,
+  
 
 };
