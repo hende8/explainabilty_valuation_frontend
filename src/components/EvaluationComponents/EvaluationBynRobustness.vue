@@ -3,7 +3,10 @@
     <div>
       <b-card title="Robustness" sub-title="">
         <b-card-text>
-          <b-card-text> In this evaluation we measure.... </b-card-text>
+          <b-card-text>
+            In terms of machine learning, a model is considered more robust than
+            another if it suffers less from the impact of noise.
+          </b-card-text>
           <b-form
             @submit.prevent="onSubmit"
             @reset.prevent="onReset"
@@ -70,7 +73,11 @@
                 />{{ f }}
               </label>
               <br />
-              <span>Checked features: <li v-for="l in checkedFeatures" :key="l">{{ l }}</li>{{ l }}</span>
+              <span
+                >Checked features:
+                <li v-for="l in checkedFeatures" :key="l">{{ l }}</li>
+                {{ l }}</span
+              >
               <br />
               <br />
               <h2>Choose the ‘label’ feature:</h2>
@@ -89,7 +96,7 @@
             </b-form>
             <b-button
               variant="primary"
-              style="width: 90px; margin-left: 65px;margin-top:25px;"
+              style="width: 90px; margin-left: 65px; margin-top: 25px"
               class="ml-5 w-10"
               @click="nextToNoisyFeatures"
               >Next</b-button
@@ -107,7 +114,12 @@
                 />{{ f }}
               </label>
               <br />
-              <span>Checked features: <li v-for="l in features_form.rob_features" :key="l">{{ l }}</li></span>
+              <span
+                >Checked features:
+                <li v-for="l in features_form.rob_features" :key="l">
+                  {{ l }}
+                </li></span
+              >
               <br />
               <br />
 
@@ -136,10 +148,17 @@
               ></b-spinner>
               <br />
             </div>
-            <h5>its may take a few minutes...</h5>
+            <h5>it may take a few minutes...</h5>
           </div>
+
           <div v-show="show_images">
-            <b-card-group deck v-for="img in images" :key="img">
+            <div>
+              <div></div>
+              <b-card-group deck v-for="img in images" :key="img">
+                <b-card :img-src="img" img-alt="Image" img-top> </b-card>
+              </b-card-group>
+            </div>
+            <!-- <b-card-group deck v-for="img in images" :key="img">
               <b-card no-body class="overflow-hidden" style="max-width: 2000px">
                 <b-row no-gutters>
                   <b-col md="6">
@@ -158,7 +177,7 @@
                   </b-col>
                 </b-row>
               </b-card>
-            </b-card-group>
+            </b-card-group> -->
             <div style="text-align: center; padding: 20px">
               <b-button
                 @click="clear()"

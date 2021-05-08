@@ -19,11 +19,11 @@
           <b-nav-item @click="swapComponents('Single instance')"
             >Single instance</b-nav-item
           >
-          <b-nav-item @click="swapComponents('Full data')" 
+          <b-nav-item @click="swapComponents('Full data')"
             >Full data
           </b-nav-item>
-          <b-nav-item @click="swapComponents('SHAP by errors')" 
-            >SHAP by errors</b-nav-item
+          <b-nav-item @click="swapComponents('Lime by errors')"
+            >Lime by errors</b-nav-item
           >
         </b-nav>
 
@@ -45,6 +45,31 @@
                 to explain individual predictions.</b-card-text
               >
             </b-card>
+            <div>
+              <b-card-group deck>
+                <b-card
+                  title="Full data"
+                  :img-src="require('../assets/full_data_lime.png')"
+                  img-alt="Image"
+                  img-top
+                >
+                </b-card>
+                <b-card
+                  title="Single instance"
+                  :img-src="require('../assets/lime_single_instnace.png')"
+                  img-alt="Image"
+                  img-top
+                >
+                </b-card>
+                <b-card
+                  title="Lime by errors"
+                  :img-src="require('../assets/false negative lime.png')"
+                  img-alt="Image"
+                  img-top
+                >
+                </b-card>
+              </b-card-group>
+            </div>
           </div>
         </b-card-body>
         <b-card-body v-if="current_component == 'Single instance'">
@@ -55,9 +80,9 @@
           />
         </b-card-body>
         <b-card-body v-if="current_component == 'Full data'">
-          <ExplainFullData class="SHAPFullData" explanation_model="Lime"/>
+          <ExplainFullData class="SHAPFullData" explanation_model="Lime" />
         </b-card-body>
-        <b-card-body v-if="current_component == 'SHAP by errors'">
+        <b-card-body v-if="current_component == 'Lime by errors'">
           <ExplainByErrors class="SHAPByErrors" explanation_model="Lime" />
         </b-card-body>
       </div>
@@ -89,10 +114,7 @@ export default {
       this.current_component = componenet_name;
     },
   },
-  mounted() {
-    console.log(this.$root.store.features);
-    console.log(this.$root.store.target_feature);
-  },
+  mounted() {},
 };
 </script>
 

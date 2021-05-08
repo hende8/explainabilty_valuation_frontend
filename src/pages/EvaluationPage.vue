@@ -39,14 +39,14 @@
                 robustness.
                 <br />
                 <br />
-                On this website, we implement evaluation of explanations. Our
+                <!-- On this website, we implement evaluation of explanations. Our
                 key observation is to provide ground truth for evaluating
                 whether the regions identified by an XAI method are truly
                 relevant to its output.
                 <br />
                 In the features in front of you, we implement metrics for
                 systematic evaluation of explanations that an XAI method
-                generates and evaluate.
+                generates and evaluate. -->
               </b-card-text>
               <div>
                 <b-card-group deck>
@@ -55,6 +55,7 @@
                     :img-src="require('../assets/clustering1.png')"
                     img-alt="Image"
                     img-top
+                    img-height="180"
                   >
                   </b-card>
                   <b-card
@@ -62,6 +63,7 @@
                     :img-src="require('../assets/shap_vs_lime.png')"
                     img-alt="Image"
                     img-top
+                    img-height="180"
                   >
                   </b-card>
 
@@ -70,6 +72,15 @@
                     :img-src="require('../assets/counterfac.png')"
                     img-alt="Image"
                     img-top
+                    img-height="180"
+                  >
+                  </b-card>
+                  <b-card
+                    title="Evaluation by Robustness"
+                    :img-src="require('../assets/robustness_example.png')"
+                    img-alt="Image"
+                    img-top
+                    img-height="175"
                   >
                   </b-card>
                 </b-card-group>
@@ -117,7 +128,7 @@ import SideBar from "../components/SideBar.vue";
 import EvaluateByClustering from "../components/EvaluationComponents/EvaluateByClustering.vue";
 import EvaluationByEntropy from "../components/EvaluationComponents/EvaluationByEntropy.vue";
 import EvaluationByCounterfactual from "../components/EvaluationComponents/EvaluationByCounterfactual.vue";
-import EvaluationBynRobustness from "../components/EvaluationComponents/EvaluationBynRobustness.vue"
+import EvaluationBynRobustness from "../components/EvaluationComponents/EvaluationBynRobustness.vue";
 export default {
   components: {
     EvaluationByEntropy,

@@ -33,7 +33,7 @@
             ></b-spinner>
             <br />
           </div>
-          <h5>its may take a few minutes...</h5>
+          <h5>it may take a few minutes...</h5>
         </div>
         <div v-if="this.image != undefined">
           <b-card-group>

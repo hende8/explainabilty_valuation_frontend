@@ -3,21 +3,7 @@
     <div>
       <b-card title="Evaluation By Clustering" sub-title="">
         <b-card-text>
-          Consistency by entropy of ranked attributing features to prediction:
-          In this evaluation you can see the entropy of ranked features that
-          attribute to the prediction (the first is the most attributing) in
-          instances that were clustered together. If the entropy in a cluster is
-          higher, then the explaining features (features that attributed to the
-          prediction) are ranked in a similar way Consistency by clustering
-          similarity: In this evaluation the consistency is measured by the
-          similarity of clusters of instances with clusters by the explanations
-          of the instances. A higher similarity means that similar instances
-          were clustered together and also their explanations were clustered
-          together.
-
-          <br />
-          <br />
-          This feature check the consistent of clusters inteersection
+          This feature check the consistent of clusters intersection
           <div v-show="!spinner">
             <label for="sb-inline">Choose number of clusters: </label>
             <b-form-spinbutton
@@ -43,8 +29,8 @@
             v-show="!spinner"
             >Get graphs</b-button
           >
-          <h2>{{ SHAP_info_message }}</h2>
-          <h2>{{ lime_info_message }}</h2>
+          <h4>{{ SHAP_info_message }}</h4>
+          <h4>{{ lime_info_message }}</h4>
 
           <div v-show="spinner">
             <div style="position: fixed; /* or absolute */ top: 50%; left: 50%">
@@ -59,7 +45,7 @@
               ></b-spinner>
               <br />
             </div>
-            <h5>its may take a few minutes...</h5>
+            <h5>it may take a few minutes...</h5>
           </div>
 
           <div id="toggles">
@@ -144,7 +130,7 @@
               ></b-spinner>
               <br />
             </div>
-            <h5>its may take a few minutes...</h5>
+            <h5>it may take a few minutes...</h5>
           </div>
           <div>
             <b-card-group deck v-for="img in images" :key="img">
@@ -191,7 +177,7 @@ import app_data from "../../assets/app_data";
 export default {
   data() {
     return {
-      cluster_value: 11,
+      cluster_value: 6,
       SHAP_images: [],
       lime_images: [],
       SHAP_info_message: "",

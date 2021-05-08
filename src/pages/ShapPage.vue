@@ -48,13 +48,7 @@
               </b-card-text>
               <div>
                 <b-card-group deck>
-                  <b-card
-                    title="Single instance"
-                    :img-src="require('../assets/single_instance.png')"
-                    img-alt="Image"
-                    img-top
-                  >
-                  </b-card>
+
                   <b-card
                     title="Full data"
                     :img-src="require('../assets/false negative.png')"
@@ -62,7 +56,14 @@
                     img-top
                   >
                   </b-card>
-
+                  <b-card
+                    title="Single instance"
+                    :img-src="require('../assets/single_instance.png')"
+                    img-alt="Image"
+                    img-top
+                    img-height="100"
+                  >
+                  </b-card>
                   <b-card
                     title="SHAP by errors"
                     :img-src="require('../assets/bar_plot_first_model.png')"

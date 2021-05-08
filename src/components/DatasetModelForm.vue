@@ -93,7 +93,7 @@
             />{{ f }}
           </label>
           <br />
-          <span>Checked features: {{ checkedFeatures }}</span>
+          <span>Checked features: <li v-for="l in checkedFeatures" :key="l">{{ l }}</li></span>
           <br />
           <br />
           <h2>Choose the ‘label’ feature:</h2>
@@ -170,11 +170,6 @@ import ParticleEffectButton from "vue-particle-effect-buttons";
 import app_data from "../assets/app_data";
 import {
   required,
-  minLength,
-  maxLength,
-  alpha,
-  sameAs,
-  email,
 } from "vuelidate/lib/validators";
 export default {
   data() {
@@ -209,8 +204,7 @@ export default {
         visible: true,
         animating: false,
       },
-      // visible: true,
-      // animating: false,
+
     };
   },
   components: {

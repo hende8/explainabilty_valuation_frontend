@@ -3,8 +3,8 @@
     <div>
       <b-card title="Evaluation By Entropy" sub-title="">
         <b-card-text>
-          This is page for showing the evauation for explaination
-          method</b-card-text
+          This is page for showing the evaluation for explaination by entropy metric
+          </b-card-text
         >
         <b-button
           @click="getEvaluationByEntropy()"
@@ -25,7 +25,7 @@
             ></b-spinner>
             <br />
           </div>
-          <h5>its may take a few minutes...</h5>
+          <h5>it may take a few minutes...</h5>
         </div>
         <div v-if="this.titles">
           <b-card-group

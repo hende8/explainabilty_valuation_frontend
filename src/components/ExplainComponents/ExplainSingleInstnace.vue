@@ -44,6 +44,9 @@
                     label-for="input-1"
                   >
                     <b-form-input id="input-1" v-model="form[f]"></b-form-input>
+                    <b-form-invalid-feedback v-if="!$v.form.required"
+                      >required</b-form-invalid-feedback
+                    >
                   </b-form-group>
                 </b>
               </b-col>
@@ -72,7 +75,7 @@
               type="grow"
             ></b-spinner>
             <br />
-            <h3>its may take a few minutes...</h3>
+            <h3>it may take a few minutes...</h3>
           </div>
           <div v-if="this.image != undefined">
             <b-card-group>
@@ -115,6 +118,7 @@
 
 <script>
 import app_data from "../../assets/app_data";
+import { required } from "vuelidate/lib/validators";
 export default {
   data() {
     let form_create = this.features.reduce((acc, elem) => {
@@ -206,11 +210,25 @@ export default {
     tryAgain() {
       this.onReset();
       if (this.explanation_model == "SHAP") {
-      app_data.shap_single_instance = undefined;
+        app_data.shap_single_instance = undefined;
       } else {
-      app_data.lime_single_instance = undefined;
+        app_data.lime_single_instance = undefined;
       }
       this.image = undefined;
+    },
+    validateState(param) {
+      console.log(param);
+      if ($v.form != undefined) {
+        const { $dirty, $error } = this.$v.form[param];
+        return $dirty ? !$error : null;
+      }
+    },
+  },
+  validations: {
+    form: {
+      $each: {
+        required,
+      },
     },
   },
   mounted() {
