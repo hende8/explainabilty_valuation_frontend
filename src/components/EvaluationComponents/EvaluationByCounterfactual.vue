@@ -37,7 +37,7 @@
             <h5>it may take a few minutes...</h5>
           </div>
           <div>
-            <b-card-group deck v-for="img in images" :key="img">
+            <b-card-group deck v-for="(img,index) in images" :key="img">
               <b-card no-body class="overflow-hidden" style="max-width: 2000px">
                 <b-row no-gutters>
                   <b-col md="6">
@@ -48,7 +48,7 @@
                     ></b-card-img>
                   </b-col>
                   <b-col md="6">
-                    <b-card-body title="Counterfactual graph">
+                    <b-card-body :title="images_text[index]">
                       <b-card-text>
                         In this graph two features have been changed.
                       </b-card-text>
@@ -86,6 +86,7 @@ export default {
   methods: {
     async getEvaluationByCounterfactual() {
       this.images = [];
+      this.images_text=[];
       this.spinner = true;
       try {
         var formData = new FormData();
@@ -104,6 +105,7 @@ export default {
         );
         this.spinner = false;
         this.images = response.data.data;
+        this.images_text = response.data.data_text;
         app_data.evaluation_by_counterfactual = this.images;
       } catch (err) {
         this.form.submitError = err.response.data.message;
