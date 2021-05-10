@@ -107,6 +107,8 @@ export default {
         this.images = response.data.data;
         this.images_text = response.data.data_text;
         app_data.evaluation_by_counterfactual = this.images;
+        app_data.evaluation_by_counterfactual_text = this.images_text;
+
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
@@ -114,10 +116,12 @@ export default {
     clear() {
       this.images = [];
       app_data.evaluation_by_counterfactual = undefined;
+      app_data.evaluation_by_counterfactual_text=undefined;
     },
   },
   mounted() {
     this.images = app_data.evaluation_by_counterfactual;
+    this.images_text=app_data.evaluation_by_counterfactual_text;
   },
 };
 </script>

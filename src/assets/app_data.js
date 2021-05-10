@@ -17,6 +17,7 @@ export const app_data = {
 
   evaluation_by_clustering: undefined,
   evaluation_by_counterfactual: undefined,
+  evaluation_by_counterfactual_text:undefined,
   evaluation_by_entropy: undefined,
   
   evaluation_by_robustness_data:undefined,
