@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <b-card title="Evaluation By Clustering" sub-title="">
+      <b-card title="Evaluation By Consistency" sub-title="">
         <b-card-text>
           This feature check the consistent of clusters intersection
           <div v-show="!spinner">
