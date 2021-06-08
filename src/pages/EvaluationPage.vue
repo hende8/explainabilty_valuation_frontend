@@ -13,13 +13,13 @@
             Introduction
           </b-nav-item>
           <b-nav-item @click="swapComponents('EvaluateByClustering')"
-            >Clustering Intersection</b-nav-item
+            >Consistency</b-nav-item
           >
           <b-nav-item @click="swapComponents('EvaluationByEntropy')"
-            >Evaluation By Entropy</b-nav-item
+            >Entropy</b-nav-item
           >
           <b-nav-item @click="swapComponents('EvaluationByCounterfactual')"
-            >Counterfactual
+            >Faithfullness
           </b-nav-item>
           <b-nav-item @click="swapComponents('EvaluationBynRobustness')"
             >Robustness
@@ -51,7 +51,7 @@
               <div>
                 <b-card-group deck>
                   <b-card
-                    title="Clustering"
+                    title="Evaluation by Consistency"
                     :img-src="require('../assets/clustering1.png')"
                     img-alt="Image"
                     img-top
@@ -59,7 +59,7 @@
                   >
                   </b-card>
                   <b-card
-                    title="Evaluation by entropy"
+                    title="Evaluation by Entropy"
                     :img-src="require('../assets/shap_vs_lime.png')"
                     img-alt="Image"
                     img-top
@@ -68,7 +68,7 @@
                   </b-card>
 
                   <b-card
-                    title="Evaluation by counterfactual"
+                    title="Evaluation by Faithfullness"
                     :img-src="require('../assets/counterfac.png')"
                     img-alt="Image"
                     img-top
