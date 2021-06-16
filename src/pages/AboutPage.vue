@@ -71,7 +71,7 @@
           </b-card>
           <b-card
             title="Hen Debi"
-            img-src="https://media-exp1.licdn.com/dms/image/C4D03AQE_MxyWDkmMkQ/profile-displayphoto-shrink_400_400/0/1600194388381?e=1623283200&v=beta&t=Rl7DIALYoupYCJ2iMRAbjkNgFqer8C-UxR8b1r28018"
+            img-src="https://media-exp3.licdn.com/dms/image/C4D03AQE_MxyWDkmMkQ/profile-displayphoto-shrink_400_400/0/1600194388381?e=1629331200&v=beta&t=8PhqnO8A9TnbaesCnanffDGrWeal1cSh6G1xq24FvX4"
             img-alt="Image"
             img-top
             tag="article"
